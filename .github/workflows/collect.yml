@@ -1,0 +1,34 @@
+name: ENTSOE Harvester
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: ENTSO-E PL day-ahead
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_entsoe.py
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: entsoe-result
+          path: |
+            pl_wholesale_monthly.json
+            pl_wholesale_monthly.csv
+      - name: commit back
+        run: |
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: entsoe collect" || echo "no change"
+          git push || echo "push skip"
