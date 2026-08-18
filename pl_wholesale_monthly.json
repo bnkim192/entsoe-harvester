@@ -2,7 +2,7 @@
   "source": "ENTSO-E A44 PL day-ahead",
   "zone": "PL",
   "unit": "EUR/MWh monthly avg",
-  "months": 81,
+  "months": 74,
   "series": [
     {
       "ym": "2019-12",
@@ -366,48 +366,13 @@
     },
     {
       "ym": "2025-12",
-      "eur_mwh": 116.67,
-      "hours": 2891
+      "eur_mwh": 116.69,
+      "hours": 2887
     },
     {
       "ym": "2026-01",
-      "eur_mwh": 140.66,
-      "hours": 2959
-    },
-    {
-      "ym": "2026-02",
-      "eur_mwh": 116.04,
-      "hours": 2597
-    },
-    {
-      "ym": "2026-03",
-      "eur_mwh": 105.22,
-      "hours": 2906
-    },
-    {
-      "ym": "2026-04",
-      "eur_mwh": 83.95,
-      "hours": 2803
-    },
-    {
-      "ym": "2026-05",
-      "eur_mwh": 103.94,
-      "hours": 2893
-    },
-    {
-      "ym": "2026-06",
-      "eur_mwh": 117.18,
-      "hours": 2775
-    },
-    {
-      "ym": "2026-07",
-      "eur_mwh": 113.83,
-      "hours": 2904
-    },
-    {
-      "ym": "2026-08",
-      "eur_mwh": 135.78,
-      "hours": 2552
+      "eur_mwh": 26.51,
+      "hours": 89
     }
   ]
 }
