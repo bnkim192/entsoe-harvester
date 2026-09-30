@@ -2,7 +2,7 @@
   "source": "ENTSO-E A44 PL day-ahead",
   "zone": "PL",
   "unit": "EUR/MWh monthly avg",
-  "months": 82,
+  "months": 83,
   "series": [
     {
       "ym": "2019-12",
@@ -411,8 +411,13 @@
     },
     {
       "ym": "2026-09",
-      "eur_mwh": 151.19,
-      "hours": 5582
+      "eur_mwh": 151.16,
+      "hours": 5598
+    },
+    {
+      "ym": "2026-10",
+      "eur_mwh": 147.34,
+      "hours": 174
     }
   ]
 }
