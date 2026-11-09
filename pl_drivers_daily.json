@@ -1,7 +1,7 @@
 {
  "source": "ENTSO-E A44·A65·A75 + Open-Meteo",
  "tz": "Europe/Warsaw",
- "generated": "2026-11-09 06:59",
+ "generated": "2026-11-09 07:27",
  "units": {
   "px": "EUR/MWh",
   "load·gen": "MW(일평균)",
@@ -43,37 +43,37 @@
   },
   {
    "item": "수요",
-   "points": 29972,
+   "points": 29974,
    "days": 312
   },
   {
    "item": "발전 wind_on",
-   "points": 29972,
+   "points": 29976,
    "days": 312
   },
   {
    "item": "발전 wind_off",
-   "points": 12124,
+   "points": 12128,
    "days": 126
   },
   {
    "item": "발전 solar",
-   "points": 29972,
+   "points": 29976,
    "days": 312
   },
   {
    "item": "발전 gas",
-   "points": 29972,
+   "points": 29975,
    "days": 312
   },
   {
    "item": "발전 hardcoal",
-   "points": 29972,
+   "points": 29975,
    "days": 312
   },
   {
    "item": "발전 lignite",
-   "points": 29972,
+   "points": 29975,
    "days": 312
   },
   {
