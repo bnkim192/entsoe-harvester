@@ -1,25 +1,25 @@
 {
-  "generated": "2026-11-09 06:29 UTC",
+  "generated": "2026-11-09 09:20 UTC",
   "pages": [
     {
       "id": "gas_rdn",
       "url": "https://tge.pl/gaz-rdn",
-      "error": "ConnectionError"
+      "error": "ReadTimeout"
     },
     {
       "id": "power_rdn",
       "url": "https://tge.pl/energia-elektryczna-rdn",
-      "error": "ConnectionError"
+      "error": "ReadTimeout"
     },
     {
       "id": "power_otf",
       "url": "https://tge.pl/energia-elektryczna-otf",
-      "error": "ConnectionError"
+      "error": "ReadTimeout"
     },
     {
       "id": "gas_otf",
       "url": "https://tge.pl/gaz-otf",
-      "error": "ConnectionError"
+      "error": "ReadTimeout"
     }
   ]
 }
