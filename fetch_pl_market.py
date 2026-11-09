@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-폴란드 주간 보고용 원자재·환율 수집기 (2026-11-09)
+폴란드 주간 보고용 원자재·환율 수집기 (2026-11-09 v2 — 실패 시 재시도·직전 자료 유지)
 
 ■ 수집 항목 (전부 무료, 키 없음)
   탄소배출권 EUA   EEX 1차시장 경매 결과 xlsx (경매일마다 1건 이상 → 일별 평균)
@@ -14,8 +14,10 @@
   TGE (폴란드 거래소) 공개 페이지 — 구조 확인용 프로브만. 값은 아직 쓰지 않는다(본문 보고 파서를 짠다).
 
 ■ 원칙
-  1. 값을 만들어내지 않는다. 못 받은 항목은 빈칸, 로그와 collect 에 이유를 남긴다.
+  1. 값을 만들어내지 않는다. 못 받은 항목은 로그와 collect 에 이유를 남긴다.
   2. 종료코드는 항상 0 — 다른 수집을 막지 않는다.
+  3. 서버 오류(예: ECB 504)로 한 항목을 통째로 못 받으면, 저장소에 있던 직전 수집분을 그대로 둔다
+     (이번 실행에서 비면 보고서의 PLN 환산·가격 구성이 전부 빠지므로). collect 에 '직전 자료 유지'로 남긴다.
 
 ■ 산출
   pl_market_daily.json   {eua, brent, fx, monthly, collect}
@@ -194,9 +196,20 @@ def get_fx():
     try:
         # 1/1 같은 휴일에도 '직전 영업일' 환율이 있도록 열흘 앞부터 받는다
         st = (dt.date.fromisoformat(START) - dt.timedelta(days=10)).isoformat()
-        r = get(ECB, params={"startPeriod": st, "format": "csvdata"}, timeout=60)
-        if r.status_code != 200:
-            rec("환율 ECB", False, "HTTP %s" % r.status_code)
+        r, why = None, ""
+        for k in range(3):                                  # ECB 는 가끔 504 — 30초 간격 3번
+            try:
+                r = get(ECB, params={"startPeriod": st, "format": "csvdata"}, timeout=60)
+                if r.status_code == 200:
+                    break
+                why = "HTTP %s" % r.status_code
+            except Exception as e:
+                why = type(e).__name__
+            r = None
+            if k < 2:
+                time.sleep(30)
+        if r is None:
+            rec("환율 ECB", False, why + " (3회 시도)")
             return out
         for row in csv.DictReader(io.StringIO(r.text)):
             cur, d, v = row.get("CURRENCY"), row.get("TIME_PERIOD"), row.get("OBS_VALUE")
@@ -245,12 +258,29 @@ def probe_tge():
 def main():
     log("=== fetch_pl_market.py  start=%s ===" % START)
     out = {"generated": dt.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")}
+    try:
+        with open(OUT, encoding="utf-8") as f:
+            prev = json.load(f)                             # 저장소에 있던 직전 수집분
+    except Exception:
+        prev = {}
     for key, fn in (("eua", get_eua), ("brent", get_brent), ("monthly", get_monthly), ("fx", get_fx)):
         try:
             out[key] = fn()
         except Exception as e:
             out[key] = {}
             rec(key, False, "전체 실패 %s" % type(e).__name__)
+        old = prev.get(key) or {}
+        if key == "fx":                                     # 통화별로: 빈 통화만 직전 값으로
+            for c in ("PLN", "KRW", "USD"):
+                out[key].setdefault(c, {})
+            kept = [c for c in out[key] if not out[key][c] and old.get(c)]
+            for c in kept:
+                out[key][c] = old[c]
+            if kept:
+                rec("환율 ECB", False, "이번 수집 실패 → 직전 자료 유지(%s 수집분): %s" % (prev.get("generated", "?"), ", ".join(kept)))
+        elif not out[key] and old:
+            out[key] = old
+            rec(key, False, "이번 수집 실패 → 직전 자료 유지(%s 수집분)" % prev.get("generated", "?"))
     try:
         probe_tge()
     except Exception as e:
