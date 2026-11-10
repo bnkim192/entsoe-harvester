@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-폴란드 주간 보고용 원자재·환율 수집기 (2026-11-09 v2 — 실패 시 재시도·직전 자료 유지)
+폴란드 주간 보고용 원자재·환율 수집기 (2026-11-09 v3 — 환율 대체 경로 eurofxref·Frankfurter 추가)
 
 ■ 수집 항목 (전부 무료, 키 없음)
   탄소배출권 EUA   EEX 1차시장 경매 결과 xlsx (경매일마다 1건 이상 → 일별 평균)
@@ -26,7 +26,7 @@
 ■ 환경변수 (선택)
   PLD_START  수집 시작일 (기본 2026-01-01)
 """
-import os, io, re, csv, json, time
+import os, io, re, csv, json, time, zipfile
 import datetime as dt
 import requests
 
@@ -39,6 +39,8 @@ EEX_FILE = ("https://public.eex-group.com/eex/eua-auction-report/"
 EIA_BRENT = "https://www.eia.gov/dnav/pet/hist_xls/RBRTEd.xls"
 FUEL_RAW = "https://raw.githubusercontent.com/bnkim192/eia-harvester/main/fuel_monthly.json"
 ECB = "https://data-api.ecb.europa.eu/service/data/EXR/D.PLN+KRW+USD.EUR.SP00.A"
+ECB_HIST = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip"
+FRANKFURTER = "https://api.frankfurter.app/%s..?from=EUR&to=PLN,KRW,USD"
 MON_KEYS = ["WB_TTF_EU", "WB_COAL_AU", "WB_COAL_ZA", "WB_HH_US", "WB_LNG_JP", "EUA_EUA_EEXauc"]
 TGE_PAGES = [("gas_rdn", "https://tge.pl/gaz-rdn"),
              ("power_rdn", "https://tge.pl/energia-elektryczna-rdn"),
@@ -191,6 +193,51 @@ def get_monthly():
 # ══════════════════════════════════════════════════════════════════
 #  환율 — ECB
 # ══════════════════════════════════════════════════════════════════
+def fx_fallback(out, st):
+    """data-api 가 안 될 때: ① ECB 공식 eurofxref 이력 파일 ② Frankfurter(ECB 기준환율 재배포). 값은 둘 다 ECB 기준환율."""
+    notes = []
+    try:
+        z = get(ECB_HIST, timeout=60)
+        if z.status_code == 200:
+            with zipfile.ZipFile(io.BytesIO(z.content)) as zf:
+                txt = zf.read(zf.namelist()[0]).decode("utf-8-sig")
+            for row in csv.DictReader(io.StringIO(txt)):
+                row = {(k or "").strip(): (v or "").strip() for k, v in row.items()}
+                d = row.get("Date", "")
+                if not d or d < st:
+                    continue
+                for c in out:
+                    v = row.get(c, "")
+                    if v and v != "N/A":
+                        try:
+                            out[c][d] = float(v)
+                        except ValueError:
+                            pass
+            if all(out.values()):
+                return "eurofxref 대체 " + " · ".join("%s %d일" % (c, len(v)) for c, v in out.items())
+            notes.append("eurofxref 자료 없음")
+        else:
+            notes.append("eurofxref HTTP %s" % z.status_code)
+    except Exception as e:
+        notes.append("eurofxref " + type(e).__name__)
+    try:
+        f = get(FRANKFURTER % st, timeout=60)
+        if f.status_code == 200:
+            for d, rates in (f.json().get("rates") or {}).items():
+                for c in out:
+                    if rates.get(c) is not None:
+                        out[c][d] = float(rates[c])
+            if all(out.values()):
+                return " / ".join(notes) + " → Frankfurter(ECB 기준환율) 대체 " + " · ".join(
+                    "%s %d일" % (c, len(v)) for c, v in out.items())
+            notes.append("Frankfurter 자료 없음")
+        else:
+            notes.append("Frankfurter HTTP %s" % f.status_code)
+    except Exception as e:
+        notes.append("Frankfurter " + type(e).__name__)
+    return " / ".join(notes)
+
+
 def get_fx():
     out = {"PLN": {}, "KRW": {}, "USD": {}}
     try:
@@ -209,7 +256,8 @@ def get_fx():
             if k < 2:
                 time.sleep(30)
         if r is None:
-            rec("환율 ECB", False, why + " (3회 시도)")
+            alt = fx_fallback(out, st)                      # 같은 ECB 기준환율의 다른 배포처
+            rec("환율 ECB", all(out.values()), "data-api %s (3회 시도) → %s" % (why, alt))
             return out
         for row in csv.DictReader(io.StringIO(r.text)):
             cur, d, v = row.get("CURRENCY"), row.get("TIME_PERIOD"), row.get("OBS_VALUE")
