@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-폴란드 전력단가 및 원자재 가격동향 — 주간 PPT 4장 + Excel raw (2026-11-09 v2)
+폴란드 전력단가 및 원자재 가격동향 — 주간 PPT 4장 + Excel raw (2026-11-10 v3 — 영문·숫자 Arial Narrow)
   1장 주간 요약 · 2장 가격 구성 · 3장 상승 원인 · 4장 다음 주 전망
   (2~4장은 장마다 따로 만들어, 한 장이 실패해도 나머지는 그대로 나온다)
 
@@ -41,27 +41,27 @@ from fetch_pl_drivers import ols, TZ
 
 FLAT, NEED, FIT_DAYS, CHART_DAYS, CHART_MONTHS = 5.0, 5, 56, 84, 18
 WD = "월화수목금토일"
-KO, LAT = "LG스마트체 Regular", "Arial"          # 한글 LG스마트체 Regular · 영문/숫자 Arial (사용자 지정)
+KO, LAT = "LG스마트체 Regular", "Arial Narrow"   # 한글 LG스마트체 Regular · 영문/숫자 Arial Narrow (사용자 지정, 2026-11-10)
 INK, INK2, MUTED, GRID, AXIS, CARD = "0B0B0B", "52514E", "898781", "E1E0D9", "C3C2B7", "F4F3EF"
 COL = {"PL": "2A78D6", "DE": "EB6834", "EUA": "1BAF7A", "TTF": "6250D6", "COAL": "008300", "BRENT": "E34948"}
 SRC = {"px": "ENTSO-E", "fx": "ECB", "eua": "EEX 경매", "brent": "EIA", "wb": "World Bank", "wx": "Open-Meteo"}
 BULLET_SRC = {"가격": "ENTSO-E · ECB", "수급": "ENTSO-E · 자체 계산", "주변국": "ENTSO-E",
               "원자재": "EEX · EIA · World Bank", "다음 주": "Open-Meteo 예보 · ENTSO-E"}
 SRC_LONG = [
-    ["전력 하루전 가격", "ENTSO-E Transparency Platform — A44 Day-ahead Prices (PL·DE-LU·CZ·SK·LT·SE4)",
+    ["전력 하루전 가격", "ENTSO-E Transparency Platform, A44 Day-ahead Prices (PL·DE-LU·CZ·SK·LT·SE4)",
      "https://transparency.entsoe.eu"],
-    ["수요", "ENTSO-E Transparency Platform — A65 Actual Total Load (PL)", "https://transparency.entsoe.eu"],
-    ["전원별 발전", "ENTSO-E Transparency Platform — A75 Actual Generation per Production Type (PL)",
+    ["수요", "ENTSO-E Transparency Platform, A65 Actual Total Load (PL)", "https://transparency.entsoe.eu"],
+    ["전원별 발전", "ENTSO-E Transparency Platform, A75 Actual Generation per Production Type (PL)",
      "https://transparency.entsoe.eu"],
-    ["탄소배출권 EUA", "EEX — EU ETS Primary Market Auction Report (경매가)",
+    ["탄소배출권 EUA", "EEX, EU ETS Primary Market Auction Report (경매가)",
      "https://www.eex.com/en/market-data/environmental-markets/eua-primary-auction-spot-download"],
-    ["브렌트유", "U.S. EIA — Europe Brent Spot Price FOB (RBRTE, 일별)",
+    ["브렌트유", "U.S. EIA, Europe Brent Spot Price FOB (RBRTE, 일별)",
      "https://www.eia.gov/dnav/pet/hist/RBRTED.htm"],
-    ["가스 TTF·석탄", "World Bank — Commodity Price Data (Pink Sheet, 월평균)",
+    ["가스 TTF·석탄", "World Bank, Commodity Price Data (Pink Sheet, 월평균)",
      "https://www.worldbank.org/en/research/commodity-markets"],
-    ["환율", "ECB — Euro foreign exchange reference rates (EUR→PLN·KRW·USD)",
+    ["환율", "ECB, Euro foreign exchange reference rates (EUR→PLN·KRW·USD)",
      "https://data.ecb.europa.eu"],
-    ["기상·예보", "Open-Meteo — Historical Weather API(ERA5) · Forecast API", "https://open-meteo.com"],
+    ["기상·예보", "Open-Meteo, Historical Weather API(ERA5) · Forecast API", "https://open-meteo.com"],
 ]
 OUT_DIR = "weekly"
 BASENAME = "PL_power_commodity_%s"
@@ -71,12 +71,12 @@ BASENAME = "PL_power_commodity_%s"
 #  공통
 # ══════════════════════════════════════════════════════════════════
 def f0(v, nd=0):
-    return "—" if v is None else ("{:,.%df}" % nd).format(v)
+    return "없음" if v is None else ("{:,.%df}" % nd).format(v)
 
 
 def sg(v, nd=0, unit=""):
     if v is None:
-        return "—"
+        return "없음"
     return ("{:+,.%df}" % nd).format(v).replace("-", "−") + unit
 
 
@@ -448,7 +448,7 @@ def line_chart(sl, x, y, w, h, cats, series, title, nd=0, legend=False, skip=1, 
     vals = [v for _, vs, _ in series for v in vs if v is not None]
     if not cats or not vals:
         c = rect(sl, x, y, w, h, CARD, rounded=True)
-        fill_tf(c.text_frame, [[(title, 9, True, INK2)], [("자료 없음 (수집 실패 — Actions 로그 확인)", 8.5, False, MUTED)]])
+        fill_tf(c.text_frame, [[(title, 9, True, INK2)], [("자료 없음 (수집 실패, Actions 로그 확인)", 8.5, False, MUTED)]])
         return
     cd = CategoryChartData()
     cd.categories = cats
@@ -551,16 +551,16 @@ def build_ppt(path, ctx):
     kpi(sl, kx(1), y0, cw, h0, COL["DE"], "독일 전력 (주평균)", f0(W["px_DE"]), "EUR/MWh",
         "%s PLN/MWh" % f0(W["px_DE_pln"]), "전주 대비 %s" % sg(pct(W["px_DE"], P["px_DE"]), 1, "%"), SRC["px"])
     k = K.get("EUA")
-    kpi(sl, kx(2), y0, cw, h0, COL["EUA"], "탄소배출권 EUA", f0(k["value"], 2) if k else "—", "€/t",
+    kpi(sl, kx(2), y0, cw, h0, COL["EUA"], "탄소배출권 EUA", f0(k["value"], 2) if k else "없음", "€/t",
         ("%s 경매" % mdw(k["date"])) if k else "자료 없음",
         ("1주 전 대비 %s" % sg(k["chg_pct"], 1, "%")) if k else "", SRC["eua"])
     for i, (key, label) in enumerate((("TTF", "가스 TTF (월평균)"), ("COAL", "석탄 뉴캐슬 (월평균)"))):
         k = K.get(key)
-        kpi(sl, kx(3 + i), y0, cw, h0, COL[key], label, f0(k["value"], 1) if k else "—",
+        kpi(sl, kx(3 + i), y0, cw, h0, COL[key], label, f0(k["value"], 1) if k else "없음",
             k["unit"] if k else "", ("%s년 %d월" % (k["period"][:4], int(k["period"][5:7]))) if k else "자료 없음",
             ("전월 대비 %s" % sg(k["chg_pct"], 1, "%")) if k else "", SRC["wb"])
     k = K.get("BRENT")
-    kpi(sl, kx(5), y0, cw, h0, COL["BRENT"], "브렌트유", f0(k["value"], 1) if k else "—", "$/bbl",
+    kpi(sl, kx(5), y0, cw, h0, COL["BRENT"], "브렌트유", f0(k["value"], 1) if k else "없음", "$/bbl",
         ("%s 기준" % mdw(k["date"])) if k else "자료 없음",
         ("1주 전 대비 %s" % sg(k["chg_pct"], 1, "%")) if k else "", SRC["brent"])
 
@@ -606,7 +606,7 @@ def build_ppt(path, ctx):
                                    ("temp", "기온", 1, "°C", "Open-Meteo"), ("wind100", "풍속(100m)", 1, "km/h", "Open-Meteo")):
         a, b = W.get(key), P.get(key)
         rows.append(["%s (%s)" % (nm, unit), f0(a, nd), f0(b, nd),
-                     sg(a - b, nd) if (a is not None and b is not None) else "—", src])
+                     sg(a - b, nd) if (a is not None and b is not None) else "없음", src])
     table(sl, 8.7, 5.12, 4.23, 1.86, rows, [1.45, 0.62, 0.62, 0.6, 0.94])
 
     # ── 출처 (원 자료명까지)
@@ -808,6 +808,13 @@ def point_label(series, j, text, pos, color=INK2, size=8.5, bold=True):
     dl.position = pos
 
 
+def val_el(tag, val):
+    """<c:xxx val="..."/> — OxmlElement 의 두 번째 인자는 속성이 아니라 이름공간이라 따로 set 한다."""
+    e = OxmlElement(tag)
+    e.set("val", val)
+    return e
+
+
 def last_bar_to_line(ch):
     """누적 막대 차트의 마지막 계열을 꺾은선으로 옮긴다(막대 + 선 혼합 차트). 같은 축을 쓴다."""
     pa = ch._chartSpace.chart.plotArea
@@ -819,9 +826,9 @@ def last_bar_to_line(ch):
             s.remove(e)
     lc = OxmlElement("c:lineChart")
     for tag, val in (("c:grouping", "standard"), ("c:varyColors", "0")):
-        lc.append(OxmlElement(tag, {"val": val}))
+        lc.append(val_el(tag, val))
     lc.append(s)
-    lc.append(OxmlElement("c:marker", {"val": "1"}))
+    lc.append(val_el("c:marker", "1"))
     for a in bar.findall(qn("c:axId")):
         lc.append(deepcopy(a))
     bar.addnext(lc)
@@ -848,7 +855,7 @@ def signed_bars(sl, x, y, w, h, cats, vals, colors, title):
         pt.format.fill.fore_color.rgb = rgb(colors[j])
         dpt = s._element.get_or_add_dPt_for_point(j)           # 점마다 '음수 반전 안 함' — 없으면 음수 막대가 흰색으로 나온다
         if dpt.find(qn("c:invertIfNegative")) is None:
-            dpt.find(qn("c:idx")).addnext(OxmlElement("c:invertIfNegative", {"val": "0"}))
+            dpt.find(qn("c:idx")).addnext(val_el("c:invertIfNegative", "0"))
         inside = v < 0 and abs(v) >= 0.12 * big
         point_label(s, j, sg(v), XL_LABEL_POSITION.INSIDE_END if inside else XL_LABEL_POSITION.OUTSIDE_END,
                     ("FFFFFF" if colors[j] in DARK_FILL else INK) if inside else INK2)
@@ -859,7 +866,7 @@ def slide_composition(prs, ctx):
     C = ctx.get("COMP") or []
     sl = header(prs, ctx, "폴란드 전력가격 구성")
     if len(C) < 2:
-        placeholder(sl, 0.35, 0.98, 12.6, 5.9, "월별 전력가격 구성", "자료 부족 — 월평균 가스·석탄·배출권·환율 중 수집 실패 (Actions 로그 확인)")
+        placeholder(sl, 0.35, 0.98, 12.6, 5.9, "월별 전력가격 구성", "자료 부족. 월평균 가스·석탄·배출권·환율 중 수집 실패 (Actions 로그 확인)")
         return
     st = [s for s in STACKS if any(abs(c[s[1]]) >= 0.5 for c in C)]
 
@@ -870,7 +877,7 @@ def slide_composition(prs, ctx):
         cd.add_series(nm, [round(c[k]) for c in C])
     cd.add_series("실제 가격", [round(c["P"]) for c in C])
     ch = sl.shapes.add_chart(XL_CHART_TYPE.COLUMN_STACKED, Inches(0.35), Inches(0.98), Inches(8.3), Inches(3.75), cd).chart
-    chart_frame(ch, "월별 전력가격 구성 (PLN/MWh) — 막대 = 원가 항목 · 검은 선 = 실제 가격", XL_LEGEND_POSITION.BOTTOM)
+    chart_frame(ch, "월별 전력가격 구성 (PLN/MWh), 막대는 원가 항목 · 검은 선은 실제 가격", XL_LEGEND_POSITION.BOTTOM)
     _, ca = axes_style(ch)
     ca.tick_label_position = XL_TICK_LABEL_POSITION.LOW          # 월 이름을 음수 막대 아래로
     plot = ch.plots[0]
@@ -902,7 +909,7 @@ def slide_composition(prs, ctx):
         cd = CategoryChartData()
         cd.categories = [p[0] for p in gs["parts"]]
         cd.add_series("발전량 비중 (%)", [round(p[1] / gs["load"] * 100) for p in gs["parts"]])
-        cd.add_series("가격을 정한 비중 (%)", [round(p[2]) for p in gs["parts"]])
+        cd.add_series("가격에 실린 무게 (%, 환산)", [round(p[2]) for p in gs["parts"]])
         ch = sl.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED, Inches(8.78), Inches(0.98), Inches(4.2), Inches(3.75), cd).chart
         chart_frame(ch, "석탄은 많이 돌지만, 가격은 가스가 정한다 (%d월)" % int(ref["m"][5:7]), XL_LEGEND_POSITION.BOTTOM)
         va, ca = axes_style(ch, '0"%"')
@@ -921,7 +928,7 @@ def slide_composition(prs, ctx):
         dls.position = XL_LABEL_POSITION.OUTSIDE_END
         style(dls.font, 8, True, INK2)
     else:
-        placeholder(sl, 8.78, 0.98, 4.2, 3.75, "발전량 비중 vs 가격을 정한 비중", "전원별 발전 자료 부족")
+        placeholder(sl, 8.78, 0.98, 4.2, 3.75, "발전량 비중과 가격에 실린 무게", "전원별 발전 자료 부족")
 
     # B. 기준월 vs 이번 달 (막대 길이 = 실제 가격)
     cmp_ = [ref, cur] if cur["m"] != ref["m"] else [ref]
@@ -931,7 +938,7 @@ def slide_composition(prs, ctx):
     for nm, k, _ in st2:
         cd.add_series(nm, [round(c[k]) for c in cmp_])
     ch = sl.shapes.add_chart(XL_CHART_TYPE.BAR_STACKED, Inches(0.35), Inches(4.83), Inches(6.3), Inches(2.1), cd).chart
-    chart_frame(ch, "전력가격 구성 비교 (PLN/MWh) — 막대 길이 = 실제 가격", XL_LEGEND_POSITION.BOTTOM, tsize=10)
+    chart_frame(ch, "전력가격 구성 비교 (PLN/MWh), 막대 길이가 실제 가격", XL_LEGEND_POSITION.BOTTOM, tsize=10)
     va, ca = axes_style(ch)
     reverse_cat(ca)
     plot = ch.plots[0]
@@ -952,7 +959,7 @@ def slide_composition(prs, ctx):
     li = []
     if gs:
         pc = {p[0]: p[1] / gs["load"] * 100 for p in gs["parts"]}
-        li.append("발전량은 석탄·갈탄 %s%%, 가스 %s%% — 그러나 가격은 가스가 %s%%의 시간을 결정 (%d월)"
+        li.append("발전량은 석탄·갈탄 %s%%, 가스 %s%%지만, 평균 가격으로 환산하면 가스 쪽 무게가 %s%%입니다 (%d월)"
                   % (f0(pc["석탄·갈탄"]), f0(pc["가스"]), f0(ref["w"] * 100), int(ref["m"][5:7])))
     li.append("%d월 %s PLN/MWh = 가스 관련 %s%% (연료 %s%% + 탄소 %s%%) · 석탄 관련 %s%% (연료 %s%% + 탄소 %s%%)"
               % (int(ref["m"][5:7]), f0(ref["P"]), f0(gas / ref["P"] * 100), f0(ref["gF"] / ref["P"] * 100),
@@ -972,7 +979,7 @@ def slide_composition(prs, ctx):
     footer(sl, ["출처  전력: ENTSO-E 하루전 월평균 × ECB 환율 · 가스: World Bank TTF 월평균(열량 환산) · 석탄: World Bank 뉴캐슬 월평균 · "
                 "탄소배출권: EEX 경매 월평균 · 발전량: ENTSO-E A75·A65",
                 "발전원가 = 연료비 ÷ 효율(가스 %.2f·석탄 %.2f) + 배출계수(가스 %.2f·석탄 %.2f t/MWh) × 배출권가 + 운전비 %.0f€/MWh · "
-                "가격을 정한 비중 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가)%s"
+                "가스 쪽 무게 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가), 실제 시간 비율은 아닌 환산값%s"
                 % (GAS_EFF, COAL_EFF, GAS_EF, COAL_EF, VOM_EUR, (" · * " + ", ".join(notes)) if notes else "")])
 
 
@@ -1096,14 +1103,14 @@ def slide_outlook(prs, ctx):
         placeholder(sl, 0.35, 0.98, 12.6, 5.9, "다음 주 전망", "Open-Meteo 예보 자료 없음 (Actions 로그 확인)")
         return
     fc_chart(sl, 0.35, 0.98, 6.2, 3.85, days, [wx["wind100"].get(d) for d in days], W.get("wind100"), "1BAF7A",
-             "풍속 예보 (km/h, 100m · 3지점 평균) — 점선 = 이번 주 평균")
+             "풍속 예보 (km/h, 100m · 3지점 평균), 점선은 이번 주 평균")
     fc_chart(sl, 6.78, 0.98, 6.2, 3.85, days, [wx.get("temp", {}).get(d) for d in days], W.get("temp"), "EB6834",
-             "기온 예보 (°C, 3지점 평균) — 점선 = 이번 주 평균")
+             "기온 예보 (°C, 3지점 평균), 점선은 이번 주 평균")
 
     li = []
     p = o.get("wind_pct")
     if p is not None:
-        s = "풍속 예보 평균 %s km/h — 이번 주(%s) 대비 %s → %s" % (
+        s = "풍속 예보 평균 %s km/h로 이번 주(%s) 대비 %s, %s" % (
             f0(o["wind_fc"], 1), f0(W.get("wind100"), 1), sg(p, 0, "%"),
             "풍력 발전 증가, 가격 하방 요인" if p >= FLAT else ("화력 몫 증가, 가격 상방 요인" if p <= -FLAT else "영향 작음"))
         bw = ((ctx.get("DG") or {}).get("compare") or {}).get("wind100", {}).get("base")
@@ -1260,7 +1267,7 @@ def build_xlsx(path, ctx):
     if C:
         sheet(wb, "가격구성_월별",
               ["월", "자료 일수", "실제 가격 PLN/MWh", "가스 연료비", "가스 탄소비", "석탄 연료비", "석탄 탄소비", "운전비",
-               "희소성 프리미엄", "재생에너지 과잉 할인", "가스가 가격을 정한 비중(%)", "가스 발전원가", "석탄 발전원가",
+               "희소성 프리미엄", "재생에너지 과잉 할인", "가스 쪽 무게(%, 환산)", "가스 발전원가", "석탄 발전원가",
                "가스 TTF 환산 PLN/MWh(열량)", "가스 TTF $/MMBtu", "석탄 뉴캐슬 $/t", "EUA EUR/t", "EUR→PLN", "비고"],
               [[c["m"], c["days"], r2(c["P"], 0), r2(c["gF"], 0), r2(c["gC"], 0), r2(c["cF"], 0), r2(c["cC"], 0),
                 r2(c["V"], 0), r2(c["prem"], 0), r2(c["disc"], 0), r2(c["w"] * 100, 0), r2(c["G"], 0), r2(c["C"], 0),
@@ -1278,7 +1285,7 @@ def build_xlsx(path, ctx):
              ["문장", "모든 문장은 숫자에서 규칙으로 자동 작성(변화 ±5% 안은 '비슷'). 사람이 쓴 해석이 아님."],
              ["주", "폴란드 현지 월~일. 자료 5일 미만 주간 값은 빈칸."],
              ["가격 구성", "발전원가 = 연료비 ÷ 효율(가스 0.55·석탄 0.41) + 배출계수(가스 0.37·석탄 0.83 t/MWh) × 배출권가 + 운전비 2€/MWh. "
-                         "가스가 가격을 정한 비중 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가), 0~100%. 가스 원가보다 비싸면 초과분 = 희소성 프리미엄, "
+                         "가스 쪽 무게 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가), 0~100%로 제한한 환산값(실제 시간 비율 아님). 가스 원가보다 비싸면 초과분 = 희소성 프리미엄, "
                          "석탄 원가보다 싸면 = 재생에너지 과잉 할인. 전력 = ENTSO-E × ECB, 가스 = World Bank TTF 월평균(공개자료 기준, TGE 아님)."]]
     sheet(wb, "설명", ["항목", "내용"], notes, None, [16, 120])
     sheet(wb, "출처", ["항목", "자료명", "주소"],
@@ -1329,7 +1336,7 @@ def main():
     ctx = {"R": R, "W": W, "P": P, "F4": F4, "K": K, "MON": MON, "FXD": FXD, "fxp": fxp, "fxk": fxk,
            "ws": ws, "we": we, "tag": tag, "iso": (iso[0], iso[1]),
            "issued": dt.datetime.now(TZ).strftime("%Y-%m-%d"),
-           "collected": "%s (폴란드 시각)" % D.get("generated", "—"),
+           "collected": "%s (폴란드 시각)" % D.get("generated", "미상"),
            "chart_days": drange(ws - dt.timedelta(days=CHART_DAYS - 7), we),
            "daily_src": {"EUA": EUA, "BRENT": BRENT}, "bullets": bullets,
            "fx_w": {"PLN": fxp.avg(ds[0], ds[-1]), "KRW": fxk.avg(ds[0], ds[-1])},
