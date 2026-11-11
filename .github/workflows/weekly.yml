@@ -37,6 +37,11 @@ jobs:
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
         run: python fetch_pl_flows.py
+      - name: 발전설비 정지 (ENTSO-E A80, 보고 직전 최신)
+        continue-on-error: true
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_pl_outages.py
       - name: Weekly PPT + Excel
         continue-on-error: true
         env:
