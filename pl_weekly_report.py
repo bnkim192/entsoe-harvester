@@ -623,8 +623,8 @@ def build_ppt(path, ctx):
              [("자료 기준 %s 수집 · 잔여부하 = 수요 − 풍력 − 태양광 · 문장은 숫자에서 규칙으로 자동 작성 · "
                "가스·석탄은 무료 일별 자료가 없어 월평균" % ctx["collected"], 7, False, MUTED)]])
 
-    # ── 2~4장: 장마다 따로 — 실패한 장은 지우고 로그만 남긴다 (1장은 항상 나온다)
-    for fn in (slide_composition, slide_cause, slide_outlook):
+    # ── 2~5장: 장마다 따로 — 실패한 장은 지우고 로그만 남긴다 (1장은 항상 나온다)
+    for fn in (slide_composition, slide_cause, slide_flows, slide_outlook):
         n0 = len(prs.slides)
         try:
             fn(prs, ctx)
@@ -1040,6 +1040,79 @@ def slide_cause(prs, ctx):
     footer(sl, ["출처  하루전 가격·수요·발전: ENTSO-E · 기상·예보: Open-Meteo · 탄소배출권: EEX · 브렌트유: EIA · 환율: ECB",
                 "원인 분해 = 직전 일별 자료에서 '가격 ~ 화력 몫(수요 − 풍력 − 태양광) + 시간추세' 직선을 잡아 화력 몫 변화 × 1GW당 가격으로 계산"
                 " · 발전소 정지 정보는 미반영('그 밖'에 포함) · 문장은 숫자에서 규칙으로 자동 작성"])
+
+
+FLOW_NM = {"DE": "독일", "CZ": "체코", "SK": "슬로바키아", "LT": "리투아니아", "SE4": "스웨덴 남부", "UA": "우크라이나"}
+
+
+def flow_sum(FLW, d0, d1, key, need=5):
+    xs = [FLW[d][key] for d in drange(d0, d1) if d in FLW and FLW[d].get(key) is not None]
+    return (sum(xs), len(xs)) if len(xs) >= need else (None, len(xs))
+
+
+def slide_flows(prs, ctx):
+    """4장 국경 간 전력 흐름 — ENTSO-E A11 실제 물리 흐름(pl_flows_daily.json)."""
+    FL = ctx.get("FLOW") or {}
+    FLW = {r["date"]: r for r in FL.get("rows", [])}
+    if not FLW:
+        raise ValueError("국경 흐름 자료(pl_flows_daily.json) 없음")
+    ws, we, W = ctx["ws"], ctx["we"], ctx["W"]
+    pws, pwe = ws - dt.timedelta(days=7), we - dt.timedelta(days=7)
+    bn = [b for b in FLOW_NM if b in FL.get("borders", {})]
+    sl = header(prs, ctx, "폴란드 국경 간 전력 흐름 (수입·수출)")
+
+    days = drange(we - dt.timedelta(days=27), we)
+    line_chart(sl, 0.35, 0.98, 7.55, 3.95, [md(d) for d in days],
+               [("전체 순수입", [FLW.get(d, {}).get("total_net") for d in days], COL["PL"]),
+                ("독일에서 순수입", [FLW.get(d, {}).get("DE_net") for d in days], COL["DE"])],
+               "하루 순수입 (GWh/일, 양수 = 폴란드로 들어옴, 최근 4주) · 자료: ENTSO-E", nd=1, legend=True, skip=7)
+
+    rows = [["국경 (주 합계 GWh)", "수입", "수출", "순수입", "전주 순수입", "차이"]]
+    for b in bn + ["total"]:
+        nm = "합계" if b == "total" else FLOW_NM[b]
+        i, _ = flow_sum(FLW, ws, we, b + "_imp")
+        e, _ = flow_sum(FLW, ws, we, b + "_exp")
+        n, _ = flow_sum(FLW, ws, we, b + "_net")
+        pn, _ = flow_sum(FLW, pws, pwe, b + "_net")
+        rows.append([nm, f0(i, 1), f0(e, 1), sg(n, 1), sg(pn, 1),
+                     sg(n - pn, 1) if (n is not None and pn is not None) else "없음"])
+    table(sl, 8.05, 0.98, 4.9, 3.95, rows, [1.35, 0.68, 0.68, 0.73, 0.78, 0.68])
+
+    ls = []
+    tn, nd_ = flow_sum(FLW, ws, we, "total_net")
+    pn, _ = flow_sum(FLW, pws, pwe, "total_net")
+    if tn is not None:
+        avg_gw = tn / nd_ / 24
+        share = (avg_gw / W["load"] * 100) if W.get("load") else None
+        txt = "이번 주 %s %s GWh (하루 평균 %s GW%s)" % (
+            "순수입" if tn >= 0 else "순수출", f0(abs(tn), 0), f0(abs(avg_gw), 2),
+            (", 수요의 약 %s%%" % f0(abs(share), 1)) if share is not None else "")
+        if pn is not None:
+            txt += ", 전주 %s %s GWh에서 %s GWh" % ("순수입" if pn >= 0 else "순수출", f0(abs(pn), 0), sg(tn - pn, 0))
+        ls.append(txt)
+    nets = [(flow_sum(FLW, ws, we, b + "_net")[0], b) for b in bn]
+    nets = [(v, b) for v, b in nets if v is not None]
+    if nets:
+        top_in, top_out = max(nets), min(nets)
+        s = []
+        if top_in[0] > 0:
+            s.append("가장 많이 들여온 곳 %s %s GWh" % (FLOW_NM[top_in[1]], f0(top_in[0], 0)))
+        if top_out[0] < 0:
+            s.append("가장 많이 내보낸 곳 %s %s GWh" % (FLOW_NM[top_out[1]], f0(-top_out[0], 0)))
+        if s:
+            ls.append(", ".join(s))
+    dn = [(FLW[d]["total_net"], d) for d in drange(ws, we) if d in FLW and FLW[d].get("total_net") is not None]
+    if dn:
+        hi_, lo_ = max(dn), min(dn)
+        ls.append("하루 기준 순수입이 가장 많은 날 %s %s GWh, 가장 적은 날 %s %s GWh" % (
+            mdw(hi_[1]), sg(hi_[0], 1), mdw(lo_[1]), sg(lo_[0], 1)))
+    ls.append("읽는 법: 순수입이 늘면 국내 화력이 채울 몫이 줄어 가격을 누르는 쪽이고, 줄거나 순수출이 되면 반대입니다. "
+              "다만 주변국도 같이 비싸면 수입이 늘어도 가격을 누르는 힘은 약합니다")
+    note_box(sl, 0.35, 5.08, 12.6, 1.82, "핵심 정리", ls)
+    footer(sl, ["출처  ENTSO-E Transparency Platform, A11 Cross-Border Physical Flows (PL↔%s) · 폴란드 송전망 운영사 PSE가 올리는 계량값"
+                % "·".join(bn),
+                "실제 물리 흐름(MW)을 폴란드 날짜별로 더해 GWh로 환산 · 순수입 = 수입 − 수출 · 거래 계약량(상업 거래)과는 다를 수 있음"
+                " · 자료 5일 미만인 주는 '없음' · 문장은 숫자에서 규칙으로 자동 작성"])
 
 
 def outlook_line(ctx):
