@@ -1061,11 +1061,14 @@ def slide_flows(prs, ctx):
     bn = [b for b in FLOW_NM if b in FL.get("borders", {})]
     sl = header(prs, ctx, "폴란드 국경 간 전력 흐름 (수입·수출)")
 
-    days = drange(we - dt.timedelta(days=27), we)
+    # 최근 한 달(31일), 자료가 그보다 짧으면 자료가 있는 첫날부터 — 빈 칸 없이 그래프 폭을 채운다
+    d_first = max(dd(min(FLW)), we - dt.timedelta(days=30))
+    days = [d for d in drange(d_first, we)]
     line_chart(sl, 0.35, 0.98, 7.55, 3.95, [md(d) for d in days],
                [("전체 순수입", [FLW.get(d, {}).get("total_net") for d in days], COL["PL"]),
                 ("독일에서 순수입", [FLW.get(d, {}).get("DE_net") for d in days], COL["DE"])],
-               "하루 순수입 (GWh/일, 양수 = 폴란드로 들어옴, 최근 4주) · 자료: ENTSO-E", nd=1, legend=True, skip=7)
+               "하루 순수입 (GWh/일, 양수 = 폴란드로 들어옴, %s~%s) · 자료: ENTSO-E" % (md(days[0]), md(days[-1])),
+               nd=1, legend=True, skip=max(1, len(days) // 6))
 
     rows = [["국경 (주 합계 GWh)", "수입", "수출", "순수입", "전주 순수입", "차이"]]
     for b in bn + ["total"]:
