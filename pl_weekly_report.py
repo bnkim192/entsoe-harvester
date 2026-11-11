@@ -51,6 +51,8 @@ SRC_LONG = [
     ["전력 하루전 가격", "ENTSO-E Transparency Platform, A44 Day-ahead Prices (PL·DE-LU·CZ·SK·LT·SE4)",
      "https://transparency.entsoe.eu"],
     ["수요", "ENTSO-E Transparency Platform, A65 Actual Total Load (PL)", "https://transparency.entsoe.eu"],
+    ["국경 간 흐름", "ENTSO-E Transparency Platform, A11 Cross-Border Physical Flows (PL↔DE·CZ·SK·LT·SE4·UA)",
+     "https://transparency.entsoe.eu"],
     ["전원별 발전", "ENTSO-E Transparency Platform, A75 Actual Generation per Production Type (PL)",
      "https://transparency.entsoe.eu"],
     ["탄소배출권 EUA", "EEX, EU ETS Primary Market Auction Report (경매가)",
@@ -991,7 +993,7 @@ def slide_cause(prs, ctx):
     ft = v.get("fit_trend")
     if ft and v.get("rise") is not None:
         sp, bs = DG.get("spike") or ["", ""], DG.get("base") or ["", ""]
-        signed_bars(sl, 0.35, 0.98, 6.2, 3.95, ["날씨·수요 (바람·햇빛·기온)", "연료비 추세", "그 밖 (주변국·발전소 정지 등)"],
+        signed_bars(sl, 0.35, 0.98, 6.2, 3.95, ["날씨·수요 (바람·햇빛·기온)", "완만한 추세 (기준 기간 흐름)", "그 밖 (가스값·주변국·발전소 정지 등)"],
                     [ft["explained_res"], ft["explained_trend"], ft["unexplained"]], [COL["PL"], "C3C2B7", "EB6834"],
                     "%s 이후 급등 %s EUR/MWh의 원인 (%s~%s 평균 대비)" % (md(sp[0]), sg(v["rise"]), md(bs[0]), md(bs[1])))
     else:
@@ -1026,9 +1028,9 @@ def slide_cause(prs, ctx):
                   % (sg(dec["dpx"]), sg(dec["eff"]["wind"]), sg(dec["eff"]["load"]), sg(dec["eff"]["solar"]), sg(dec["other"])))
     if K.get("EUA") and K.get("BRENT"):
         a, b = K["EUA"]["chg_pct"], K["BRENT"]["chg_pct"]
-        tail = " → 연료비는 이번 주 상승의 원인이 아님" if (dec and dec["dpx"] > 0 and a is not None and b is not None
+        tail = " → 배출권·유가는 이번 주 상승의 원인이 아님" if (dec and dec["dpx"] > 0 and a is not None and b is not None
                                                   and a < FLAT and b < FLAT) else ""
-        ls.append("연료비: 탄소배출권 %s, 브렌트유 %s (1주 전 대비)%s" % (sg(a, 1, "%"), sg(b, 1, "%"), tail))
+        ls.append("연료비: 탄소배출권 %s, 브렌트유 %s (1주 전 대비)%s. 가스는 월평균 자료뿐이라 주간 비교에서 빠짐" % (sg(a, 1, "%"), sg(b, 1, "%"), tail))
     oc = outlook_line(ctx)
     if oc:
         ls.append((oc, True))
@@ -1220,6 +1222,18 @@ def build_xlsx(path, ctx):
                           ("gas", "가스 발전", "GW"), ("temp", "기온(3지점)", "°C"), ("wind100", "풍속 100m(3지점)", "km/h"),
                           ("rad", "일사(3지점)", "kWh/m2·일")):
         add(nm, unit, W[key], P[key], wk, "ENTSO-E" if key not in ("temp", "wind100", "rad") else "Open-Meteo", F4[key])
+    FL = ctx.get("FLOW") or {}
+    FLW = {r["date"]: r for r in FL.get("rows", [])}
+
+    def fsum(key, d0, d1):                     # 주 합계 (5일 미만이면 빈칸)
+        xs = [FLW[d][key] for d in drange(d0, d1) if d in FLW and FLW[d].get(key) is not None]
+        return sum(xs) if len(xs) >= 5 else None
+    if FLW:
+        pws, pwe = ctx["ws"] - dt.timedelta(days=7), ctx["we"] - dt.timedelta(days=7)
+        for key, nm in (("total_net", "국경 순수입(수입−수출) 주 합계"), ("total_imp", "국경 수입 주 합계"),
+                        ("total_exp", "국경 수출 주 합계")):
+            add(nm, "GWh", fsum(key, ctx["ws"], ctx["we"]), fsum(key, pws, pwe),
+                "%s~%s 합계 vs 전주" % (ctx["ws"].isoformat(), ctx["we"].isoformat()), "ENTSO-E A11")
     add("환율 EUR→PLN", "PLN", ctx["fx_w"]["PLN"], ctx["fx_p"]["PLN"], wk, "ECB")
     add("환율 EUR→KRW", "KRW", ctx["fx_w"]["KRW"], ctx["fx_p"]["KRW"], wk, "ECB")
     rows.append([])
@@ -1249,6 +1263,19 @@ def build_xlsx(path, ctx):
             r2(R[d].get("wind100"), 1), r2(R[d].get("rad"), 2)] for d in days
            if any(R[d].get(k) is not None for k in ("load", "wind", "temp"))],
           {1: "yyyy-mm-dd"}, [12] + [11] * 13)
+    if FLW:
+        bn = [b for b in ("DE", "CZ", "SK", "LT", "SE4", "UA") if b in FL.get("borders", {})]
+        nmk = {"DE": "독일", "CZ": "체코", "SK": "슬로바키아", "LT": "리투아니아", "SE4": "스웨덴 남부", "UA": "우크라이나"}
+        hdr = (["날짜", "요일", "순수입 합계 GWh", "수입 합계 GWh", "수출 합계 GWh"] +
+               ["%s 순수입" % nmk[b] for b in bn] + [x for b in bn for x in ("%s 수입" % nmk[b], "%s 수출" % nmk[b])])
+        fr = []
+        for d in sorted(FLW):
+            r = FLW[d]
+            fr.append([dd(d), WD[dd(d).weekday()], r2(r.get("total_net"), 1), r2(r.get("total_imp"), 1),
+                       r2(r.get("total_exp"), 1)] + [r2(r.get(b + "_net"), 1) for b in bn] +
+                      [r2(r.get(b + k), 1) for b in bn for k in ("_imp", "_exp")])
+        sheet(wb, "국경흐름_일별", hdr, fr, dict([(1, "yyyy-mm-dd")] + [(c, "#,##0.0") for c in range(3, len(hdr) + 1)]),
+              [12, 6, 13, 12, 12] + [11] * (len(hdr) - 5))
     eua, brent = ctx["daily_src"]["EUA"], ctx["daily_src"]["BRENT"]
     cd = sorted(set(eua) | set(brent))
     sheet(wb, "원자재_일별", ["날짜", "탄소배출권 EUA 경매 EUR/t", "브렌트유 USD/bbl"],
@@ -1284,6 +1311,8 @@ def build_xlsx(path, ctx):
              ["기상", "Open-Meteo. 바르샤바·포모제·실롱스크 3지점 평균. 오늘 이후는 예보."],
              ["문장", "모든 문장은 숫자에서 규칙으로 자동 작성(변화 ±5% 안은 '비슷'). 사람이 쓴 해석이 아님."],
              ["주", "폴란드 현지 월~일. 자료 5일 미만 주간 값은 빈칸."],
+             ["국경 흐름", "ENTSO-E A11 실제 물리 흐름(MW)을 현지 날짜별로 더해 GWh로 환산(20시간 미만인 날 제외). 순수입 = 수입 − 수출, 양수면 폴란드가 들여온 양. "
+                         "국경 하나라도 빈 날은 합계 빈칸. 물리 흐름이라 거래소 계약량(상업 거래)과 다를 수 있음. 주변국 상황은 가격을 움직이는 5가지 요인 중 하나."],
              ["가격 구성", "발전원가 = 연료비 ÷ 효율(가스 0.55·석탄 0.41) + 배출계수(가스 0.37·석탄 0.83 t/MWh) × 배출권가 + 운전비 2€/MWh. "
                          "가스 쪽 무게 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가), 0~100%로 제한한 환산값(실제 시간 비율 아님). 가스 원가보다 비싸면 초과분 = 희소성 프리미엄, "
                          "석탄 원가보다 싸면 = 재생에너지 과잉 할인. 전력 = ENTSO-E × ECB, 가스 = World Bank TTF 월평균(공개자료 기준, TGE 아님)."]]
@@ -1342,7 +1371,7 @@ def main():
            "fx_w": {"PLN": fxp.avg(ds[0], ds[-1]), "KRW": fxk.avg(ds[0], ds[-1])},
            "fx_p": {"PLN": fxp.avg(dp[0], dp[-1]), "KRW": fxk.avg(dp[0], dp[-1])},
            "M": M, "DG": load("pl_drivers_diag.json"), "FC": D.get("forecast", {}),
-           "dec": dec, "fit": fit, "out_info": out_info}
+           "dec": dec, "fit": fit, "out_info": out_info, "FLOW": load("pl_flows_daily.json")}
     try:
         ctx["COMP"] = composition(R, M, we.isoformat())
     except Exception as e:
