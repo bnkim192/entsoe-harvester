@@ -3,7 +3,7 @@
 name: PL Weekly Report
 on:
   schedule:
-    - cron: "0 2 * * 1"        # 매주 월 02:00 UTC = 한국 11:00 (일요일 실측까지 다 들어온 뒤)
+    - cron: "30 23 * * 0"      # 매주 일 23:30 UTC = 한국 월 08:30 = 폴란드 월 00:30(겨울)·01:30(여름). PC 받기는 월 09:00부터
   workflow_dispatch:
     inputs:
       week_end:
