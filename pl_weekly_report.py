@@ -53,6 +53,8 @@ SRC_LONG = [
     ["수요", "ENTSO-E Transparency Platform, A65 Actual Total Load (PL)", "https://transparency.entsoe.eu"],
     ["국경 간 흐름", "ENTSO-E Transparency Platform, A11 Cross-Border Physical Flows (PL↔DE·CZ·SK·LT·SE4·UA)",
      "https://transparency.entsoe.eu"],
+    ["발전설비 정지", "ENTSO-E Transparency Platform, A80 Unavailability of Generation Units (PL)",
+     "https://transparency.entsoe.eu"],
     ["전원별 발전", "ENTSO-E Transparency Platform, A75 Actual Generation per Production Type (PL)",
      "https://transparency.entsoe.eu"],
     ["탄소배출권 EUA", "EEX, EU ETS Primary Market Auction Report (경매가)",
@@ -1276,6 +1278,23 @@ def build_xlsx(path, ctx):
                       [r2(r.get(b + k), 1) for b in bn for k in ("_imp", "_exp")])
         sheet(wb, "국경흐름_일별", hdr, fr, dict([(1, "yyyy-mm-dd")] + [(c, "#,##0.0") for c in range(3, len(hdr) + 1)]),
               [12, 6, 13, 12, 12] + [11] * (len(hdr) - 5))
+    OU = ctx.get("OUT") or {}
+    if OU.get("daily"):
+        sheet(wb, "발전정지_일별", ["날짜", "요일", "정지 발전기 수", "정지 MW 합계", "계획정지 MW", "고장정지 MW", "전원별 정지 MW"],
+              [[dd(d), WD[dd(d).weekday()], v.get("n"), r2(v.get("unavail_mw"), 0), r2((v.get("by_type") or {}).get("계획"), 0),
+                r2((v.get("by_type") or {}).get("고장"), 0),
+                " · ".join("%s %s" % (k, format(round(x), ",")) for k, x in sorted((v.get("by_fuel") or {}).items(), key=lambda kv: -kv[1]))]
+               for d, v in sorted(OU["daily"].items())],
+              {1: "yyyy-mm-dd", 4: "#,##0", 5: "#,##0", 6: "#,##0"}, [12, 6, 12, 13, 13, 13, 60])
+        def plt(s):                              # UTC 문자열 → 폴란드 시각 (Excel 은 시간대 없는 값만 받음)
+            return dt.datetime.fromisoformat(s).astimezone(TZ).replace(tzinfo=None) if s else None
+        sheet(wb, "발전정지_목록", ["유형", "발전소", "호기", "전원", "정격 MW", "정지 중 최저 가용 MW", "정지 MW",
+                                   "시작 (폴란드 시각)", "종료 (폴란드 시각)", "사유"],
+              [[o.get("type"), o.get("plant"), o.get("unit"), o.get("fuel"), r2(o.get("nominal_mw"), 1), r2(o.get("avail_min_mw"), 1),
+                r2(o.get("unavail_mw"), 1), plt(o.get("start_utc")), plt(o.get("end_utc")), o.get("reason")]
+               for o in OU.get("outages", [])],
+              {5: "#,##0.0", 6: "#,##0.0", 7: "#,##0.0", 8: "yyyy-mm-dd hh:mm", 9: "yyyy-mm-dd hh:mm"},
+              [7, 22, 22, 10, 10, 12, 10, 17, 17, 50])
     eua, brent = ctx["daily_src"]["EUA"], ctx["daily_src"]["BRENT"]
     cd = sorted(set(eua) | set(brent))
     sheet(wb, "원자재_일별", ["날짜", "탄소배출권 EUA 경매 EUR/t", "브렌트유 USD/bbl"],
@@ -1313,6 +1332,8 @@ def build_xlsx(path, ctx):
              ["주", "폴란드 현지 월~일. 자료 5일 미만 주간 값은 빈칸."],
              ["국경 흐름", "ENTSO-E A11 실제 물리 흐름(MW)을 현지 날짜별로 더해 GWh로 환산(20시간 미만인 날 제외). 순수입 = 수입 − 수출, 양수면 폴란드가 들여온 양. "
                          "국경 하나라도 빈 날은 합계 빈칸. 물리 흐름이라 거래소 계약량(상업 거래)과 다를 수 있음. 주변국 상황은 가격을 움직이는 5가지 요인 중 하나."],
+             ["발전설비 정지", "ENTSO-E A80 발전기 정지 공시(REMIT). 정지 MW = 정격 − 정지 중 최저 가용용량. 같은 공시는 최신판만, 같은 발전기는 그날 가장 큰 정지 1건만 셈. "
+                            "하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). 계획 = 예정 정비, 고장 = 불시 정지. 보고서 실행일 −1일 ~ +7일."],
              ["가격 구성", "발전원가 = 연료비 ÷ 효율(가스 0.55·석탄 0.41) + 배출계수(가스 0.37·석탄 0.83 t/MWh) × 배출권가 + 운전비 2€/MWh. "
                          "가스 쪽 무게 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가), 0~100%로 제한한 환산값(실제 시간 비율 아님). 가스 원가보다 비싸면 초과분 = 희소성 프리미엄, "
                          "석탄 원가보다 싸면 = 재생에너지 과잉 할인. 전력 = ENTSO-E × ECB, 가스 = World Bank TTF 월평균(공개자료 기준, TGE 아님)."]]
@@ -1371,7 +1392,8 @@ def main():
            "fx_w": {"PLN": fxp.avg(ds[0], ds[-1]), "KRW": fxk.avg(ds[0], ds[-1])},
            "fx_p": {"PLN": fxp.avg(dp[0], dp[-1]), "KRW": fxk.avg(dp[0], dp[-1])},
            "M": M, "DG": load("pl_drivers_diag.json"), "FC": D.get("forecast", {}),
-           "dec": dec, "fit": fit, "out_info": out_info, "FLOW": load("pl_flows_daily.json")}
+           "dec": dec, "fit": fit, "out_info": out_info, "FLOW": load("pl_flows_daily.json"),
+           "OUT": load("pl_outages_latest.json")}
     try:
         ctx["COMP"] = composition(R, M, we.isoformat())
     except Exception as e:

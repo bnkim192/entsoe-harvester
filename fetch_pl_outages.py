@@ -131,7 +131,8 @@ def parse(xml, doc_type):
                 pass
         mn = min(avail) if avail else 0.0
         unav = (nom - mn) if nom == nom else None
-        psr = first(ts, "psrType")
+        # ENTSO-E 태그는 점으로 이어진 긴 이름(production_RegisteredResource.pSRType.psrType)이라 끝부분으로 찾는다
+        psr = next((x.text.strip() for x in ts.iter() if local(x.tag).endswith("psrType") and x.text and x.text.strip()), None)
         out.append({
             "mrid": first(root, "mRID"), "rev": int(first(root, "revisionNumber") or 0), "status": st,
             "doc": doc_type, "type": BT.get(first(ts, "businessType") or "", first(ts, "businessType")),
@@ -181,15 +182,19 @@ def main():
         d = today + dt.timedelta(days=k)
         d0 = dt.datetime.combine(d, dt.time(0), TZ).astimezone(UTC)
         d1 = d0 + dt.timedelta(days=1)
-        tot, by_t, by_f, n = 0.0, {}, {}, 0
+        per_unit = {}                       # 같은 발전기는 그날 가장 큰 정지 1건만 (이어 붙인 공시 중복 방지)
         for r in cur:
             rs = dt.datetime.fromisoformat(r["start_utc"]) if r["start_utc"] else None
             re_ = dt.datetime.fromisoformat(r["end_utc"]) if r["end_utc"] else None
             if (rs and rs >= d1) or (re_ and re_ <= d0):
                 continue
+            k_u = r["unit"] or r["plant"] or r["mrid"]
+            if k_u not in per_unit or r["unavail_mw"] > per_unit[k_u]["unavail_mw"]:
+                per_unit[k_u] = r
+        tot, by_t, by_f, n = 0.0, {}, {}, len(per_unit)
+        for r in per_unit.values():
             v = r["unavail_mw"]
             tot += v
-            n += 1
             by_t[r["type"] or "미상"] = round(by_t.get(r["type"] or "미상", 0) + v, 1)
             by_f[r["fuel"] or "미상"] = round(by_f.get(r["fuel"] or "미상", 0) + v, 1)
         daily[d.isoformat()] = {"n": n, "unavail_mw": round(tot, 1), "by_type": by_t, "by_fuel": by_f}
@@ -198,7 +203,7 @@ def main():
         json.dump({"source": "ENTSO-E A80(발전기)·A77(발전소) Unavailability", "zone": "PL",
                    "fetched_utc": now.isoformat(timespec="seconds"), "today_pl": today.isoformat(),
                    "note": "정지 MW = 정격 − 정지 중 최저 가용용량. 하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). "
-                           "A80과 A77에 같은 설비가 겹쳐 올라올 수 있음(첫 실행 후 확인).",
+                           "같은 발전기는 그날 가장 큰 정지 1건만 셈. 폴란드는 A77(발전소 단위) 자료가 없어 A80(발전기 단위)만 씀.",
                    "daily": daily, "outages": cur}, f, ensure_ascii=False, indent=1)
 
     t0 = daily.get(today.isoformat())
