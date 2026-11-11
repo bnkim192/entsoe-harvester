@@ -32,37 +32,37 @@
     },
     {
       "item": "수요",
-      "points": 30148,
+      "points": 30157,
       "days": 314
     },
     {
       "item": "발전 wind_on",
-      "points": 30147,
+      "points": 30158,
       "days": 314
     },
     {
       "item": "발전 wind_off",
-      "points": 12299,
+      "points": 12310,
       "days": 128
     },
     {
       "item": "발전 solar",
-      "points": 30147,
+      "points": 30158,
       "days": 314
     },
     {
       "item": "발전 gas",
-      "points": 30147,
+      "points": 30158,
       "days": 314
     },
     {
       "item": "발전 hardcoal",
-      "points": 30147,
+      "points": 30158,
       "days": 314
     },
     {
       "item": "발전 lignite",
-      "points": 30147,
+      "points": 30158,
       "days": 314
     },
     {
