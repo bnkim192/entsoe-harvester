@@ -1,0 +1,8 @@
+{
+ "base": "https://api.raporty.pse.pl/api",
+ "fetched_utc": "2026-11-11T00:59:24+00:00",
+ "status": 404,
+ "content_type": "application/json; charset=utf-8",
+ "entities": [],
+ "candidates": {}
+}
