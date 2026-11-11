@@ -1,10 +1,10 @@
 {
- "fetched_utc": "2026-11-11T04:25:39+00:00",
+ "fetched_utc": "2026-11-11T12:55:17+00:00",
  "log": [
   {
    "tag": "A11 DE→PL 2026-11",
    "ok": true,
-   "note": "len=50178"
+   "note": "len=54355"
   },
   {
    "tag": "A11 PL→DE 2026-11",
@@ -19,7 +19,7 @@
   {
    "tag": "A11 PL→CZ 2026-11",
    "ok": true,
-   "note": "len=34925"
+   "note": "len=38954"
   },
   {
    "tag": "A11 SK→PL 2026-11",
@@ -29,27 +29,27 @@
   {
    "tag": "A11 PL→SK 2026-11",
    "ok": true,
-   "note": "len=48064"
+   "note": "len=52058"
   },
   {
    "tag": "A11 LT→PL 2026-11",
    "ok": true,
-   "note": "len=18924"
+   "note": "len=20836"
   },
   {
    "tag": "A11 PL→LT 2026-11",
    "ok": true,
-   "note": "len=35310"
+   "note": "len=38552"
   },
   {
    "tag": "A11 SE4→PL 2026-11",
    "ok": true,
-   "note": "len=8726"
+   "note": "len=11006"
   },
   {
    "tag": "A11 PL→SE4 2026-11",
    "ok": true,
-   "note": "len=30409"
+   "note": "len=31607"
   },
   {
    "tag": "A11 UA→PL 2026-11",
@@ -59,7 +59,7 @@
   {
    "tag": "A11 PL→UA 2026-11",
    "ok": true,
-   "note": "len=28684"
+   "note": "len=32900"
   }
  ]
 }
