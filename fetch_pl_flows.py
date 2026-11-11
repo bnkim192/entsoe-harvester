@@ -14,7 +14,8 @@
 
 환경변수
   ENTSOE_TOKEN  (GitHub Secrets)
-  PLF_START     수집 시작일 (기본 2026-01-01)
+  PLF_START     지정하면 그날부터 다시 받음. 비우면 기존 파일의 마지막 날 −3일부터(매일 실행 = 사실상 전날분),
+                파일이 없으면 최근 14일
 """
 import os, json, csv, time
 import datetime as dt
@@ -34,7 +35,9 @@ BORDERS = {
     "SE4": ["10Y1001A1001A47J"],
     "UA": ["10Y1001C--000182", "10Y1001C--00003F"],     # UA IPS, UA
 }
-START = os.environ.get("PLF_START", "").strip() or "2026-01-01"
+START_ENV = os.environ.get("PLF_START", "").strip()   # 지정하면 그날부터 다시 받음
+FIRST_DAYS = 14        # 파일이 없을 때 처음 받는 기간 (주간보고 이번 주·전주 비교용)
+OVERLAP_DAYS = 3       # 매일 실행 시 최근 3일만 다시 받아 덮어씀 (전날 확정값 반영)
 TZ = ZoneInfo("Europe/Warsaw")
 UTC = dt.timezone.utc
 MIN_HOURS = 20
@@ -57,9 +60,9 @@ def log(*a):
 # ══════════════════════════════════════════════════════════════════
 #  ENTSO-E
 # ══════════════════════════════════════════════════════════════════
-def windows():
-    """START ~ 내일(UTC)을 31일 단위로 자른다."""
-    s = dt.datetime.strptime(START, "%Y-%m-%d")
+def windows(start):
+    """start ~ 내일(UTC)을 31일 단위로 자른다."""
+    s = dt.datetime.strptime(start, "%Y-%m-%d")
     end = dt.datetime.now(UTC).replace(tzinfo=None, minute=0, second=0, microsecond=0) + dt.timedelta(days=1)
     out = []
     while s < end:
@@ -75,7 +78,7 @@ def entsoe(params, tag):
     p["securityToken"] = TOKEN
     for _ in range(3):
         try:
-            r = requests.get(BASE_URL, params=p, timeout=180)
+            r = requests.get(BASE_URL, params=p, timeout=(10, 120))
         except Exception as e:
             log("  [%s] 접속 실패 (%s)" % (tag, type(e).__name__))
             time.sleep(5)
@@ -142,10 +145,10 @@ def parse_flow(xml):
     return out
 
 
-def fetch_dir(in_eic, out_eic, tag):
+def fetch_dir(in_eic, out_eic, tag, start):
     """{(분해능, utc시각): MW}"""
     pts = {}
-    for s, e in windows():
+    for s, e in windows(start):
         x = entsoe({"documentType": "A11", "in_Domain": in_eic, "out_Domain": out_eic,
                     "periodStart": s.strftime("%Y%m%d%H%M"), "periodEnd": e.strftime("%Y%m%d%H00")},
                    "%s %s" % (tag, s.strftime("%Y-%m")))
@@ -175,12 +178,14 @@ def daily_gwh(pts):
     return out
 
 
-def get_flows():
+def get_flows(start, known):
+    """known = 이전 실행에서 자료가 나온 국경별 코드 (그 코드부터 시도)"""
     res, used = {}, {}
     for name, codes in BORDERS.items():
+        codes = ([known[name]] if name in known else []) + [c for c in codes if c != known.get(name)]
         for code in codes:
-            imp = daily_gwh(fetch_dir(PL, code, "A11 %s→PL" % name))
-            exp = daily_gwh(fetch_dir(code, PL, "A11 PL→%s" % name))
+            imp = daily_gwh(fetch_dir(PL, code, "A11 %s→PL" % name, start))
+            exp = daily_gwh(fetch_dir(code, PL, "A11 PL→%s" % name, start))
             if imp or exp:
                 res[name] = {"imp": imp, "exp": exp}
                 used[name] = code
@@ -233,7 +238,24 @@ def probe_pse():
 # ══════════════════════════════════════════════════════════════════
 def main():
     if TOKEN:
-        flows, used = get_flows()
+        # 이전 파일이 있으면 최근 3일만 다시 받아 덮어쓰고, 없으면 최근 14일을 받는다
+        old = {}
+        if os.path.exists(OUT_JSON):
+            try:
+                with open(OUT_JSON, encoding="utf-8") as f:
+                    old = json.load(f)
+            except ValueError:
+                old = {}
+        old_rows = {r["date"]: r for r in old.get("rows", [])}
+        today = dt.datetime.now(TZ).date()
+        if START_ENV:
+            start = START_ENV
+        elif old_rows:
+            start = (dt.date.fromisoformat(max(old_rows)) - dt.timedelta(days=OVERLAP_DAYS)).isoformat()
+        else:
+            start = (today - dt.timedelta(days=FIRST_DAYS)).isoformat()
+        log("수집 시작일", start, "(기존 %d일)" % len(old_rows))
+        flows, used = get_flows(start, old.get("borders", {}))
         days = sorted({d for b in flows.values() for k in ("imp", "exp") for d in b[k]})
         names = list(flows.keys())
         rows = []
@@ -256,9 +278,14 @@ def main():
             row["total_net"] = round(ti - te, 3) if complete else None
             rows.append(row)
         if rows:
-            cols = list(rows[0].keys())
+            for r in rows:                              # 새로 받은 날짜는 덮어쓰고 나머지는 유지
+                old_rows[r["date"]] = r
+            rows = [old_rows[d] for d in sorted(old_rows)]
+            used = dict(old.get("borders", {}), **used)
+            cols = ["date"] + sorted({k for r in rows for k in r if k != "date"},
+                                     key=lambda k: (k.startswith("total"), k))
             with open(OUT_CSV, "w", newline="", encoding="utf-8") as f:
-                w = csv.DictWriter(f, fieldnames=cols)
+                w = csv.DictWriter(f, fieldnames=cols, restval="")
                 w.writeheader()
                 w.writerows(rows)
             with open(OUT_JSON, "w", encoding="utf-8") as f:

@@ -8,7 +8,7 @@ TGE GPI 'Zestawienie ubytkow' (폴란드 발전설비 출력 감소 공시) 수�
 첫 실행 결과(gpi_probe.json, gpi_raw/*.html)를 보고 다음 판에서 열 이름을 확정한다.
 
 산출물
-  pl_outages_latest.json    오늘부터 +7일까지 날짜별 표 (머리글, 행, 자동 합계)
+  pl_outages_latest.json    오늘·내일 날짜별 표 (머리글, 행, 자동 합계)
   pl_outages_history.jsonl  하루 1줄 누적 (조회일 = 오늘인 표만, 같은 날 재실행 시 덮어씀)
   gpi_probe.json            진단 (상태코드, 표 개수, 머리글, 페이지에 보이는 날짜, 내보내기·AJAX 링크 후보)
   gpi_raw/YYYY-MM-DD.html   오늘 날짜 원본 HTML (최근 7개만 유지)
@@ -30,7 +30,7 @@ UA = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "pl,en;q=0.8",
 }
-DAYS_AHEAD = 7
+DAYS_AHEAD = 1          # 오늘·내일 목록만
 RAW_DIR = "gpi_raw"
 RAW_KEEP = 7
 OUT_LATEST = "pl_outages_latest.json"
@@ -214,16 +214,17 @@ def link_candidates(html):
 
 
 def fetch(sess, params=None):
-    for k in range(3):
+    """접속 10초·응답 40초 제한, 2번까지만 시도 (접속이 막히면 오래 붙잡지 않는다)."""
+    for k in range(2):
         try:
-            r = sess.get(BASE, params=params, headers=UA, timeout=60)
+            r = sess.get(BASE, params=params, headers=UA, timeout=(10, 40))
             # charset 표기가 없으면 requests가 ISO-8859-1로 잡아 폴란드어가 깨지므로 그때는 UTF-8
             enc = r.encoding if "charset" in r.headers.get("Content-Type", "").lower() else "utf-8"
             html = r.content.decode(enc or "utf-8", errors="replace")
             return r.status_code, r.url, html
         except requests.RequestException as e:
             log("retry", k + 1, type(e).__name__)
-            time.sleep(5 * (k + 1))
+            time.sleep(3)
     return None, BASE, ""
 
 
@@ -280,6 +281,11 @@ def main():
     today_html = ""
     for name, params in variants:
         st, url, html = fetch(sess, params)
+        if st is None and name == "plain":     # 첫 접속부터 안 되면 나머지는 시도하지 않고 끝낸다
+            probe["connect_failed"] = True
+            write_json(OUT_PROBE, probe)
+            log("GPI 접속 불가 — 이번 실행은 건너뜀 (기존 파일 유지)")
+            return
         info, main_tab = analyze(st, url, html)
         info["main_rows"] = len(main_tab["rows"]) if main_tab else 0
         probe["variants"][name] = info
