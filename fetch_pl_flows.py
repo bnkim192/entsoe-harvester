@@ -204,13 +204,24 @@ def probe_pse():
         r = requests.get(PSE_API + "/", headers=UA, timeout=60)
         out["status"] = r.status_code
         out["content_type"] = r.headers.get("Content-Type", "")
+        names = []
         try:
             js = r.json()
+            names = [v.get("name") or v.get("url") for v in js.get("value", []) if isinstance(v, dict)]
         except ValueError:
-            out["head"] = r.text[:1500]
-            return out
-        names = [v.get("name") or v.get("url") for v in js.get("value", []) if isinstance(v, dict)]
+            pass
+        if not names:
+            out["head"] = r.text[:800]
+        if not names:                                   # 목록이 안 나오면 OData $metadata 에서 EntitySet 이름을 뽑는다
+            rm = requests.get(PSE_API + "/$metadata", headers=UA, timeout=60)
+            out["metadata_status"] = rm.status_code
+            import re
+            names = re.findall(r'<EntitySet\s+Name="([^"]+)"', rm.text)
+            if not names:
+                out["metadata_head"] = rm.text[:1500]
         out["entities"] = names
+        if not names:
+            return out
         cand = [n for n in names if n and any(k in n.lower() for k in PSE_KEYS)]
         out["candidates"] = {}
         for n in cand[:12]:

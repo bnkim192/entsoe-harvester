@@ -1,359 +1,227 @@
 """
-TGE GPI 'Zestawienie ubytkow' (폴란드 발전설비 출력 감소 공시) 수집기
+폴란드 발전설비 정지(출력 감소) 수집기 — ENTSO-E 판
 
-출처  https://gpi.tge.pl/zestawienie-ubytkow  (공개 페이지, 키 불필요)
+TGE GPI(gpi.tge.pl)는 GitHub 서버에서도 접속이 막혀(ConnectTimeout) ENTSO-E 로 바꿨다.
+같은 REMIT 정지 공시를 발전사가 ENTSO-E Transparency 에도 올린다.
 
-첫 판은 페이지 구조를 모르는 채로 짠다 (회사 PC에서는 사이트가 막혀 있어 미리 볼 수 없음).
-그래서 표를 일반적인 방법으로 읽고, 원본 HTML과 진단 파일을 같이 남긴다.
-첫 실행 결과(gpi_probe.json, gpi_raw/*.html)를 보고 다음 판에서 열 이름을 확정한다.
+자료
+  A80  발전기(유닛) 정지   Unavailability of Generation Units
+  A77  발전소 정지          Unavailability of Production Units
+  businessType A53 = 계획정지, A54 = 고장정지(불시)
+  정지 MW = 정격용량(nominalP) − 정지 중 가용용량(가장 낮은 값). 가용용량이 없으면 전량 정지로 본다.
+  같은 공시의 여러 판(revision)은 가장 최신판만, 취소된 공시(docStatus A09)는 뺀다.
 
 산출물
-  pl_outages_latest.json    오늘·내일 날짜별 표 (머리글, 행, 자동 합계)
-  pl_outages_history.jsonl  하루 1줄 누적 (조회일 = 오늘인 표만, 같은 날 재실행 시 덮어씀)
-  gpi_probe.json            진단 (상태코드, 표 개수, 머리글, 페이지에 보이는 날짜, 내보내기·AJAX 링크 후보)
-  gpi_raw/YYYY-MM-DD.html   오늘 날짜 원본 HTML (최근 7개만 유지)
-"""
-import datetime as dt
-import json
-import os
-import re
-import time
-from html.parser import HTMLParser
+  pl_outages_latest.json    오늘 기준 −1일 ~ +7일에 걸친 정지 목록 + 날짜별 정지 MW 합계(계획·고장, 전원별)
+  pl_outages_history.jsonl  하루 1줄 누적(오늘 날짜 합계, 같은 날 재실행 시 덮어씀)
+  pl_outages_diag.json      요청별 결과
 
+환경변수  ENTSOE_TOKEN (GitHub Secrets)
+"""
+import os, io, json, time, zipfile
+import datetime as dt
+import xml.etree.ElementTree as ET
+from zoneinfo import ZoneInfo
 import requests
 
-BASE = "https://gpi.tge.pl/zestawienie-ubytkow"
-PID = "gpicalendar_WAR_gpicalendarportlet"
-UA = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                  "Chrome/124.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "pl,en;q=0.8",
-}
-DAYS_AHEAD = 1          # 오늘·내일 목록만
-RAW_DIR = "gpi_raw"
-RAW_KEEP = 7
+TOKEN = os.environ.get("ENTSOE_TOKEN", "").strip()
+BASE_URL = "https://web-api.tp.entsoe.eu/api"
+PL = "10YPL-AREA-----S"
+TZ = ZoneInfo("Europe/Warsaw")
+UTC = dt.timezone.utc
+BACK_DAYS, AHEAD_DAYS = 1, 7
+PAGE = 200                      # ENTSO-E 정지 자료는 한 번에 최대 200건, offset 으로 넘김
+PSR = {"B01": "바이오", "B02": "갈탄", "B03": "석탄가스", "B04": "가스", "B05": "유연탄", "B06": "석유",
+       "B10": "양수", "B11": "수력(유입식)", "B12": "수력(저수지)", "B14": "원자력", "B15": "기타 재생",
+       "B16": "태양광", "B17": "폐기물", "B18": "해상풍력", "B19": "육상풍력", "B20": "기타"}
+BT = {"A53": "계획", "A54": "고장"}
+
 OUT_LATEST = "pl_outages_latest.json"
 OUT_HIST = "pl_outages_history.jsonl"
-OUT_PROBE = "gpi_probe.json"
-
-# 열 자동 인식용 키워드 (폴란드어 소문자, 앞부분만). 첫 실행 뒤 실제 머리글로 확정한다.
-COLS = {
-    "unit": ["jednost", "nazwa", "blok", "obiekt", "unit"],
-    "mw": ["ubyt", "niedost", "wielko", "unavail", "mw"],
-    "type": ["rodzaj", "typ", "charakter", "planow"],
-    "start": ["począt", "poczat", "od", "start", "rozpocz"],
-    "end": ["koniec", "zakończ", "zakoncz", "do", "end"],
-    "reason": ["przyczyn", "powód", "powod", "reason", "uwag"],
-    "company": ["uczestnik", "podmiot", "spółk", "spolk", "firma", "właści", "wlasci"],
-}
+OUT_DIAG = "pl_outages_diag.json"
+DIAG = []
 
 
 def log(*a):
-    print("[gpi]", *a, flush=True)
+    print("[outages]", *a, flush=True)
 
 
-def norm(s):
-    return re.sub(r"\s+", " ", (s or "").replace("\xa0", " ")).strip()
+def local(tag):
+    return tag.split("}")[-1]
 
 
-class Tables(HTMLParser):
-    """모든 <table>을 행·칸 목록으로 읽는다. 중첩 표는 표마다 상태를 따로 둔다."""
-
-    def __init__(self):
-        super().__init__(convert_charrefs=True)
-        self.tables = []
-        self.stack = []
-        self.title = []
-        self._in_title = False
-        self._skip = 0  # script/style 안
-
-    def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if tag in ("script", "style"):
-            self._skip += 1
-        elif tag == "title":
-            self._in_title = True
-        elif tag == "table":
-            t = {"id": a.get("id") or "", "cls": a.get("class") or "", "rows": [], "row": None, "cell": None}
-            self.tables.append(t)
-            self.stack.append(t)
-        elif not self.stack:
-            return
-        elif tag == "tr":
-            self.stack[-1]["row"] = []
-        elif tag in ("td", "th"):
-            t = self.stack[-1]
-            if t["row"] is None:
-                t["row"] = []
-            t["cell"] = {"th": tag == "th", "txt": [], "span": int(a.get("colspan") or 1) if str(a.get("colspan") or "1").isdigit() else 1}
-        elif tag == "br" and self.stack[-1]["cell"] is not None:
-            self.stack[-1]["cell"]["txt"].append(" ")
-
-    def handle_endtag(self, tag):
-        if tag in ("script", "style"):
-            self._skip = max(0, self._skip - 1)
-        elif tag == "title":
-            self._in_title = False
-        elif not self.stack:
-            return
-        elif tag in ("td", "th"):
-            self._close_cell(self.stack[-1])
-        elif tag == "tr":
-            t = self.stack[-1]
-            self._close_cell(t)
-            if t["row"]:
-                t["rows"].append(t["row"])
-            t["row"] = None
-        elif tag == "table":
-            t = self.stack.pop()
-            self._close_cell(t)
-            if t["row"]:
-                t["rows"].append(t["row"])
-            t["row"] = None
-
-    @staticmethod
-    def _close_cell(t):
-        c = t["cell"]
-        if c is not None and t["row"] is not None:
-            txt = norm("".join(c["txt"]))
-            t["row"].append((c["th"], txt))
-            for _ in range(max(0, c["span"] - 1)):
-                t["row"].append((c["th"], txt))
-        t["cell"] = None
-
-    def handle_data(self, d):
-        if self._skip:
-            return
-        if self._in_title:
-            self.title.append(d)
-        if self.stack and self.stack[-1]["cell"] is not None:
-            self.stack[-1]["cell"]["txt"].append(d)
-
-
-def to_table(t):
-    """머리글 행(전부 th, 없으면 첫 행)과 자료 행으로 나눈다."""
-    rows = t["rows"]
-    if not rows:
-        return None
-    hi = next((i for i, r in enumerate(rows[:3]) if r and all(c[0] for c in r)), 0)
-    header = [c[1] or ("col%d" % (j + 1)) for j, c in enumerate(rows[hi])]
-    data = []
-    for r in rows[hi + 1:]:
-        vals = [c[1] for c in r]
-        if not any(vals):
-            continue
-        if len(vals) < len(header):
-            vals += [""] * (len(header) - len(vals))
-        data.append(vals[:len(header)] if len(vals) > len(header) else vals)
-    return {"id": t["id"], "cls": t["cls"], "header": header, "rows": data,
-            "width_mismatch": sum(1 for r in rows[hi + 1:] if len(r) != len(header))}
-
-
-def find_col(header, keys):
-    h = [x.lower() for x in header]
-    for k in keys:
-        for i, x in enumerate(h):
-            if k in x:
-                return i
+def first(el, name):
+    """하위 요소 중 이름이 name 인 첫 요소의 글자 (이름공간 무시)."""
+    for x in el.iter():
+        if local(x.tag) == name and x.text and x.text.strip():
+            return x.text.strip()
     return None
 
 
-def num(s):
-    s = norm(s).replace(" ", "")
-    m = re.search(r"-?\d+(?:[.,]\d+)?", s)
-    if not m:
-        return None
-    try:
-        return float(m.group(0).replace(",", "."))
-    except ValueError:
-        return None
+def children(el, name):
+    return [x for x in el.iter() if local(x.tag) == name]
 
 
-def summarize(tab):
-    """열을 자동으로 찾아 합계를 낸다. 열을 못 찾으면 비워 둔다 (추정값을 만들지 않음)."""
-    cols = {k: find_col(tab["header"], v) for k, v in COLS.items()}
-    out = {"cols_guess": {k: (tab["header"][i] if i is not None else None) for k, i in cols.items()},
-           "n_rows": len(tab["rows"])}
-    mi = cols["mw"]
-    if mi is None:
-        return out
-    vals = [num(r[mi]) for r in tab["rows"] if mi < len(r)]
-    vals = [v for v in vals if v is not None]
-    out["mw_sum"] = round(sum(vals), 1) if vals else None
-    out["mw_n"] = len(vals)
-    ti = cols["type"]
-    if ti is not None:
-        by = {}
-        for r in tab["rows"]:
-            if mi < len(r) and ti < len(r):
-                v = num(r[mi])
-                if v is not None:
-                    by[r[ti] or "(빈칸)"] = round(by.get(r[ti] or "(빈칸)", 0) + v, 1)
-        out["mw_by_type"] = by
+def get_docs(doc_type, s, e):
+    """XML 문서 목록. 응답이 zip 이면 안의 xml 을 모두 꺼낸다."""
+    docs, offset = [], 0
+    while True:
+        p = {"securityToken": TOKEN, "documentType": doc_type, "biddingZone_Domain": PL,
+             "periodStart": s.strftime("%Y%m%d%H%M"), "periodEnd": e.strftime("%Y%m%d%H%M"), "offset": str(offset)}
+        tag = "%s offset %d" % (doc_type, offset)
+        r = None
+        for _ in range(2):
+            try:
+                r = requests.get(BASE_URL, params=p, timeout=(10, 120))
+                break
+            except requests.RequestException as ex:
+                DIAG.append({"tag": tag, "ok": False, "note": type(ex).__name__})
+                time.sleep(3)
+        if r is None:
+            return docs
+        body = r.content
+        if body[:2] == b"PK":
+            with zipfile.ZipFile(io.BytesIO(body)) as z:
+                got = [z.read(n).decode("utf-8", errors="replace") for n in z.namelist() if n.lower().endswith(".xml")]
+        else:
+            txt = body.decode("utf-8", errors="replace")
+            if "Acknowledgement_MarketDocument" in txt[:400] or r.status_code != 200:
+                i, j = txt.find("<text>"), txt.find("</text>")
+                DIAG.append({"tag": tag, "ok": False,
+                             "note": "HTTP %s %s" % (r.status_code, txt[i + 6:j][:150] if 0 <= i < j else txt[:150])})
+                return docs
+            got = [txt]
+        DIAG.append({"tag": tag, "ok": True, "note": "문서 %d건" % len(got)})
+        docs += got
+        if len(got) < PAGE:
+            return docs
+        offset += PAGE
+        time.sleep(0.5)
+
+
+def ptime(d, t):
+    if not d:
+        return None
+    t = (t or "00:00:00Z").replace("Z", "")
+    return dt.datetime.strptime(d + "T" + t[:5], "%Y-%m-%dT%H:%M").replace(tzinfo=UTC)
+
+
+def parse(xml, doc_type):
+    root = ET.fromstring(xml)
+    st = None
+    for x in root.iter():
+        if local(x.tag) == "docStatus":
+            st = first(x, "value")
+            break
+    reason = "; ".join(t for t in (first(x, "text") for x in children(root, "Reason")) if t)
+    out = []
+    for ts in children(root, "TimeSeries"):
+        s = ptime(first(ts, "start_DateAndOrTime.date"), first(ts, "start_DateAndOrTime.time"))
+        e = ptime(first(ts, "end_DateAndOrTime.date"), first(ts, "end_DateAndOrTime.time"))
+        try:
+            nom = float(first(ts, "production_RegisteredResource.pSRType.powerSystemResources.nominalP") or "nan")
+        except ValueError:
+            nom = float("nan")
+        avail = []
+        for pt in children(ts, "Point"):
+            q = first(pt, "quantity")
+            try:
+                avail.append(float(q))
+            except (TypeError, ValueError):
+                pass
+        mn = min(avail) if avail else 0.0
+        unav = (nom - mn) if nom == nom else None
+        psr = first(ts, "psrType")
+        out.append({
+            "mrid": first(root, "mRID"), "rev": int(first(root, "revisionNumber") or 0), "status": st,
+            "doc": doc_type, "type": BT.get(first(ts, "businessType") or "", first(ts, "businessType")),
+            "plant": first(ts, "production_RegisteredResource.name"),
+            "unit": first(ts, "production_RegisteredResource.pSRType.powerSystemResources.name"),
+            "fuel": PSR.get(psr or "", psr), "nominal_mw": nom if nom == nom else None,
+            "avail_min_mw": mn if avail else None,
+            "unavail_mw": round(max(0.0, unav), 1) if unav is not None else None,
+            "start_utc": s.isoformat() if s else None, "end_utc": e.isoformat() if e else None,
+            "reason": reason[:200] or None,
+        })
     return out
 
 
-DATE_RX = re.compile(r"\b(20\d\d-\d\d-\d\d|\d\d\.\d\d\.20\d\d)\b")
-LINK_RX = re.compile(r"""["'](https?://[^"'\s<>]+|/[^"'\s<>]+)["']""")
-LINK_KEYS = ("p_p_lifecycle=2", "p_p_resource", "resource", "ajax", "export", "eksport", "pobierz",
-             ".csv", ".xls", ".json", "/api/", "download")
-
-
-def link_candidates(html):
-    seen = []
-    for m in LINK_RX.finditer(html):
-        u = m.group(1)
-        lu = u.lower()
-        if any(k in lu for k in LINK_KEYS) and not lu.endswith((".css", ".png", ".svg", ".ico", ".woff", ".woff2")):
-            if u not in seen:
-                seen.append(u)
-        if len(seen) >= 40:
-            break
-    return seen
-
-
-def fetch(sess, params=None):
-    """접속 10초·응답 40초 제한, 2번까지만 시도 (접속이 막히면 오래 붙잡지 않는다)."""
-    for k in range(2):
-        try:
-            r = sess.get(BASE, params=params, headers=UA, timeout=(10, 40))
-            # charset 표기가 없으면 requests가 ISO-8859-1로 잡아 폴란드어가 깨지므로 그때는 UTF-8
-            enc = r.encoding if "charset" in r.headers.get("Content-Type", "").lower() else "utf-8"
-            html = r.content.decode(enc or "utf-8", errors="replace")
-            return r.status_code, r.url, html
-        except requests.RequestException as e:
-            log("retry", k + 1, type(e).__name__)
-            time.sleep(3)
-    return None, BASE, ""
-
-
-def day_params(d, direction=None):
-    p = {"p_p_id": PID, "p_p_lifecycle": "0", "p_p_state": "normal", "p_p_mode": "view",
-         "p_p_col_id": "column-1", "p_p_col_count": "1",
-         "_%s_current" % PID: d.isoformat()}
-    if direction is not None:
-        p["_%s_direction" % PID] = str(direction)
-    return p
-
-
-def analyze(status, url, html):
-    p = Tables()
-    try:
-        p.feed(html)
-    except Exception as e:  # 깨진 HTML도 진단은 남긴다
-        log("parse error", type(e).__name__)
-    tabs = [x for x in (to_table(t) for t in p.tables) if x]
-    main = max(tabs, key=lambda x: len(x["rows"]), default=None)
-    text = re.sub(r"<[^>]+>", " ", re.sub(r"(?is)<(script|style).*?</\1>", " ", html))
-    return {
-        "status": status, "url": url, "len": len(html), "title": norm("".join(p.title)),
-        "n_tables": len(tabs),
-        "tables": [{"id": t["id"], "cls": t["cls"], "header": t["header"], "n_rows": len(t["rows"]),
-                    "width_mismatch": t["width_mismatch"], "sample": t["rows"][:3]} for t in tabs[:10]],
-        "dates_seen": sorted(set(DATE_RX.findall(text)))[:20],
-        "cookie_or_block": [k for k in ("cookie", "captcha", "access denied", "forbidden", "cloudflare")
-                            if k in html.lower()][:5],
-    }, main
-
-
-def write_json(path, obj):
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(obj, f, ensure_ascii=False, indent=1)
-
-
 def main():
-    now = dt.datetime.now(dt.timezone.utc)
-    try:
-        from zoneinfo import ZoneInfo
-        today = now.astimezone(ZoneInfo("Europe/Warsaw")).date()
-    except Exception:
-        today = now.date()
-    sess = requests.Session()
-    probe = {"fetched_utc": now.isoformat(timespec="seconds"), "today_pl": today.isoformat(), "variants": {}}
-    latest = {"source": BASE, "fetched_utc": probe["fetched_utc"], "note": "열 이름은 자동 추정. gpi_probe.json으로 확인 후 확정",
-              "days": {}}
+    now = dt.datetime.now(UTC)
+    today = now.astimezone(TZ).date()
+    if not TOKEN:
+        log("ENTSOE_TOKEN 없음 — 건너뜀")
+        return
+    s = dt.datetime.combine(today - dt.timedelta(days=BACK_DAYS), dt.time(0), TZ).astimezone(UTC)
+    e = dt.datetime.combine(today + dt.timedelta(days=AHEAD_DAYS + 1), dt.time(0), TZ).astimezone(UTC)
 
-    # 1) 주소 형식 비교 (어떤 형식이 그 날짜를 보여 주는지 첫 실행에서 확인)
-    variants = [("plain", None),
-                ("current_today", day_params(today)),
-                ("user_form_dir-1_next", day_params(today + dt.timedelta(days=1), -1))]
-    today_html = ""
-    for name, params in variants:
-        st, url, html = fetch(sess, params)
-        if st is None and name == "plain":     # 첫 접속부터 안 되면 나머지는 시도하지 않고 끝낸다
-            probe["connect_failed"] = True
-            write_json(OUT_PROBE, probe)
-            log("GPI 접속 불가 — 이번 실행은 건너뜀 (기존 파일 유지)")
-            return
-        info, main_tab = analyze(st, url, html)
-        info["main_rows"] = len(main_tab["rows"]) if main_tab else 0
-        probe["variants"][name] = info
-        if name == "plain":
-            probe["link_candidates"] = link_candidates(html)
-        if name == "current_today" and html:
-            today_html = html
-        log(name, st, "len", len(html), "tables", info["n_tables"], "rows", info["main_rows"], info["dates_seen"][:3])
-        time.sleep(1.5)
+    recs = []
+    for doc_type in ("A80", "A77"):
+        docs = get_docs(doc_type, s, e)
+        n0 = len(recs)
+        for x in docs:
+            try:
+                recs += parse(x, doc_type)
+            except ET.ParseError as ex:
+                DIAG.append({"tag": doc_type, "ok": False, "note": "XML 해석 실패 %s" % ex})
+        log(doc_type, "문서", len(docs), "정지 건", len(recs) - n0)
 
-    # 2) 오늘~+7일 날짜별 표
-    for k in range(DAYS_AHEAD + 1):
+    # 같은 공시는 최신판만, 취소 공시 제외
+    best = {}
+    for r in recs:
+        k = (r["mrid"], r["doc"], r["unit"] or r["plant"], r["start_utc"])
+        if k not in best or r["rev"] > best[k]["rev"]:
+            best[k] = r
+    cur = [r for r in best.values() if r["status"] != "A09" and r["unavail_mw"]]
+    cur.sort(key=lambda r: (-(r["unavail_mw"] or 0), r["plant"] or ""))
+
+    # 날짜별 합계 (그날 하루 중 일부라도 겹치면 포함)
+    daily = {}
+    for k in range(-BACK_DAYS, AHEAD_DAYS + 1):
         d = today + dt.timedelta(days=k)
-        if k == 0 and today_html:
-            st, url, html = probe["variants"]["current_today"]["status"], probe["variants"]["current_today"]["url"], today_html
-        else:
-            st, url, html = fetch(sess, day_params(d))
-            time.sleep(1.5)
-        info, tab = analyze(st, url, html)
-        day = {"status": st, "dates_seen": info["dates_seen"][:5]}
-        if tab:
-            day.update({"header": tab["header"], "rows": tab["rows"], "summary": summarize(tab)})
-        latest["days"][d.isoformat()] = day
-        log(d.isoformat(), st, "rows", len(tab["rows"]) if tab else 0)
+        d0 = dt.datetime.combine(d, dt.time(0), TZ).astimezone(UTC)
+        d1 = d0 + dt.timedelta(days=1)
+        tot, by_t, by_f, n = 0.0, {}, {}, 0
+        for r in cur:
+            rs = dt.datetime.fromisoformat(r["start_utc"]) if r["start_utc"] else None
+            re_ = dt.datetime.fromisoformat(r["end_utc"]) if r["end_utc"] else None
+            if (rs and rs >= d1) or (re_ and re_ <= d0):
+                continue
+            v = r["unavail_mw"]
+            tot += v
+            n += 1
+            by_t[r["type"] or "미상"] = round(by_t.get(r["type"] or "미상", 0) + v, 1)
+            by_f[r["fuel"] or "미상"] = round(by_f.get(r["fuel"] or "미상", 0) + v, 1)
+        daily[d.isoformat()] = {"n": n, "unavail_mw": round(tot, 1), "by_type": by_t, "by_fuel": by_f}
 
-    write_json(OUT_LATEST, latest)
+    with open(OUT_LATEST, "w", encoding="utf-8") as f:
+        json.dump({"source": "ENTSO-E A80(발전기)·A77(발전소) Unavailability", "zone": "PL",
+                   "fetched_utc": now.isoformat(timespec="seconds"), "today_pl": today.isoformat(),
+                   "note": "정지 MW = 정격 − 정지 중 최저 가용용량. 하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). "
+                           "A80과 A77에 같은 설비가 겹쳐 올라올 수 있음(첫 실행 후 확인).",
+                   "daily": daily, "outages": cur}, f, ensure_ascii=False, indent=1)
 
-    # 3) 누적 (조회일 = 오늘 표만, 같은 날짜는 덮어씀)
-    t0 = latest["days"].get(today.isoformat(), {})
-    if t0.get("rows"):
+    t0 = daily.get(today.isoformat())
+    if t0 is not None:
         lines = []
         if os.path.exists(OUT_HIST):
             with open(OUT_HIST, encoding="utf-8") as f:
                 for ln in f:
                     ln = ln.strip()
-                    if not ln:
-                        continue
                     try:
-                        if json.loads(ln).get("date") != today.isoformat():
+                        if ln and json.loads(ln).get("date") != today.isoformat():
                             lines.append(ln)
                     except ValueError:
                         pass
-        lines.append(json.dumps({"date": today.isoformat(), "fetched_utc": probe["fetched_utc"],
-                                 "header": t0["header"], "rows": t0["rows"], "summary": t0.get("summary")},
+        lines.append(json.dumps(dict({"date": today.isoformat(), "fetched_utc": now.isoformat(timespec="seconds")}, **t0),
                                 ensure_ascii=False))
         with open(OUT_HIST, "w", encoding="utf-8") as f:
             f.write("\n".join(lines) + "\n")
-        log("history lines", len(lines))
-    else:
-        log("history skip: 오늘 표 없음")
 
-    # 4) 원본 HTML (구조 확인용, 최근 7개)
-    if today_html:
-        os.makedirs(RAW_DIR, exist_ok=True)
-        with open(os.path.join(RAW_DIR, today.isoformat() + ".html"), "w", encoding="utf-8") as f:
-            f.write(today_html)
-        old = sorted(x for x in os.listdir(RAW_DIR) if x.endswith(".html"))[:-RAW_KEEP]
-        for x in old:
-            os.remove(os.path.join(RAW_DIR, x))
-
-    write_json(OUT_PROBE, probe)
-    log("done")
+    with open(OUT_DIAG, "w", encoding="utf-8") as f:
+        json.dump({"fetched_utc": now.isoformat(timespec="seconds"), "log": DIAG}, f, ensure_ascii=False, indent=1)
+    log("정지 %d건, 오늘 정지 %s MW" % (len(cur), t0["unavail_mw"] if t0 else "-"))
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        log("FATAL", type(e).__name__, str(e)[:200])
-        write_json(OUT_PROBE, {"fatal": type(e).__name__, "msg": str(e)[:500],
-                               "fetched_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")})
+    main()
