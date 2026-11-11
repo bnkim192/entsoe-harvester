@@ -1,8 +1,10 @@
 {
  "base": "https://api.raporty.pse.pl/api",
- "fetched_utc": "2026-11-11T00:59:24+00:00",
+ "fetched_utc": "2026-11-11T01:04:03+00:00",
  "status": 404,
  "content_type": "application/json; charset=utf-8",
- "entities": [],
- "candidates": {}
+ "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: .\",\"status\":404}}",
+ "metadata_status": 404,
+ "metadata_head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: $metadata.\",\"status\":404}}",
+ "entities": []
 }
