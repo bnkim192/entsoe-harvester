@@ -55,6 +55,7 @@ NEIGH = {"DE": "10Y1001A1001A82H", "CZ": "10YCZ-CEPS-----N", "SK": "10YSK-SEPS--
 PSR = {"B19": "wind_on", "B18": "wind_off", "B16": "solar",
        "B04": "gas", "B05": "hardcoal", "B02": "lignite",
        "B01": "biomass", "B10": "hydro_ps", "B11": "hydro_ror", "B12": "hydro_res"}   # 바이오매스·수력(양수·유입식·저수지) 2026-11-13 추가
+UA_ALT = {"UA": ["10YUA-WEPS-----0", "10Y1001C--00003F"]}   # UA IPS 다음 후보: Burshtyn 섬, UA 전체
 START = os.environ.get("PLD_START", "").strip() or "2026-01-01"
 SPIKE_FROM = os.environ.get("PLD_SPIKE", "").strip() or "2026-10-27"
 BASE_FROM = "2026-09-01"
@@ -68,6 +69,7 @@ OUT_CSV = "pl_drivers_daily.csv"
 OUT_JSON = "pl_drivers_daily.json"
 OUT_DIAG = "pl_drivers_diag.json"
 LOG = []
+SKIPPED_CUR = set()
 FORECAST = {}
 
 
@@ -177,6 +179,7 @@ def parse_series(xml, value_tag, need_in_domain=False):
             continue                                   # 발전 방향만 (양수 소비 방향 제외)
         cur = ts.find(q("currency_Unit.name"))
         if value_tag == "price.amount" and cur is not None and (cur.text or "").strip() != "EUR":
+            SKIPPED_CUR.add((cur.text or "").strip())     # 유로가 아닌 가격은 버리고 통화만 기록
             continue                                   # 유로 가격만
         psr = None
         mk = ts.find(q("MktPSRType"))
@@ -279,6 +282,13 @@ def get_prices():
     for name, eic in [("PL", PL)] + list(NEIGH.items()):
         pts = merged(fetch_points({"documentType": "A44", "in_Domain": eic, "out_Domain": eic},
                                   "A44 " + name, "price.amount"))
+        if not pts and name in UA_ALT:                 # 우크라이나: 첫 코드에 자료가 없으면 다른 지역 코드로 다시 시도
+            for alt in UA_ALT[name]:
+                pts = merged(fetch_points({"documentType": "A44", "in_Domain": alt, "out_Domain": alt},
+                                          "A44 %s(%s)" % (name, alt), "price.amount"))
+                if pts:
+                    LOG.append({"item": "가격 %s 대체 코드" % name, "eic": alt})
+                    break
         bd = by_day(pts)
         out["px_" + name] = dmean(bd)
         if name == "PL":
@@ -485,7 +495,7 @@ def main():
 
     dg = diagnose(rows)
     with open(OUT_DIAG, "w", encoding="utf-8") as f:
-        json.dump({"collect": LOG, **dg}, f, ensure_ascii=False, indent=2)
+        json.dump({"collect": LOG, "skipped_currency": sorted(SKIPPED_CUR), **dg}, f, ensure_ascii=False, indent=2)
 
     log("\n================ 급등 원인 판정 (EUR/MWh) ================")
     log("기준 %s~%s  vs  급등기 %s~%s" % (dg["base"][0], dg["base"][1], dg["spike"][0], dg["spike"][1]))
