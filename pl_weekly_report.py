@@ -53,6 +53,7 @@ SRC_LONG = [
     ["수요", "ENTSO-E Transparency Platform, A65 Actual Total Load (PL)", "https://transparency.entsoe.eu"],
     ["국경 간 흐름", "ENTSO-E Transparency Platform, A11 Cross-Border Physical Flows (PL↔DE·CZ·SK·LT·SE4·UA)",
      "https://transparency.entsoe.eu"],
+    ["가스 저장률", "GIE AGSI+ Aggregated Gas Storage Inventory (PL)", "https://agsi.gie.eu"],
     ["발전설비 정지", "ENTSO-E Transparency Platform, A80 Unavailability of Generation Units (PL)",
      "https://transparency.entsoe.eu"],
     ["전원별 발전", "ENTSO-E Transparency Platform, A75 Actual Generation per Production Type (PL)",
@@ -153,7 +154,7 @@ def avg(R, ds, k, need=NEED):
 
 def wstats(R, ds):
     o = {k: avg(R, ds, k) for k in ("px_PL", "px_PL_pln", "px_PL_krw", "px_DE", "px_DE_pln", "px_CZ",
-                                    "px_SK", "px_LT", "px_SE4", "temp", "wind100", "rad")}
+                                    "px_SK", "px_LT", "px_SE4", "px_UA", "temp", "wind100", "rad")}
     for k in ("gas", "coal"):
         v = avg(R, ds, k)
         o[k] = v / 1000 if v is not None else None
@@ -1283,7 +1284,8 @@ def build_xlsx(path, ctx):
     add("폴란드 전력 하루전", "PLN/MWh", W["px_PL_pln"], P["px_PL_pln"], wk, "ENTSO-E × ECB", F4["px_PL_pln"])
     add("폴란드 전력 하루전", "EUR/MWh", W["px_PL"], P["px_PL"], wk, "ENTSO-E", F4["px_PL"])
     add("폴란드 전력 하루전", "원/kWh", W["px_PL_krw"], P["px_PL_krw"], wk, "ENTSO-E × ECB", F4["px_PL_krw"])
-    for c, nm in (("DE", "독일"), ("CZ", "체코"), ("SK", "슬로바키아"), ("LT", "리투아니아"), ("SE4", "스웨덴 남부")):
+    for c, nm in (("DE", "독일"), ("CZ", "체코"), ("SK", "슬로바키아"), ("LT", "리투아니아"), ("SE4", "스웨덴 남부"),
+                  ("UA", "우크라이나")):
         add(nm + " 전력 하루전", "EUR/MWh", W["px_" + c], P["px_" + c], wk, "ENTSO-E", F4["px_" + c])
     for key, nm, unit in (("EUA", "탄소배출권 EUA 경매", "EUR/t"), ("BRENT", "브렌트유 현물", "USD/bbl")):
         k = K.get(key)
@@ -1325,22 +1327,32 @@ def build_xlsx(path, ctx):
     fxp, fxk = ctx["fxp"], ctx["fxk"]
     sheet(wb, "전력_일별",
           ["날짜", "요일", "폴란드 EUR/MWh", "폴란드 PLN/MWh", "폴란드 원/kWh", "독일 EUR/MWh", "체코", "슬로바키아",
-           "리투아니아", "스웨덴 남부", "폴란드 15분 최고 EUR", "폴란드 15분 최저 EUR", "마이너스 가격 시간", "EUR→PLN 적용"],
+           "리투아니아", "스웨덴 남부", "우크라이나 EUR/MWh", "폴란드 15분 최고 EUR", "폴란드 15분 최저 EUR", "마이너스 가격 시간",
+           "EUR→PLN 적용"],
           [[dd(d), WD[dd(d).weekday()], r2(R[d].get("px_PL")), r2(R[d].get("px_PL_pln")), r2(R[d].get("px_PL_krw")),
             r2(R[d].get("px_DE")), r2(R[d].get("px_CZ")), r2(R[d].get("px_SK")), r2(R[d].get("px_LT")),
-            r2(R[d].get("px_SE4")), r2(R[d].get("px_PL_max")), r2(R[d].get("px_PL_min")), r2(R[d].get("px_PL_neg_h")),
-            r2(fxp.on(d), 4)] for d in days if R[d].get("px_PL") is not None],
-          {1: "yyyy-mm-dd", 3: "#,##0.00", 4: "#,##0.00", 5: "#,##0.0", 6: "#,##0.00"},
-          [12, 6, 12, 12, 11, 12, 10, 10, 10, 10, 13, 13, 11, 11])
+            r2(R[d].get("px_SE4")), r2(R[d].get("px_UA")), r2(R[d].get("px_PL_max")), r2(R[d].get("px_PL_min")),
+            r2(R[d].get("px_PL_neg_h")), r2(fxp.on(d), 4)] for d in days if R[d].get("px_PL") is not None],
+          {1: "yyyy-mm-dd", 3: "#,##0.00", 4: "#,##0.00", 5: "#,##0.0", 6: "#,##0.00", 11: "#,##0.00"},
+          [12, 6, 12, 12, 11, 12, 10, 10, 10, 10, 12, 13, 13, 11, 11])
+    # 하루 물량 MWh (2026-11-13 사용자 요청: MW 평균 → MWh, 수력·바이오매스·태양광 최고 출력 추가)
+    mk_ = ["load_mwh", "wind_mwh", "wind_on_mwh", "wind_off_mwh", "solar_mwh", "solar_peak", "resload_mwh", "coal_mwh",
+           "hardcoal_mwh", "lignite_mwh", "gas_mwh", "hydro_mwh", "biomass_mwh"]
     sheet(wb, "수급기상_일별",
-          ["날짜", "수요 MW", "풍력 MW", "  육상 MW", "  해상 MW", "태양광 MW", "잔여부하 MW", "석탄·갈탄 MW",
-           "  유연탄 MW", "  갈탄 MW", "가스 MW", "기온 °C", "풍속 100m km/h", "일사 kWh/m2"],
-          [[dd(d), r2(R[d].get("load"), 0), r2(R[d].get("wind"), 0), r2(R[d].get("wind_on"), 0),
-            r2(R[d].get("wind_off"), 0), r2(R[d].get("solar"), 0), r2(R[d].get("resload"), 0), r2(R[d].get("coal"), 0),
-            r2(R[d].get("hardcoal"), 0), r2(R[d].get("lignite"), 0), r2(R[d].get("gas"), 0), r2(R[d].get("temp"), 1),
-            r2(R[d].get("wind100"), 1), r2(R[d].get("rad"), 2)] for d in days
-           if any(R[d].get(k) is not None for k in ("load", "wind", "temp"))],
-          {1: "yyyy-mm-dd"}, [12] + [11] * 13)
+          ["날짜", "수요 MWh", "풍력 MWh", "  육상 MWh", "  해상 MWh", "태양광 MWh", "태양광 최고 출력 MW", "잔여부하 MWh",
+           "석탄·갈탄 MWh", "  유연탄 MWh", "  갈탄 MWh", "가스 MWh", "수력 MWh", "바이오매스 MWh",
+           "기온 °C", "풍속 100m km/h", "일사 kWh/m2"],
+          [[dd(d)] + [r2(R[d].get(k), 0) for k in mk_] + [r2(R[d].get("temp"), 1), r2(R[d].get("wind100"), 1),
+                                                         r2(R[d].get("rad"), 2)] for d in days
+           if any(R[d].get(k) is not None for k in ("load_mwh", "wind_mwh", "temp"))],
+          dict([(1, "yyyy-mm-dd")] + [(c, "#,##0") for c in range(2, 15)]), [12] + [12] * 16)
+    GS = (ctx.get("GAS") or {}).get("daily") or []
+    if GS:
+        sheet(wb, "가스저장_일별", ["날짜", "저장률 %", "저장량 TWh", "주입 GWh/일", "인출 GWh/일", "저장 용량 TWh", "전일 대비 %p"],
+              [[dd(g["date"]), r2(g.get("full"), 2), r2(g.get("gas_twh"), 3), r2(g.get("inj_gwh"), 1), r2(g.get("wd_gwh"), 1),
+                r2(g.get("wgv_twh"), 3), r2(g.get("trend"), 2)] for g in GS],
+              {1: "yyyy-mm-dd", 2: "0.00", 3: "#,##0.000", 4: "#,##0.0", 5: "#,##0.0", 6: "#,##0.000", 7: "+0.00;-0.00"},
+              [12, 10, 12, 12, 12, 13, 12])
     if FLW:
         bn = [b for b in ("DE", "CZ", "SK", "LT", "SE4", "UA") if b in FL.get("borders", {})]
         nmk = {"DE": "독일", "CZ": "체코", "SK": "슬로바키아", "LT": "리투아니아", "SE4": "스웨덴 남부", "UA": "우크라이나"}
@@ -1397,7 +1409,8 @@ def build_xlsx(path, ctx):
                for c in C],
               {k: "#,##0" for k in range(3, 15)}, [10, 8, 12, 11, 11, 11, 11, 9, 12, 12, 13, 12, 12, 14, 12, 12, 10, 10, 28])
     notes = [["전력 하루전 가격", "ENTSO-E Transparency A44 (EUR/MWh). 15분·60분 자료는 현지 날짜별 평균. PLN·원 환산은 ECB 기준환율(주말은 직전 영업일)."],
-             ["수요·발전", "ENTSO-E A65(실제 수요), A75(전원별 실제 발전). 20시간 미만인 날은 빈칸."],
+             ["수요·발전", "ENTSO-E A65(실제 수요), A75(전원별 실제 발전). 수급기상_일별은 하루 물량 MWh(15분·1시간 출력 × 시간의 합), 태양광 최고 출력은 그날 가장 높은 15분(또는 1시간) 값 MW. 수력 = 양수 발전 + 유입식 + 저수지. 20시간 미만인 날은 빈칸."],
+             ["가스 저장", "폴란드 지하 가스 저장소 저장률. 출처 GIE AGSI+(유럽 가스 저장소 공식 공시, 폴란드 운영사 GSP 자료 포함). 저장률 = 저장량 ÷ 저장 용량."],
              ["잔여부하", "수요 − 풍력 − 태양광. 화력(석탄·가스)이 채워야 하는 몫이라 가격을 가장 잘 설명."],
              ["수급 분해", "보고 주 직전 8주 일별 자료로 '가격 ~ 잔여부하 + 시간추세' 직선을 잡아, 잔여부하 변화 × 1GW당 가격으로 계산. 시간추세는 연료가격처럼 서서히 움직이는 몫을 떼어 내는 항."],
              ["탄소배출권", "EEX 1차시장 경매가(EUR/t). 같은 날 여러 경매는 평균. 항공용(EUAA)·ETS2 제외."],
@@ -1469,7 +1482,7 @@ def main():
            "fx_p": {"PLN": fxp.avg(dp[0], dp[-1]), "KRW": fxk.avg(dp[0], dp[-1])},
            "M": M, "DG": load("pl_drivers_diag.json"), "FC": D.get("forecast", {}),
            "dec": dec, "fit": fit, "out_info": out_info, "FLOW": load("pl_flows_daily.json"),
-           "OUT": load("pl_outages_latest.json")}
+           "OUT": load("pl_outages_latest.json"), "GAS": load("pl_gas_storage.json")}
     try:
         ctx["COMP"] = composition(R, M, we.isoformat())
     except Exception as e:

@@ -51,9 +51,10 @@ TOKEN = os.environ.get("ENTSOE_TOKEN", "").strip()
 BASE_URL = "https://web-api.tp.entsoe.eu/api"
 PL = "10YPL-AREA-----S"
 NEIGH = {"DE": "10Y1001A1001A82H", "CZ": "10YCZ-CEPS-----N", "SK": "10YSK-SEPS-----K",
-         "LT": "10YLT-1001A0008Q", "SE4": "10Y1001A1001A47J"}
+         "LT": "10YLT-1001A0008Q", "SE4": "10Y1001A1001A47J", "UA": "10Y1001C--000182"}   # UA = 우크라이나 IPS(2026-11-13 추가)
 PSR = {"B19": "wind_on", "B18": "wind_off", "B16": "solar",
-       "B04": "gas", "B05": "hardcoal", "B02": "lignite"}
+       "B04": "gas", "B05": "hardcoal", "B02": "lignite",
+       "B01": "biomass", "B10": "hydro_ps", "B11": "hydro_ror", "B12": "hydro_res"}   # 바이오매스·수력(양수·유입식·저수지) 2026-11-13 추가
 START = os.environ.get("PLD_START", "").strip() or "2026-01-01"
 SPIKE_FROM = os.environ.get("PLD_SPIKE", "").strip() or "2026-10-27"
 BASE_FROM = "2026-09-01"
@@ -258,6 +259,11 @@ def dmean(bd):
     return {d: sum(vs) / len(vs) for d, (s, vs) in bd.items()}
 
 
+def dsum_mwh(bd):
+    """{날짜: (분해능 분, [MW...])} → {날짜: MWh}. 20시간 미만인 날은 by_day 에서 이미 빠짐."""
+    return {d: sum(vs) * s / 60 for d, (s, vs) in bd.items()}
+
+
 def merged(pts):
     allp = {}
     for d in pts.values():
@@ -287,10 +293,11 @@ def get_prices():
 def get_load():
     pts = merged(fetch_points({"documentType": "A65", "processType": "A16", "outBiddingZone_Domain": PL},
                               "A65 수요", "quantity"))
-    d = dmean(by_day(pts, until=today_local()))
+    bd = by_day(pts, until=today_local())
+    d = dmean(bd)
     LOG.append({"item": "수요", "points": len(pts), "days": len(d)})
     log("[수요    ] 포인트 %6d · 일수 %3d" % (len(pts), len(d)))
-    return {"load": d}
+    return {"load": d, "load_mwh": dsum_mwh(bd)}
 
 
 def get_gen():
@@ -298,7 +305,11 @@ def get_gen():
                        "A75 발전", "quantity", need_in=True)
     out, t = {}, today_local()
     for code, key in PSR.items():
-        out[key] = dmean(by_day(pts.get(code, {}), until=t))
+        bd = by_day(pts.get(code, {}), until=t)
+        out[key] = dmean(bd)
+        out[key + "_mwh"] = dsum_mwh(bd)                       # 하루 발전량 MWh (MW × 분해능 합)
+        if key == "solar":
+            out["solar_peak"] = {d: max(vs) for d, (s, vs) in bd.items()}   # 태양광 하루 최고 출력 MW
         LOG.append({"item": "발전 " + key, "points": len(pts.get(code, {})), "days": len(out[key])})
         log("[발전 %-9s] 포인트 %6d · 일수 %3d" % (key, len(pts.get(code, {})), len(out[key])))
     others = sorted(str(k) for k in pts if k not in PSR)
@@ -438,14 +449,26 @@ def main():
         r["wind"] = sum(x for x in w if x is not None) if any(x is not None for x in w) else None
         c = [r.get("hardcoal"), r.get("lignite")]
         r["coal"] = sum(x for x in c if x is not None) if any(x is not None for x in c) else None
+        for sfx in ("", "_mwh"):                                  # 합계 항목 (MW 평균과 MWh 둘 다)
+            for tot, parts in (("wind", ("wind_on", "wind_off")), ("coal", ("hardcoal", "lignite")),
+                               ("hydro", ("hydro_ps", "hydro_ror", "hydro_res"))):
+                if sfx == "" and tot in ("wind", "coal"):
+                    continue
+                v = [r.get(p + sfx) for p in parts]
+                r[tot + sfx] = sum(x for x in v if x is not None) if any(x is not None for x in v) else None
+        okm = all(r.get(k) is not None for k in ("load_mwh", "wind_mwh", "solar_mwh"))
+        r["resload_mwh"] = (r["load_mwh"] - r["wind_mwh"] - r["solar_mwh"]) if okm else None
         ok = all(r.get(k) is not None for k in ("load", "wind", "solar"))
         r["resload"] = (r["load"] - r["wind"] - r["solar"]) if ok else None
         rows.append(r)
     log("\n[표] 일수 %d  (%s ~ %s)" % (len(rows), rows[0]["date"] if rows else "-", rows[-1]["date"] if rows else "-"))
 
     cols = ["date", "px_PL", "px_PL_max", "px_PL_min", "px_PL_neg_h", "px_DE", "px_CZ", "px_SK", "px_LT",
-            "px_SE4", "load", "wind", "wind_on", "wind_off", "solar", "resload", "gas", "coal", "hardcoal",
-            "lignite", "temp", "wind100", "rad"]
+            "px_SE4", "px_UA", "load", "wind", "wind_on", "wind_off", "solar", "resload", "gas", "coal", "hardcoal",
+            "lignite", "biomass", "hydro", "temp", "wind100", "rad",
+            "load_mwh", "wind_mwh", "wind_on_mwh", "wind_off_mwh", "solar_mwh", "solar_peak", "resload_mwh",
+            "gas_mwh", "coal_mwh", "hardcoal_mwh", "lignite_mwh", "biomass_mwh", "hydro_mwh",
+            "hydro_ps_mwh", "hydro_ror_mwh", "hydro_res_mwh"]
     if rows:
         with open(OUT_CSV, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.writer(f)
@@ -455,7 +478,7 @@ def main():
         with open(OUT_JSON, "w", encoding="utf-8") as f:
             json.dump({"source": "ENTSO-E A44·A65·A75 + Open-Meteo", "tz": "Europe/Warsaw",
                        "generated": dt.datetime.now(TZ).strftime("%Y-%m-%d %H:%M"),
-                       "units": {"px": "EUR/MWh", "load·gen": "MW(일평균)", "temp": "°C",
+                       "units": {"px": "EUR/MWh", "load·gen": "MW(일평균)", "*_mwh": "MWh(하루 합)", "solar_peak": "MW(하루 최고)", "temp": "°C",
                                  "wind100": "km/h", "rad": "kWh/m2(일합계)", "px_PL_neg_h": "시간"},
                        "collect": LOG, "forecast": FORECAST, "daily": rows}, f, ensure_ascii=False, indent=1)
         log("[OK] %s / %s" % (OUT_CSV, OUT_JSON))
