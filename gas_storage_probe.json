@@ -1,0 +1,27 @@
+{
+ "fetched_utc": "2026-11-12T23:13:58+00:00",
+ "start": "2025-01-01",
+ "agsi_pages": [
+  {
+   "page": 1,
+   "status": 200,
+   "len": 147038
+  },
+  {
+   "page": 2,
+   "status": 200,
+   "len": 146115
+  },
+  {
+   "page": 3,
+   "status": 200,
+   "len": 39573
+  }
+ ],
+ "agsi": {
+  "status": 200,
+  "rows": 681,
+  "key_set": false,
+  "last_page": 3
+ }
+}
