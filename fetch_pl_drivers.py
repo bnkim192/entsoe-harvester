@@ -70,6 +70,7 @@ OUT_JSON = "pl_drivers_daily.json"
 OUT_DIAG = "pl_drivers_diag.json"
 LOG = []
 SKIPPED_CUR = set()
+CUR_WANT = ["EUR"]          # 가격 통화. 우크라이나만 잠깐 UAH 로 바꿔 받은 뒤 NBU 환율로 유로 환산
 FORECAST = {}
 
 
@@ -178,7 +179,7 @@ def parse_series(xml, value_tag, need_in_domain=False):
         if need_in_domain and ts.find(q("inBiddingZone_Domain.mRID")) is None:
             continue                                   # 발전 방향만 (양수 소비 방향 제외)
         cur = ts.find(q("currency_Unit.name"))
-        if value_tag == "price.amount" and cur is not None and (cur.text or "").strip() != "EUR":
+        if value_tag == "price.amount" and cur is not None and (cur.text or "").strip() != CUR_WANT[0]:
             SKIPPED_CUR.add((cur.text or "").strip())     # 유로가 아닌 가격은 버리고 통화만 기록
             continue                                   # 유로 가격만
         psr = None
@@ -267,6 +268,27 @@ def dsum_mwh(bd):
     return {d: sum(vs) * s / 60 for d, (s, vs) in bd.items()}
 
 
+def nbu_eur_rates(d0, d1):
+    """우크라이나 중앙은행 공식 환율 {날짜: UAH per EUR}. 키 불필요."""
+    out = {}
+    s, e = dt.date.fromisoformat(d0) - dt.timedelta(days=7), dt.date.fromisoformat(d1)
+    while s <= e:                                   # 한 번에 최대 약 1년이라 180일씩 나눠 받음
+        t = min(s + dt.timedelta(days=180), e)
+        try:
+            r = requests.get("https://bank.gov.ua/NBU_Exchange/exchange_site",
+                             params={"start": s.strftime("%Y%m%d"), "end": t.strftime("%Y%m%d"), "valcode": "eur",
+                                     "sort": "exchangedate", "order": "asc", "json": ""}, timeout=60)
+            for x in r.json():
+                ds = x.get("exchangedate") or ""            # dd.mm.yyyy
+                rate = x.get("rate_per_unit") or (x.get("rate") / (x.get("units") or 1) if x.get("rate") else None)
+                if ds and rate:
+                    out[dt.datetime.strptime(ds, "%d.%m.%Y").date().isoformat()] = float(rate)
+        except Exception as ex:
+            log("   [NBU 환율] 실패 %s" % type(ex).__name__)
+        s = t + dt.timedelta(days=1)
+    return out
+
+
 def merged(pts):
     allp = {}
     for d in pts.values():
@@ -282,13 +304,32 @@ def get_prices():
     for name, eic in [("PL", PL)] + list(NEIGH.items()):
         pts = merged(fetch_points({"documentType": "A44", "in_Domain": eic, "out_Domain": eic},
                                   "A44 " + name, "price.amount"))
-        if not pts and name in UA_ALT:                 # 우크라이나: 첫 코드에 자료가 없으면 다른 지역 코드로 다시 시도
-            for alt in UA_ALT[name]:
-                pts = merged(fetch_points({"documentType": "A44", "in_Domain": alt, "out_Domain": alt},
-                                          "A44 %s(%s)" % (name, alt), "price.amount"))
-                if pts:
-                    LOG.append({"item": "가격 %s 대체 코드" % name, "eic": alt})
-                    break
+        if not pts and name in UA_ALT:                 # 우크라이나: ENTSO-E 는 UAH 로만 줌 → UAH 로 받아 NBU 환율로 유로 환산
+            CUR_WANT[0] = "UAH"
+            try:
+                for code in [eic] + UA_ALT[name]:
+                    pts = merged(fetch_points({"documentType": "A44", "in_Domain": code, "out_Domain": code},
+                                              "A44 %s(%s, UAH)" % (name, code), "price.amount"))
+                    if pts:
+                        LOG.append({"item": "가격 %s 코드·통화" % name, "eic": code, "currency": "UAH"})
+                        break
+            finally:
+                CUR_WANT[0] = "EUR"
+            if pts:
+                bd = by_day(pts)
+                uah = dmean(bd)
+                fx = nbu_eur_rates(min(uah), max(uah))
+                ks = sorted(fx)
+                conv = {}
+                for d, v in uah.items():
+                    prior = [k for k in ks if k <= d]
+                    if prior:
+                        conv[d] = v / fx[prior[-1]]       # 주말·휴일은 직전 공시 환율
+                out["px_UA"] = conv
+                out["px_UA_uah"] = uah
+                LOG.append({"item": "가격 UA", "points": len(pts), "days": len(conv), "fx_days": len(fx)})
+                log("[가격 UA ] UAH 포인트 %6d · 유로 환산 일수 %3d (NBU 환율 %d일)" % (len(pts), len(conv), len(fx)))
+                continue
         bd = by_day(pts)
         out["px_" + name] = dmean(bd)
         if name == "PL":
@@ -474,7 +515,7 @@ def main():
     log("\n[표] 일수 %d  (%s ~ %s)" % (len(rows), rows[0]["date"] if rows else "-", rows[-1]["date"] if rows else "-"))
 
     cols = ["date", "px_PL", "px_PL_max", "px_PL_min", "px_PL_neg_h", "px_DE", "px_CZ", "px_SK", "px_LT",
-            "px_SE4", "px_UA", "load", "wind", "wind_on", "wind_off", "solar", "resload", "gas", "coal", "hardcoal",
+            "px_SE4", "px_UA", "px_UA_uah", "load", "wind", "wind_on", "wind_off", "solar", "resload", "gas", "coal", "hardcoal",
             "lignite", "biomass", "hydro", "temp", "wind100", "rad",
             "load_mwh", "wind_mwh", "wind_on_mwh", "wind_off_mwh", "solar_mwh", "solar_peak", "resload_mwh",
             "gas_mwh", "coal_mwh", "hardcoal_mwh", "lignite_mwh", "biomass_mwh", "hydro_mwh",
