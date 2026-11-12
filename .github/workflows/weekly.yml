@@ -42,6 +42,11 @@ jobs:
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
         run: python fetch_pl_outages.py
+      - name: 가스 저장률 (GIE AGSI+, 키 없으면 GSP 사이트 조사)
+        continue-on-error: true
+        env:
+          AGSI_KEY: ${{ secrets.AGSI_KEY }}
+        run: python fetch_pl_gas_storage.py
       - name: Weekly PPT + Excel
         continue-on-error: true
         env:
@@ -55,6 +60,7 @@ jobs:
             weekly/latest/
             pl_drivers_diag.json
             pl_flows_diag.json
+            gas_storage_probe.json
             tge_probe.json
       - name: commit back
         run: |
