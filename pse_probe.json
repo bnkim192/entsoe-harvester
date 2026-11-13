@@ -1,6 +1,6 @@
 {
  "base": "https://api.raporty.pse.pl/api",
- "fetched_utc": "2026-11-12T23:37:11+00:00",
+ "fetched_utc": "2026-11-13T00:04:11+00:00",
  "status": 404,
  "content_type": "application/json; charset=utf-8",
  "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: .\",\"status\":404}}",
