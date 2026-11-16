@@ -43,63 +43,63 @@
     },
     {
       "item": "수요",
-      "points": 30633,
+      "points": 30641,
       "days": 319
     },
     {
       "item": "발전 wind_on",
-      "points": 30633,
+      "points": 30641,
       "days": 319
     },
     {
       "item": "발전 wind_off",
-      "points": 12785,
+      "points": 12793,
       "days": 133
     },
     {
       "item": "발전 solar",
-      "points": 30633,
+      "points": 30641,
       "days": 319
     },
     {
       "item": "발전 gas",
-      "points": 30633,
+      "points": 30640,
       "days": 319
     },
     {
       "item": "발전 hardcoal",
-      "points": 30633,
+      "points": 30640,
       "days": 319
     },
     {
       "item": "발전 lignite",
-      "points": 30633,
+      "points": 30640,
       "days": 319
     },
     {
       "item": "발전 biomass",
-      "points": 30633,
+      "points": 30640,
       "days": 319
     },
     {
       "item": "발전 hydro_ps",
-      "points": 30633,
+      "points": 30640,
       "days": 319
     },
     {
       "item": "발전 hydro_ror",
-      "points": 30633,
+      "points": 30640,
       "days": 319
     },
     {
       "item": "발전 hydro_res",
-      "points": 30633,
+      "points": 30640,
       "days": 319
     },
     {
       "item": "기상",
       "days": 319,
-      "forecast_days": 0
+      "forecast_days": 8
     }
   ],
   "skipped_currency": [
