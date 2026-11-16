@@ -1489,6 +1489,18 @@ def main():
         print("!! 가격 구성 계산 실패: %r" % e, flush=True)
         ctx["COMP"] = []
 
+    # 일일 모드 (outages.yml 매일 실행): PPT 는 만들지 않고 Excel 만 weekly/daily/ 에 덮어쓴다.
+    # 요약 탭은 직전 완료 주 기준 그대로이고, 일별 시트들이 어제까지의 값으로 늘어난다.
+    if os.environ.get("PLW_MODE", "").strip().lower() == "daily":
+        ddir = os.path.join(OUT_DIR, "daily")
+        os.makedirs(ddir, exist_ok=True)
+        build_xlsx(os.path.join(ddir, "PL_power_commodity_daily.xlsx"), ctx)
+        with open(os.path.join(ddir, "daily.json"), "w", encoding="utf-8") as f:
+            json.dump({"generated": dt.datetime.now(TZ).strftime("%Y-%m-%d %H:%M"), "week": tag,
+                       "last_day": max(R) if R else None}, f, ensure_ascii=False)
+        print("[OK] daily xlsx -> %s (마지막 날 %s)" % (ddir, max(R) if R else "-"), flush=True)
+        return
+
     wdir, ldir = os.path.join(OUT_DIR, tag), os.path.join(OUT_DIR, "latest")
     os.makedirs(wdir, exist_ok=True)
     os.makedirs(ldir, exist_ok=True)
