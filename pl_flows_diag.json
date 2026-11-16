@@ -1,10 +1,10 @@
 {
- "fetched_utc": "2026-11-16T05:15:42+00:00",
+ "fetched_utc": "2026-11-16T14:01:36+00:00",
  "log": [
   {
    "tag": "A11 DE→PL 2026-11",
    "ok": true,
-   "note": "len=47570"
+   "note": "len=51872"
   },
   {
    "tag": "A11 PL→DE 2026-11",
@@ -19,7 +19,7 @@
   {
    "tag": "A11 PL→CZ 2026-11",
    "ok": true,
-   "note": "len=49683"
+   "note": "len=53734"
   },
   {
    "tag": "A11 SK→PL 2026-11",
@@ -29,12 +29,12 @@
   {
    "tag": "A11 PL→SK 2026-11",
    "ok": true,
-   "note": "len=50177"
+   "note": "len=54292"
   },
   {
    "tag": "A11 LT→PL 2026-11",
    "ok": true,
-   "note": "len=46318"
+   "note": "len=50542"
   },
   {
    "tag": "A11 PL→LT 2026-11",
@@ -49,17 +49,17 @@
   {
    "tag": "A11 PL→SE4 2026-11",
    "ok": true,
-   "note": "len=22448"
+   "note": "len=24371"
   },
   {
    "tag": "A11 UA→PL 2026-11",
-   "ok": true,
-   "note": "len=15716"
+   "ok": false,
+   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"392c6729f69ef11ce516449f957d4f82\",\"timestamp\":\"2026-11-16T14"
   },
   {
    "tag": "A11 PL→UA 2026-11",
    "ok": true,
-   "note": "len=36857"
+   "note": "len=40965"
   }
  ]
 }

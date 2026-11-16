@@ -389,12 +389,12 @@
    "SE4_imp": 6.924,
    "SE4_exp": 0.219,
    "SE4_net": 6.706,
-   "UA_imp": 0.435,
+   "UA_imp": null,
    "UA_exp": 2.602,
-   "UA_net": -2.167,
-   "total_imp": 49.829,
-   "total_exp": 33.063,
-   "total_net": 16.767
+   "UA_net": null,
+   "total_imp": null,
+   "total_exp": null,
+   "total_net": null
   },
   {
    "date": "2026-11-13",
@@ -413,12 +413,12 @@
    "SE4_imp": 0.0,
    "SE4_exp": 2.972,
    "SE4_net": -2.972,
-   "UA_imp": 1.405,
+   "UA_imp": null,
    "UA_exp": 0.97,
-   "UA_net": 0.436,
-   "total_imp": 28.12,
-   "total_exp": 52.811,
-   "total_net": -24.691
+   "UA_net": null,
+   "total_imp": null,
+   "total_exp": null,
+   "total_net": null
   },
   {
    "date": "2026-11-14",
@@ -437,12 +437,12 @@
    "SE4_imp": 0.0,
    "SE4_exp": 5.795,
    "SE4_net": -5.795,
-   "UA_imp": 0.282,
+   "UA_imp": null,
    "UA_exp": 2.103,
-   "UA_net": -1.82,
-   "total_imp": 27.407,
-   "total_exp": 64.234,
-   "total_net": -36.827
+   "UA_net": null,
+   "total_imp": null,
+   "total_exp": null,
+   "total_net": null
   },
   {
    "date": "2026-11-15",
@@ -461,12 +461,12 @@
    "SE4_imp": 0.0,
    "SE4_exp": 2.828,
    "SE4_net": -2.828,
-   "UA_imp": 0.0,
+   "UA_imp": null,
    "UA_exp": 6.3,
-   "UA_net": -6.3,
-   "total_imp": 26.935,
-   "total_exp": 83.254,
-   "total_net": -56.318
+   "UA_net": null,
+   "total_imp": null,
+   "total_exp": null,
+   "total_net": null
   }
  ]
 }

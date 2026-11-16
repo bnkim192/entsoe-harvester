@@ -1,6 +1,7 @@
 {
- "generated": "2026-11-16 05:09 UTC",
+ "generated": "2026-11-16 14:29 UTC",
  "eua": {
+  "2026-11-16": 87.4,
   "2026-11-13": 89.41,
   "2026-11-12": 89.69,
   "2026-11-11": 88.6,
@@ -14805,7 +14806,7 @@
   {
    "item": "EUA emission-spot-primary-market-auction-report-2026-data.xlsx",
    "ok": true,
-   "note": "196일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용196 제외0"
+   "note": "197일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용197 제외0"
   },
   {
    "item": "브렌트 EIA",
@@ -14825,22 +14826,22 @@
   {
    "item": "TGE gas_rdn",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   },
   {
    "item": "TGE power_rdn",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   },
   {
    "item": "TGE power_otf",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   },
   {
    "item": "TGE gas_otf",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   }
  ]
 }

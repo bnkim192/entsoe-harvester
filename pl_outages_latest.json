@@ -1,7 +1,7 @@
 {
  "source": "ENTSO-E A80(발전기)·A77(발전소) Unavailability",
  "zone": "PL",
- "fetched_utc": "2026-11-16T05:15:43+00:00",
+ "fetched_utc": "2026-11-16T13:55:05+00:00",
  "today_pl": "2026-11-16",
  "note": "정지 MW = 정격 − 정지 중 최저 가용용량. 하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). 같은 발전기는 그날 가장 큰 정지 1건만 셈. 폴란드는 A77(발전소 단위) 자료가 없어 A80(발전기 단위)만 씀.",
  "daily": {
@@ -34,29 +34,29 @@
    }
   },
   "2026-11-17": {
-   "n": 24,
-   "unavail_mw": 7672.4,
+   "n": 34,
+   "unavail_mw": 9742.4,
    "by_type": {
-    "계획": 7188.4,
-    "고장": 484.0
+    "계획": 9037.4,
+    "고장": 705.0
    },
    "by_fuel": {
-    "갈탄": 1364.0,
+    "갈탄": 2189.0,
     "가스": 1299.1,
-    "유연탄": 4872.5,
+    "유연탄": 6117.5,
     "양수": 136.8
    }
   },
   "2026-11-18": {
-   "n": 22,
-   "unavail_mw": 6727.3,
+   "n": 23,
+   "unavail_mw": 6948.3,
    "by_type": {
     "계획": 6243.3,
-    "고장": 484.0
+    "고장": 705.0
    },
    "by_fuel": {
     "갈탄": 1364.0,
-    "유연탄": 4742.5,
+    "유연탄": 4963.5,
     "가스": 484.0,
     "양수": 136.8
    }
@@ -92,46 +92,46 @@
    }
   },
   "2026-11-21": {
-   "n": 22,
-   "unavail_mw": 6500.8,
+   "n": 23,
+   "unavail_mw": 6957.8,
    "by_type": {
-    "계획": 6016.8,
+    "계획": 6473.8,
     "고장": 484.0
    },
    "by_fuel": {
     "갈탄": 1364.0,
     "유연탄": 4129.5,
-    "가스": 484.0,
+    "가스": 941.0,
     "바이오": 208.0,
     "양수": 315.3
    }
   },
   "2026-11-22": {
-   "n": 21,
-   "unavail_mw": 6283.8,
+   "n": 22,
+   "unavail_mw": 6740.8,
    "by_type": {
-    "계획": 5799.8,
+    "계획": 6256.8,
     "고장": 484.0
    },
    "by_fuel": {
     "갈탄": 1364.0,
     "유연탄": 3912.5,
-    "가스": 484.0,
+    "가스": 941.0,
     "바이오": 208.0,
     "양수": 315.3
    }
   },
   "2026-11-23": {
-   "n": 14,
-   "unavail_mw": 4788.2,
+   "n": 15,
+   "unavail_mw": 5245.2,
    "by_type": {
-    "계획": 4304.2,
+    "계획": 4761.2,
     "고장": 484.0
    },
    "by_fuel": {
     "갈탄": 1364.0,
     "유연탄": 2595.4,
-    "가스": 484.0,
+    "가스": 941.0,
     "바이오": 208.0,
     "양수": 136.8
    }
@@ -235,6 +235,22 @@
    "reason": "Unplanned outage"
   },
   {
+   "mrid": "vMFu5KPwV4XbqRSWOuc5Wg",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "EC Włocławek",
+   "unit": "BGP Włocławek",
+   "fuel": "가스",
+   "nominal_mw": 457.0,
+   "avail_min_mw": 0.0,
+   "unavail_mw": 457.0,
+   "start_utc": "2026-11-20T23:00:00+00:00",
+   "end_utc": "2026-11-26T08:00:00+00:00",
+   "reason": "Unplanned outage"
+  },
+  {
    "mrid": "fBbenjQ_B6uPAuHzZPTqtA",
    "rev": 1,
    "status": null,
@@ -264,6 +280,22 @@
    "unavail_mw": 457.0,
    "start_utc": "2026-11-16T01:00:00+00:00",
    "end_utc": "2026-11-16T02:45:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "nkxq92o1-U3KPn3fQ4a-sA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Jaworzno 2 JWCD",
+   "unit": "Jaworzno 2 B7",
+   "fuel": "유연탄",
+   "nominal_mw": 834.0,
+   "avail_min_mw": 377.0,
+   "unavail_mw": 457.0,
+   "start_utc": "2026-11-17T00:00:00+00:00",
+   "end_utc": "2026-11-17T01:45:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
@@ -443,6 +475,22 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "ybsDqssJwd_maCKtgHGTZg",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Opole",
+   "unit": "Opole B3",
+   "fuel": "유연탄",
+   "nominal_mw": 358.0,
+   "avail_min_mw": 0.0,
+   "unavail_mw": 358.0,
+   "start_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "11FWAWDAFUAfNf2WUJtJZw",
    "rev": 7,
    "status": null,
@@ -508,7 +556,7 @@
   },
   {
    "mrid": "23k5gNSULMsD1JdXi7Mpig",
-   "rev": 1,
+   "rev": 3,
    "status": null,
    "doc": "A80",
    "type": "계획",
@@ -518,7 +566,7 @@
    "nominal_mw": 357.0,
    "avail_min_mw": 0.0,
    "unavail_mw": 357.0,
-   "start_utc": "2026-11-16T15:00:00+00:00",
+   "start_utc": "2026-11-16T19:00:00+00:00",
    "end_utc": "2026-11-18T23:00:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
@@ -1148,7 +1196,7 @@
   },
   {
    "mrid": "iEAY2tafUmjmpdyOtpRIbg",
-   "rev": 2,
+   "rev": 3,
    "status": null,
    "doc": "A80",
    "type": "고장",
@@ -1159,7 +1207,7 @@
    "avail_min_mw": 0.0,
    "unavail_mw": 221.0,
    "start_utc": "2026-11-14T10:11:00+00:00",
-   "end_utc": "2026-11-16T18:00:00+00:00",
+   "end_utc": "2026-11-18T18:00:00+00:00",
    "reason": "Unplanned outage"
   },
   {
@@ -1276,7 +1324,7 @@
   },
   {
    "mrid": "TTlZTzWW24yOFEBjkAevMw",
-   "rev": 1,
+   "rev": 2,
    "status": null,
    "doc": "A80",
    "type": "계획",
@@ -1287,7 +1335,7 @@
    "avail_min_mw": 0.0,
    "unavail_mw": 209.0,
    "start_utc": "2026-11-10T23:00:00+00:00",
-   "end_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
@@ -1435,6 +1483,22 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "Bl0iqDkvZeu2RIY_T4Fwrw",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B11",
+   "fuel": "갈탄",
+   "nominal_mw": 444.0,
+   "avail_min_mw": 267.0,
+   "unavail_mw": 177.0,
+   "start_utc": "2026-11-17T22:00:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "_GClLyZe3pYcjJXIA071fA",
    "rev": 2,
    "status": null,
@@ -1515,6 +1579,22 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "w9xHCRIhlpss6s0tq2sPEA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B04",
+   "fuel": "갈탄",
+   "nominal_mw": 236.0,
+   "avail_min_mw": 91.0,
+   "unavail_mw": 145.0,
+   "start_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "GftX-jGuJh6aQjEM4FNgOw",
    "rev": 1,
    "status": null,
@@ -1528,6 +1608,22 @@
    "unavail_mw": 141.0,
    "start_utc": "2026-11-15T22:00:00+00:00",
    "end_utc": "2026-11-15T22:15:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "HWiSLB4WKCauVz-u_H4ZYA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Płock",
+   "unit": "Płock B01",
+   "fuel": "가스",
+   "nominal_mw": 620.0,
+   "avail_min_mw": 480.0,
+   "unavail_mw": 140.0,
+   "start_utc": "2026-11-17T16:00:00+00:00",
+   "end_utc": "2026-11-17T19:00:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
@@ -1595,6 +1691,22 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "KOs5y6BbTk6lLv7D3umf7A",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Płock",
+   "unit": "Płock B01",
+   "fuel": "가스",
+   "nominal_mw": 620.0,
+   "avail_min_mw": 485.0,
+   "unavail_mw": 135.0,
+   "start_utc": "2026-11-17T02:00:00+00:00",
+   "end_utc": "2026-11-17T04:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "0dNdYS19Ap0et7ZYJKozvQ",
    "rev": 1,
    "status": null,
@@ -1640,6 +1752,38 @@
    "unavail_mw": 133.0,
    "start_utc": "2026-11-15T23:15:00+00:00",
    "end_utc": "2026-11-16T03:45:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "O4BgEWRU5PKkmTWbMzmsDA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B05",
+   "fuel": "갈탄",
+   "nominal_mw": 236.0,
+   "avail_min_mw": 103.0,
+   "unavail_mw": 133.0,
+   "start_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-17T03:30:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "vrx_dDsMdfqqZqF-mJhYfg",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B06",
+   "fuel": "갈탄",
+   "nominal_mw": 236.0,
+   "avail_min_mw": 103.0,
+   "unavail_mw": 133.0,
+   "start_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-17T03:30:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
@@ -1771,6 +1915,22 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "Pz7ex9oIzmwG2jSWtKtk-w",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B11",
+   "fuel": "갈탄",
+   "nominal_mw": 444.0,
+   "avail_min_mw": 313.0,
+   "unavail_mw": 131.0,
+   "start_utc": "2026-11-17T21:15:00+00:00",
+   "end_utc": "2026-11-17T22:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "7l5FCnUt3pPPtyIp9718_A",
    "rev": 1,
    "status": null,
@@ -1787,22 +1947,6 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
-   "mrid": "7qdxVuvjj_9VJX67jUtUOg",
-   "rev": 1,
-   "status": null,
-   "doc": "A80",
-   "type": "계획",
-   "plant": "Płock",
-   "unit": "Płock B01",
-   "fuel": "가스",
-   "nominal_mw": 620.0,
-   "avail_min_mw": 490.0,
-   "unavail_mw": 130.0,
-   "start_utc": "2026-11-16T14:00:00+00:00",
-   "end_utc": "2026-11-16T23:00:00+00:00",
-   "reason": "Non-usable capacity due to power plant equipment failure"
-  },
-  {
    "mrid": "FSo_LQEGvejDyylo7ldz-g",
    "rev": 1,
    "status": null,
@@ -1816,6 +1960,38 @@
    "unavail_mw": 130.0,
    "start_utc": "2026-11-16T23:00:00+00:00",
    "end_utc": "2026-11-17T02:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "zS-XZfDghFpAGLy0ChZpBA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Płock",
+   "unit": "Płock B01",
+   "fuel": "가스",
+   "nominal_mw": 620.0,
+   "avail_min_mw": 490.0,
+   "unavail_mw": 130.0,
+   "start_utc": "2026-11-17T04:00:00+00:00",
+   "end_utc": "2026-11-17T10:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "Gqady3AbsiuDHbhZpNG6fw",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "고장",
+   "plant": "Płock",
+   "unit": "Płock B01",
+   "fuel": "가스",
+   "nominal_mw": 620.0,
+   "avail_min_mw": 490.0,
+   "unavail_mw": 130.0,
+   "start_utc": "2026-11-16T19:00:00+00:00",
+   "end_utc": "2026-11-16T23:00:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
@@ -1896,6 +2072,22 @@
    "unavail_mw": 125.0,
    "start_utc": "2026-11-15T23:00:00+00:00",
    "end_utc": "2026-11-16T14:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "EEHND-vGoHz68R_Y69gF6g",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B02",
+   "fuel": "갈탄",
+   "nominal_mw": 226.0,
+   "avail_min_mw": 101.0,
+   "unavail_mw": 125.0,
+   "start_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-17T13:00:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
@@ -2043,6 +2235,22 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "KQ0N5ee4vBcoNz0yGupJPA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "고장",
+   "plant": "Płock",
+   "unit": "Płock B01",
+   "fuel": "가스",
+   "nominal_mw": 620.0,
+   "avail_min_mw": 505.0,
+   "unavail_mw": 115.0,
+   "start_utc": "2026-11-16T14:00:00+00:00",
+   "end_utc": "2026-11-16T19:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "5jj3EOwjWxdIWcvzFNIU5Q",
    "rev": 1,
    "status": null,
@@ -2088,6 +2296,38 @@
    "unavail_mw": 114.0,
    "start_utc": "2026-11-16T22:00:00+00:00",
    "end_utc": "2026-11-16T23:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "O5QT2d5jtm2kDxqIS0q7-g",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B05",
+   "fuel": "갈탄",
+   "nominal_mw": 236.0,
+   "avail_min_mw": 123.0,
+   "unavail_mw": 113.0,
+   "start_utc": "2026-11-17T21:45:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "ztaASwY01duplHioEpR3uA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B06",
+   "fuel": "갈탄",
+   "nominal_mw": 236.0,
+   "avail_min_mw": 123.0,
+   "unavail_mw": 113.0,
+   "start_utc": "2026-11-17T21:45:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
@@ -2203,6 +2443,70 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "D66TmM2S8rUZx8x0Uiqmfw",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B03",
+   "fuel": "갈탄",
+   "nominal_mw": 226.0,
+   "avail_min_mw": 114.0,
+   "unavail_mw": 112.0,
+   "start_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-17T13:30:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "r8NHqzMEz8cjD75iAl1uNg",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B02",
+   "fuel": "갈탄",
+   "nominal_mw": 226.0,
+   "avail_min_mw": 114.0,
+   "unavail_mw": 112.0,
+   "start_utc": "2026-11-17T13:00:00+00:00",
+   "end_utc": "2026-11-17T13:15:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "53NS13-lx31k_qGWmnA-Gw",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B02",
+   "fuel": "갈탄",
+   "nominal_mw": 226.0,
+   "avail_min_mw": 114.0,
+   "unavail_mw": 112.0,
+   "start_utc": "2026-11-17T21:45:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "4HuJ13oSfqGnjrXdzPJVNg",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B03",
+   "fuel": "갈탄",
+   "nominal_mw": 226.0,
+   "avail_min_mw": 114.0,
+   "unavail_mw": 112.0,
+   "start_utc": "2026-11-17T21:45:00+00:00",
+   "end_utc": "2026-11-17T23:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "hdAqSFxbTPnK4zVGWaYQPA",
    "rev": 1,
    "status": null,
@@ -2235,6 +2539,22 @@
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
+   "mrid": "Q9bQN8zj-w3kEPIUiHT4fQ",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B11",
+   "fuel": "갈탄",
+   "nominal_mw": 444.0,
+   "avail_min_mw": 337.0,
+   "unavail_mw": 107.0,
+   "start_utc": "2026-11-16T23:00:00+00:00",
+   "end_utc": "2026-11-16T23:15:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
    "mrid": "VA0FXXbzU0rAooIqnponWg",
    "rev": 1,
    "status": null,
@@ -2248,6 +2568,38 @@
    "unavail_mw": 105.0,
    "start_utc": "2026-11-15T00:00:00+00:00",
    "end_utc": "2026-11-15T08:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "lu3M1SY18NZoGh5d7Vg78A",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B06",
+   "fuel": "갈탄",
+   "nominal_mw": 236.0,
+   "avail_min_mw": 132.0,
+   "unavail_mw": 104.0,
+   "start_utc": "2026-11-17T03:30:00+00:00",
+   "end_utc": "2026-11-17T04:30:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
+  },
+  {
+   "mrid": "zVv1UW6zIGTG2ryO14UUvQ",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "계획",
+   "plant": "Turów",
+   "unit": "Turów B05",
+   "fuel": "갈탄",
+   "nominal_mw": 236.0,
+   "avail_min_mw": 132.0,
+   "unavail_mw": 104.0,
+   "start_utc": "2026-11-17T03:30:00+00:00",
+   "end_utc": "2026-11-17T04:30:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
