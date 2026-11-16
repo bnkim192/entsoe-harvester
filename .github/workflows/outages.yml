@@ -1,5 +1,5 @@
-# 폴란드 발전설비 정지(ENTSO-E A80·A77) + 국경 간 전력 흐름(ENTSO-E A11, PSE 프로브) 매일 수집
-# .github/workflows/outages.yml 경로에 두어야 인식됨. (collect.yml, weekly.yml 은 건드리지 않는다)
+# 매일: 발전설비 정지(ENTSO-E A80) + 국경 간 흐름(A11) + 가격·수급·원자재·가스 저장률 → 일일 Excel(weekly/daily/)
+# .github/workflows/outages.yml 경로에 두어야 인식됨. PPT 는 weekly.yml(매주 월요일)만 만든다.
 name: PL Outages & Flows
 on:
   schedule:
@@ -13,13 +13,13 @@ concurrency:
 jobs:
   outages:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install requests tzdata
+      - run: pip install requests openpyxl xlrd python-pptx tzdata
       - name: 발전설비 정지 (ENTSO-E A80·A77)
         continue-on-error: true
         env:
@@ -30,15 +30,32 @@ jobs:
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
         run: python fetch_pl_flows.py
+      - name: PL drivers (가격·주변국·수요·발전·기상)
+        continue-on-error: true
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_pl_drivers.py
+      - name: Market (탄소배출권·브렌트·가스/석탄 월평균·환율)
+        continue-on-error: true
+        run: python fetch_pl_market.py
+      - name: 가스 저장률 (GIE AGSI+)
+        continue-on-error: true
+        env:
+          AGSI_KEY: ${{ secrets.AGSI_KEY }}
+        run: python fetch_pl_gas_storage.py
+      - name: 일일 Excel (PPT 없음)
+        continue-on-error: true
+        env:
+          PLW_MODE: daily
+        run: python pl_weekly_report.py
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pl-outages-flows
+          name: pl-daily
           path: |
+            weekly/daily/
             pl_outages_latest.json
             pl_outages_diag.json
-            pl_flows_daily.csv
-            pl_flows_monthly.json
             pl_flows_diag.json
             pse_probe.json
       - name: commit back
@@ -46,6 +63,6 @@ jobs:
           git config user.name "entsoe-bot"
           git config user.email "entsoe-bot@users.noreply.github.com"
           git add -A
-          git commit -m "chore: pl outages & flows $(date +%F)" || echo "no change"
+          git commit -m "chore: pl daily $(date +%F)" || echo "no change"
           git pull --rebase || true
           git push || echo "push skip"
