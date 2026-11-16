@@ -1,15 +1,10 @@
 {
- "fetched_utc": "2026-11-15T12:54:30+00:00",
+ "fetched_utc": "2026-11-16T00:29:38+00:00",
  "log": [
   {
    "tag": "A80 offset 0",
    "ok": true,
-   "note": "문서 200건"
-  },
-  {
-   "tag": "A80 offset 200",
-   "ok": true,
-   "note": "문서 11건"
+   "note": "문서 158건"
   },
   {
    "tag": "A77 offset 0",
