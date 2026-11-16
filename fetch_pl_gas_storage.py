@@ -1,5 +1,5 @@
 """
-폴란드 지하 가스 저장소 저장률 수집기 (2026-11-13)
+폴란드 지하 가스 저장소 저장률 수집기 (2026-11-16: 기본 시작일 2020-01-01로 확장)
 
 1순위  GIE AGSI+ (유럽 가스 저장소 공식 공시 플랫폼, 폴란드 운영사 GSP 자료 포함)
        https://agsi.gie.eu/api?country=pl  — 무료 API 키 필요(헤더 x-key). GitHub Secrets 의 AGSI_KEY.
@@ -10,14 +10,14 @@
   pl_gas_storage.json        {daily: [{date, full(%), gas_twh, inj_gwh, wd_gwh, wgv_twh, trend(%p)}]}  — 기존 파일과 합쳐 쌓음
   gas_storage_probe.json     요청 결과 (상태코드·건수·오류, 2순위 조사 결과)
 
-환경변수  AGSI_KEY (선택, 없으면 2순위 조사만), PLG_START (기본 2025-01-01)
+환경변수  AGSI_KEY (선택, 없으면 2순위 조사만), PLG_START (기본 2020-01-01)
 """
 import os, json, re, time
 import datetime as dt
 import requests
 
 KEY = os.environ.get("AGSI_KEY", "").strip()
-START = os.environ.get("PLG_START", "").strip() or "2025-01-01"
+START = os.environ.get("PLG_START", "").strip() or "2020-01-01"
 AGSI = "https://agsi.gie.eu/api"
 GSP = ("https://ipi.gasstoragepoland.pl/uslugi-magazynowania/dane-operacyjne-i-eksploatacyjne/dane-operacyjne/")
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"}
