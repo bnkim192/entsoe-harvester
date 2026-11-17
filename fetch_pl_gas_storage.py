@@ -42,6 +42,29 @@ def get_agsi(probe):
     hdr = dict(UA)
     if KEY:
         hdr["x-key"] = KEY
+    # 1) 최근 21일만 따로 먼저 받는다 (긴 기간 1쪽이 비어 와서 최신 날짜가 빠진 적이 있음, 2026-11-17)
+    recent_from = (dt.date.today() - dt.timedelta(days=21)).isoformat()
+    for k in range(3):
+        r, data = None, []
+        try:
+            r = requests.get(AGSI, params={"country": "pl", "from": recent_from, "to": today, "size": 300, "page": 1},
+                             headers=hdr, timeout=(10, 60))
+            data = r.json().get("data", []) if r.status_code == 200 else []
+        except (requests.RequestException, ValueError):
+            data = []
+        probe.setdefault("agsi_recent", []).append({"try": k + 1, "status": r.status_code if r is not None else None,
+                                                   "rows": len(data), "head": "" if (data or r is None) else r.text[:200]})
+        if data:
+            for d in data:
+                day = d.get("gasDayStart")
+                if day:
+                    rows.append({"date": day, "full": fnum(d.get("full")), "gas_twh": fnum(d.get("gasInStorage")),
+                                 "inj_gwh": fnum(d.get("injection")), "wd_gwh": fnum(d.get("withdrawal")),
+                                 "wgv_twh": fnum(d.get("workingGasVolume")), "trend": fnum(d.get("trend"))})
+            break
+        time.sleep(10)
+    # 2) 전체 기간 (쪽이 비어 오면 그 쪽만 세 번까지 다시)
+    retry = 0
     while page <= last and page <= 20:
         try:
             r = requests.get(AGSI, params={"country": "pl", "from": START, "to": today, "size": 300, "page": page},
@@ -49,6 +72,12 @@ def get_agsi(probe):
         except requests.RequestException as e:
             probe["agsi"] = {"error": type(e).__name__}
             return rows
+        if r.status_code == 200 and len(r.text) < 500 and retry < 3:
+            retry += 1
+            probe.setdefault("agsi_empty", []).append({"page": page, "head": r.text[:200]})
+            time.sleep(10)
+            continue
+        retry = 0
         probe.setdefault("agsi_pages", []).append({"page": page, "status": r.status_code, "len": len(r.text)})
         if r.status_code != 200:
             probe["agsi"] = {"status": r.status_code, "head": r.text[:300], "key_set": bool(KEY)}
