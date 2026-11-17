@@ -92,7 +92,7 @@ def entsoe(params, tag):
             DIAG.append({"tag": tag, "ok": True, "note": "len=%d" % len(txt)})
             return txt
         DIAG.append({"tag": tag, "ok": False, "note": "HTTP %s %s" % (r.status_code, txt[:120].replace("\n", " "))})
-        if r.status_code in (429, 503):
+        if r.status_code == 429 or r.status_code >= 500:    # 599 접속 시간 초과 등 서버 쪽 오류는 다시 시도
             time.sleep(15)
             continue
         return None
@@ -263,6 +263,12 @@ def main():
             start = START_ENV
         elif old_rows:
             start = (dt.date.fromisoformat(max(old_rows)) - dt.timedelta(days=OVERLAP_DAYS)).isoformat()
+            # 최근 14일 안에 빈 칸(받기 실패)이 있는 날이 있으면 그날부터 다시 받는다
+            lim = (today - dt.timedelta(days=14)).isoformat()
+            gaps = [d for d, r in old_rows.items() if d >= lim and any(v is None for k, v in r.items() if k != "date")]
+            if gaps and min(gaps) < start:
+                start = min(gaps)
+                log("빈 칸이 있는 날부터 다시 받음:", start)
         else:
             start = (today - dt.timedelta(days=FIRST_DAYS)).isoformat()
         log("수집 시작일", start, "(기존 %d일)" % len(old_rows))
@@ -289,7 +295,24 @@ def main():
             row["total_net"] = round(ti - te, 3) if complete else None
             rows.append(row)
         if rows:
-            for r in rows:                              # 새로 받은 날짜는 덮어쓰고 나머지는 유지
+            for r in rows:                              # 새로 받은 값으로 덮어쓰되, 이번에 못 받은 칸(None)은 전에 받은 값을 유지
+                prev = old_rows.get(r["date"], {})
+                for k, v in list(r.items()):
+                    if v is None and prev.get(k) is not None:
+                        r[k] = prev[k]
+                ti = te = 0.0
+                ok = True
+                for n in set(names) | {k[:-4] for k in prev if k.endswith("_imp") and not k.startswith("total")}:
+                    i, e = r.get(n + "_imp"), r.get(n + "_exp")
+                    if i is not None and e is not None:
+                        r[n + "_net"] = round(i - e, 3)
+                        ti += i
+                        te += e
+                    else:
+                        ok = False
+                r["total_imp"] = round(ti, 3) if ok else None
+                r["total_exp"] = round(te, 3) if ok else None
+                r["total_net"] = round(ti - te, 3) if ok else None
                 old_rows[r["date"]] = r
             rows = [old_rows[d] for d in sorted(old_rows)]
             used = dict(old.get("borders", {}), **used)
