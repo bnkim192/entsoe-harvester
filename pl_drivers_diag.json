@@ -43,7 +43,7 @@
     },
     {
       "item": "수요",
-      "points": 30717,
+      "points": 30719,
       "days": 320
     },
     {
@@ -95,11 +95,6 @@
       "item": "발전 hydro_res",
       "points": 30718,
       "days": 320
-    },
-    {
-      "item": "기상",
-      "days": 320,
-      "forecast_days": 8
     }
   ],
   "skipped_currency": [
@@ -175,19 +170,19 @@
       "chg_pct": 22.926748222603944
     },
     "temp": {
-      "base": 13.120783730158731,
-      "spike": 4.5722883597883595,
-      "chg_pct": -65.15232280462986
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "wind100": {
-      "base": 20.5140873015873,
-      "spike": 17.850859788359788,
-      "chg_pct": -12.982432384507991
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "rad": {
-      "base": 2.900946428571429,
-      "spike": 1.2505714285714287,
-      "chg_pct": -56.8909161418995
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     }
   },
   "verdict": {
