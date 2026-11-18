@@ -491,6 +491,30 @@
    "total_imp": 44.497,
    "total_exp": 63.725,
    "total_net": -19.228
+  },
+  {
+   "date": "2026-11-17",
+   "DE_imp": 36.733,
+   "DE_exp": 3.577,
+   "DE_net": 33.156,
+   "CZ_imp": 2.362,
+   "CZ_exp": 13.474,
+   "CZ_net": -11.112,
+   "SK_imp": 0.058,
+   "SK_exp": 13.925,
+   "SK_net": -13.867,
+   "LT_imp": 2.856,
+   "LT_exp": 0.842,
+   "LT_net": 2.014,
+   "SE4_imp": 0.199,
+   "SE4_exp": 2.922,
+   "SE4_net": -2.723,
+   "UA_imp": 2.032,
+   "UA_exp": 1.403,
+   "UA_net": 0.629,
+   "total_imp": 44.24,
+   "total_exp": 36.143,
+   "total_net": 8.097
   }
  ]
 }
