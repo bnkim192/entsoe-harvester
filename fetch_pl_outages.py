@@ -12,7 +12,8 @@ TGE GPI(gpi.tge.pl)는 GitHub 서버에서도 접속이 막혀(ConnectTimeout) E
   같은 공시의 여러 판(revision)은 가장 최신판만, 취소된 공시(docStatus A09)는 뺀다.
 
 산출물
-  pl_outages_latest.json    오늘 기준 −1일 ~ +7일에 걸친 정지 목록 + 날짜별 정지 MW 합계(계획·고장, 전원별)
+  pl_outages_latest.json    오늘 기준 −1일 ~ 다음 달 말일(M+1)에 걸친 정지 목록 + 날짜별 정지 MW 합계(계획·고장, 전원별)
+                            (2026-11-18 법인 요청으로 +7일에서 M+1 말일까지 늘림. 미리 공시된 계획정지만 보이고, 고장정지·늦은 공시는 빠짐)
   pl_outages_history.jsonl  하루 1줄 누적(오늘 날짜 합계, 같은 날 재실행 시 덮어씀)
   pl_outages_diag.json      요청별 결과
 
@@ -29,7 +30,7 @@ BASE_URL = "https://web-api.tp.entsoe.eu/api"
 PL = "10YPL-AREA-----S"
 TZ = ZoneInfo("Europe/Warsaw")
 UTC = dt.timezone.utc
-BACK_DAYS, AHEAD_DAYS = 1, 7
+BACK_DAYS = 1
 PAGE = 200                      # ENTSO-E 정지 자료는 한 번에 최대 200건, offset 으로 넘김
 PSR = {"B01": "바이오", "B02": "갈탄", "B03": "석탄가스", "B04": "가스", "B05": "유연탄", "B06": "석유",
        "B10": "양수", "B11": "수력(유입식)", "B12": "수력(저수지)", "B14": "원자력", "B15": "기타 재생",
@@ -147,6 +148,14 @@ def parse(xml, doc_type):
     return out
 
 
+def m1_next(today):
+    """다음 달(M+1) 말일의 다음 날. 예: 11월 18일이면 1월 1일."""
+    y, m = today.year, today.month + 2
+    if m > 12:
+        y, m = y + 1, m - 12
+    return dt.date(y, m, 1)
+
+
 def main():
     now = dt.datetime.now(UTC)
     today = now.astimezone(TZ).date()
@@ -154,7 +163,8 @@ def main():
         log("ENTSOE_TOKEN 없음 — 건너뜀")
         return
     s = dt.datetime.combine(today - dt.timedelta(days=BACK_DAYS), dt.time(0), TZ).astimezone(UTC)
-    e = dt.datetime.combine(today + dt.timedelta(days=AHEAD_DAYS + 1), dt.time(0), TZ).astimezone(UTC)
+    end_d = m1_next(today)
+    e = dt.datetime.combine(end_d, dt.time(0), TZ).astimezone(UTC)
 
     recs = []
     for doc_type in ("A80", "A77"):
@@ -178,7 +188,7 @@ def main():
 
     # 날짜별 합계 (그날 하루 중 일부라도 겹치면 포함)
     daily = {}
-    for k in range(-BACK_DAYS, AHEAD_DAYS + 1):
+    for k in range(-BACK_DAYS, (end_d - today).days):
         d = today + dt.timedelta(days=k)
         d0 = dt.datetime.combine(d, dt.time(0), TZ).astimezone(UTC)
         d1 = d0 + dt.timedelta(days=1)
@@ -202,7 +212,8 @@ def main():
     with open(OUT_LATEST, "w", encoding="utf-8") as f:
         json.dump({"source": "ENTSO-E A80(발전기)·A77(발전소) Unavailability", "zone": "PL",
                    "fetched_utc": now.isoformat(timespec="seconds"), "today_pl": today.isoformat(),
-                   "note": "정지 MW = 정격 − 정지 중 최저 가용용량. 하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). "
+                   "until_pl": (end_d - dt.timedelta(days=1)).isoformat(),
+                   "note": "미리 공시된 계획정지 기준(고장정지·늦은 공시는 빠짐, 일정은 바뀔 수 있음). 정지 MW = 정격 − 정지 중 최저 가용용량. 하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). "
                            "같은 발전기는 그날 가장 큰 정지 1건만 셈. 폴란드는 A77(발전소 단위) 자료가 없어 A80(발전기 단위)만 씀.",
                    "daily": daily, "outages": cur}, f, ensure_ascii=False, indent=1)
 

@@ -379,18 +379,24 @@ def get_weather():
         ser = {}
         reqs = [("https://archive-api.open-meteo.com/v1/archive",
                  {"start_date": START, "end_date": (today - dt.timedelta(days=1)).isoformat()}),
-                ("https://api.open-meteo.com/v1/forecast", {"past_days": 14, "forecast_days": 8})]
+                ("https://api.open-meteo.com/v1/forecast", {"past_days": 14, "forecast_days": 16})]
+        # 2026-11-18: 예보 16일로 확대(법인 12월 초 풍속 문의), 실패 시 세 번까지 재시도(11/17 수집에서 예보 0일)
         for url, extra in reqs:
             p = {"latitude": lat, "longitude": lon, "timezone": "Europe/Warsaw",
                  "hourly": ",".join(s for s, _ in keys)}
             p.update(extra)
-            try:
-                r = requests.get(url, params=p, timeout=90)
-            except Exception as e:
-                log("   [기상 %s] 접속 실패 (%s)" % (nm, type(e).__name__))
-                continue
-            if r.status_code != 200:
-                log("   [기상 %s] HTTP %s %s" % (nm, r.status_code, r.text[:120]))
+            r = None
+            for k in range(3):
+                try:
+                    r = requests.get(url, params=p, timeout=90)
+                    if r.status_code == 200:
+                        break
+                    log("   [기상 %s] HTTP %s %s (시도 %d)" % (nm, r.status_code, r.text[:120], k + 1))
+                except Exception as e:
+                    log("   [기상 %s] 접속 실패 %s (시도 %d)" % (nm, type(e).__name__, k + 1))
+                    r = None
+                time.sleep(10)
+            if r is None or r.status_code != 200:
                 continue
             h = r.json().get("hourly", {})
             tl = h.get("time", [])
