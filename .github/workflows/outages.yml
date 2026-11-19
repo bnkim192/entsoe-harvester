@@ -43,6 +43,9 @@ jobs:
         env:
           AGSI_KEY: ${{ secrets.AGSI_KEY }}
         run: python fetch_pl_gas_storage.py
+      - name: TTF·탄소배출권 선물 곡선 (ICE 공개 지연시세)
+        continue-on-error: true
+        run: python fetch_fwd_curves.py
       - name: 일일 Excel (PPT 없음)
         continue-on-error: true
         env:
@@ -58,6 +61,8 @@ jobs:
             pl_outages_diag.json
             pl_flows_diag.json
             pse_probe.json
+            fwd_curves.json
+            fwd_curves_probe.json
       - name: commit back
         run: |
           git config user.name "entsoe-bot"
