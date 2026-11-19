@@ -19,7 +19,7 @@ UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, 
 DELAYED = "https://www.ice.com/marketdata/DelayedMarkets.shtml"
 PAGES = {"ttf": "https://www.ice.com/products/27996665/Dutch-TTF-Natural-Gas-Futures/data",
          "eua": "https://www.ice.com/products/197/EUA-Futures/data"}
-KNOWN = {"ttf": [(4331, 7979)], "eua": []}
+KNOWN = {"ttf": [(4331, 7979)], "eua": [(390, 564)]}   # EUA 번호는 2026-11-19 상품 페이지에서 확인
 UNIT = {"ttf": "EUR/MWh", "eua": "EUR/tCO2"}
 OUT, HIST, PROBE = "fwd_curves.json", "fwd_curves_history.jsonl", "fwd_curves_probe.json"
 MON = {m: i + 1 for i, m in enumerate(["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"])}
@@ -46,11 +46,17 @@ def strip_month(s):
     return "%04d-%02d" % (y, MON[m.group(1).upper()])
 
 
+SES = requests.Session()          # 2026-11-19: 단독 요청은 403 → 상품 페이지를 먼저 열어 쿠키를 받은 같은 접속으로 요청
+SES.headers.update({"User-Agent": UA["User-Agent"], "Accept-Language": "en-US,en;q=0.9"})
+
+
 def get_json(pid, hid, probe, tag):
+    page = PAGES.get(tag.split()[0])
+    hdr = dict(UA, Referer=page or "https://www.ice.com/", Origin="https://www.ice.com")
     for k in range(3):
         try:
-            r = requests.get(DELAYED, params={"getContractsAsJson": "", "productId": pid, "hubId": hid},
-                             headers=UA, timeout=(10, 60))
+            r = SES.get(DELAYED, params={"getContractsAsJson": "", "productId": pid, "hubId": hid},
+                        headers=hdr, timeout=(10, 60))
             ok = r.status_code == 200 and r.text.strip()[:1] in "[{"
             probe.append({"tag": tag, "pid": pid, "hid": hid, "try": k + 1, "status": r.status_code,
                           "len": len(r.text), "head": r.text[:300]})
@@ -67,8 +73,9 @@ def discover(key, probe):
     """상품 페이지 HTML 에서 productId·hubId 숫자 쌍을 찾는다."""
     pairs = []
     try:
-        r = requests.get(PAGES[key], headers={"User-Agent": UA["User-Agent"]}, timeout=(10, 60))
+        r = SES.get(PAGES[key], headers={"Accept": "text/html,application/xhtml+xml"}, timeout=(10, 60))
         txt = r.text
+        probe.append({"tag": key + " cookies", "names": sorted(SES.cookies.keys())[:15]})
         pids = re.findall(r"productId[\"'\s:=]+(\d+)", txt)
         hids = re.findall(r"hubId[\"'\s:=]+(\d+)", txt)
         for a, b in re.findall(r"productId=(\d+)&(?:amp;)?hubId=(\d+)", txt):
@@ -107,6 +114,10 @@ def main():
     now = dt.datetime.now(dt.timezone.utc)
     probe, res = [], {"fetched_utc": now.isoformat(timespec="seconds"),
                       "source": "ICE 공개 지연시세(DelayedMarkets). 최근 체결가 기준, 정산가 아님"}
+    try:
+        SES.get("https://www.ice.com/", headers={"Accept": "text/html"}, timeout=(10, 60))   # 첫 방문 쿠키
+    except requests.RequestException:
+        pass
     for key in ("ttf", "eua"):
         cands = KNOWN[key] + [p for p in discover(key, probe) if p not in KNOWN[key]]
         got, used = [], None

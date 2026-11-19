@@ -400,6 +400,12 @@ def get_weather():
                 continue
             h = r.json().get("hourly", {})
             tl = h.get("time", [])
+            if "forecast" in url:            # 2026-11-19: 16일 요청에 8일만 들어와 원인 확인용 기록
+                LOG.append({"item": "기상예보 " + nm, "hours": len(tl), "last": tl[-1] if tl else None,
+                            "wind_last": next((tl[i] for i in range(len(tl) - 1, -1, -1)
+                                               if i < len(h.get("wind_speed_100m") or []) and h["wind_speed_100m"][i] is not None), None),
+                            "temp_last": next((tl[i] for i in range(len(tl) - 1, -1, -1)
+                                               if i < len(h.get("temperature_2m") or []) and h["temperature_2m"][i] is not None), None)})
             for src, key in keys:
                 vals = h.get(src) or []
                 for i, ts in enumerate(tl):

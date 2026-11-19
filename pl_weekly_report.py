@@ -30,7 +30,7 @@ from pptx.chart.data import CategoryChartData
 from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION, XL_LABEL_POSITION, XL_TICK_MARK, XL_MARKER_STYLE
 from pptx.enum.chart import XL_TICK_LABEL_POSITION
 from pptx.enum.dml import MSO_LINE_DASH_STYLE
-from pptx.enum.shapes import MSO_SHAPE
+from pptx.enum.shapes import MSO_SHAPE, MSO_CONNECTOR
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.oxml.ns import qn
 from pptx.oxml.xmlchemy import OxmlElement
@@ -46,7 +46,8 @@ INK, INK2, MUTED, GRID, AXIS, CARD = "0B0B0B", "52514E", "898781", "E1E0D9", "C3
 COL = {"PL": "2A78D6", "DE": "EB6834", "EUA": "1BAF7A", "TTF": "6250D6", "COAL": "008300", "BRENT": "E34948"}
 SRC = {"px": "ENTSO-E", "fx": "ECB", "eua": "EEX 경매", "brent": "EIA", "wb": "World Bank", "wx": "Open-Meteo"}
 BULLET_SRC = {"가격": "ENTSO-E · ECB", "수급": "ENTSO-E · 자체 계산", "주변국": "ENTSO-E",
-              "원자재": "EEX · EIA · World Bank", "다음 주": "Open-Meteo 예보 · ENTSO-E"}
+              "원자재": "EEX · EIA · World Bank", "다음 주": "Open-Meteo 예보 · ENTSO-E",
+              "예상": "Open-Meteo 예보 · 자체 계산"}
 SRC_LONG = [
     ["전력 하루전 가격", "ENTSO-E Transparency Platform, A44 Day-ahead Prices (PL·DE-LU·CZ·SK·LT·SE4)",
      "https://transparency.entsoe.eu"],
@@ -529,6 +530,225 @@ def table(sl, x, y, w, h, rows, widths):
                     style(r.font, 8, i == 0, INK if i else INK2)
 
 
+# ══════════════════════════════════════════════════════════════════
+#  다음 주 예상 가격 (2026-11-19 추가) — 1장 오른쪽 위 1/4
+#  ln 가격(PLN) = a + b·풍력GW + c·수요GW + d·주말 (최근 60일), 직전 14일 잔차 평균으로 수준 보정
+#  풍력 = 풍속 예보(100m) → 같은 60일 일별 관계로 환산, 수요 = 지난주 같은 요일 실적
+#  범위 = 60일 잔차의 하위 10%~상위 10% (확률 구간 아님). 매주 기록해 다음 보고 때 실제와 비교.
+# ══════════════════════════════════════════════════════════════════
+NW_FIT, NW_ANCHOR, NW_LOG, NW_BT_WEEKS = 60, 14, "pl_nextweek_log.json", 10
+
+
+def _nw_ok(r):
+    return bool(r) and r.get("px_PL_pln") is not None and r["px_PL_pln"] > 30 \
+        and r.get("wind") is not None and r.get("load") is not None
+
+
+def _nw_days(R, d_end, n):
+    return [d for d in drange(d_end - dt.timedelta(days=n - 1), d_end) if _nw_ok(R.get(d))]
+
+
+def _nw_fit(R, ds):
+    if len(ds) < 30:
+        return None
+    X = [[R[d]["wind"] / 1000 for d in ds], [R[d]["load"] / 1000 for d in ds],
+         [1.0 if dd(d).weekday() >= 5 else 0.0 for d in ds]]
+    y = [math.log(R[d]["px_PL_pln"]) for d in ds]
+    f = ols(X, y)
+    if not f:
+        return None
+    c = f["coef"]
+    res = [y[i] - (c[0] + c[1] * X[0][i] + c[2] * X[1][i] + c[3] * X[2][i]) for i in range(len(ds))]
+    tail = res[-NW_ANCHOR:]
+    adj = sum(tail) / len(tail)
+    rs = sorted(v - adj for v in res)
+    return {"c": c, "adj": adj, "lo": rs[int(len(rs) * 0.1)], "hi": rs[min(len(rs) - 1, int(len(rs) * 0.9))],
+            "r2": f["r2"], "n": f["n"]}
+
+
+def _nw_pred(m, wind_gw, load_gw, wkend):
+    s = m["c"][0] + m["c"][1] * wind_gw + m["c"][2] * load_gw + m["c"][3] * wkend + m["adj"]
+    p = math.exp(s)
+    return p, p * math.exp(m["lo"]), p * math.exp(m["hi"])
+
+
+def _nw_load(R, d, before):
+    """d 와 같은 요일 중 before 이전의 가장 최근 수요(GW)."""
+    x = dd(d)
+    for k in range(1, 6):
+        q = (x - dt.timedelta(days=7 * k)).isoformat()
+        if q < before and R.get(q, {}).get("load") is not None:
+            return R[q]["load"] / 1000
+    return None
+
+
+def _nw_backtest(R, last):
+    """최근 NW_BT_WEEKS 주: 그 주 월요일 전 60일로 식을 만들고, 실제 풍력 + 지난주 같은 요일 수요로 주평균을 계산."""
+    mon = last - dt.timedelta(days=last.weekday())
+    out = []
+    for k in range(NW_BT_WEEKS, 0, -1):
+        m0 = mon - dt.timedelta(days=7 * k)
+        wk = drange(m0, m0 + dt.timedelta(days=6))
+        if not all(_nw_ok(R.get(d)) for d in wk):
+            continue
+        m = _nw_fit(R, _nw_days(R, m0 - dt.timedelta(days=1), NW_FIT))
+        if not m:
+            continue
+        ps = []
+        for d in wk:
+            lg = _nw_load(R, d, wk[0])
+            if lg is None:
+                break
+            ps.append(_nw_pred(m, R[d]["wind"] / 1000, lg, 1.0 if dd(d).weekday() >= 5 else 0.0)[0])
+        if len(ps) < 7:
+            continue
+        act = sum(R[d]["px_PL_pln"] for d in wk) / 7
+        prd = sum(ps) / 7
+        out.append({"week": wk[0], "actual": act, "pred": prd, "err": prd / act - 1})
+    return out
+
+
+def next_week(R, FC, we):
+    wx = ((FC or {}).get("wx") or {}).get("wind100") or {}
+    days = drange(we + dt.timedelta(days=1), we + dt.timedelta(days=7))
+    have = [d for d in days if wx.get(d) is not None]
+    if len(have) < 5:
+        return {"ok": False, "why": "바람 예보 %d일(5일 미만)" % len(have)}
+    good = [d for d in R if _nw_ok(R[d])]
+    if not good:
+        return {"ok": False, "why": "실적 없음"}
+    last = dd(max(good))
+    ds = _nw_days(R, last, NW_FIT)
+    m = _nw_fit(R, ds)
+    wpts = [(R[d]["wind100"], R[d]["wind"] / 1000) for d in ds if R[d].get("wind100") is not None]
+    wm = ols([[p[0] for p in wpts]], [p[1] for p in wpts]) if len(wpts) >= 30 else None
+    if not m or not wm:
+        return {"ok": False, "why": "계산 불가(표본 부족)"}
+    rows = []
+    for d in have:
+        wg = max(0.0, wm["coef"][0] + wm["coef"][1] * wx[d])
+        lg = _nw_load(R, d, days[0])
+        if lg is None:
+            continue
+        p, lo, hi = _nw_pred(m, wg, lg, 1.0 if dd(d).weekday() >= 5 else 0.0)
+        rows.append({"d": d, "wind100": wx[d], "wind_gw": wg, "load_gw": lg, "p": p, "lo": lo, "hi": hi})
+    if len(rows) < 5:
+        return {"ok": False, "why": "계산된 날 %d일" % len(rows)}
+    n = len(rows)
+    bt = _nw_backtest(R, last)
+    return {"ok": True, "from": days[0], "to": days[-1], "rows": rows,
+            "avg": sum(r["p"] for r in rows) / n, "lo": sum(r["lo"] for r in rows) / n, "hi": sum(r["hi"] for r in rows) / n,
+            "fit": {"wind_pct_per_gw": (math.exp(m["c"][1]) - 1) * 100, "load_pct_per_gw": (math.exp(m["c"][2]) - 1) * 100,
+                    "anchor_pct": (math.exp(m["adj"]) - 1) * 100, "r2": m["r2"], "n": m["n"], "until": last.isoformat(),
+                    "wind_map": wm["coef"], "wind_map_r2": wm["r2"]},
+            "backtest": bt,
+            "bt_mape": (sum(abs(b["err"]) for b in bt) / len(bt) * 100) if bt else None,
+            "bt_low": sum(1 for b in bt if b["err"] < 0), "bt_n": len(bt)}
+
+
+def r10(v):
+    return None if v is None else round(v / 10.0) * 10
+
+
+def nw_log_update(nw, tag_next, W_tag, W_actual):
+    """이번 예상을 기록하고, 이번 보고 주(W_tag)에 대해 지난주에 해 둔 예상을 꺼내 실제와 비교."""
+    log = load(NW_LOG) if os.path.exists(NW_LOG) else {}
+    prev = log.get(W_tag)
+    cmp_ = None
+    if prev and prev.get("avg") and W_actual:
+        cmp_ = {"week": W_tag, "pred": prev["avg"], "lo": prev.get("lo"), "hi": prev.get("hi"), "actual": W_actual,
+                "err": prev["avg"] / W_actual - 1}
+        prev["actual"] = W_actual
+    if nw.get("ok"):
+        log[tag_next] = {"made": dt.datetime.now(TZ).strftime("%Y-%m-%d %H:%M"), "from": nw["from"], "to": nw["to"],
+                         "avg": round(nw["avg"], 1), "lo": round(nw["lo"], 1), "hi": round(nw["hi"], 1),
+                         "days": [{"d": r["d"], "p": round(r["p"], 1), "wind_gw": round(r["wind_gw"], 2)} for r in nw["rows"]]}
+    with open(NW_LOG, "w", encoding="utf-8") as f:
+        json.dump(log, f, ensure_ascii=False, indent=1)
+    return cmp_, log
+
+
+def s_nextweek(nw, cmp_):
+    if not nw.get("ok"):
+        return ""
+    calm = [r for r in nw["rows"] if r["wind_gw"] < 2.0]
+    txt = "바람 예보로 본 다음 주(%s~%s) 평균 약 %s PLN/MWh(범위 %s~%s)" % (
+        md(nw["from"]), md(nw["to"]), f0(r10(nw["avg"])), f0(r10(nw["lo"])), f0(r10(nw["hi"])))
+    if calm:
+        txt += " · 바람 약한 %s 약 %s" % (
+            md(calm[0]["d"]) + ("~" + md(calm[-1]["d"]) if len(calm) > 1 else ""),
+            f0(r10(sum(r["p"] for r in calm) / len(calm))))
+    if cmp_:
+        txt += " · 지난주 예상 %s → 실제 %s(%s)" % (f0(r10(cmp_["pred"])), f0(cmp_["actual"]), sg(cmp_["err"] * 100, 0, "%"))
+    return txt
+
+
+def _pt(v):
+    return Inches(v / 72.0)
+
+
+def _lbl(sl, x, y, w, h, text, size, bold=False, color=INK, align=PP_ALIGN.CENTER):
+    tb = sl.shapes.add_textbox(_pt(x), _pt(y), _pt(w), _pt(h))
+    tf = tb.text_frame
+    tf.word_wrap = True
+    tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+    p = tf.paragraphs[0]
+    p.alignment = align
+    r = p.add_run()
+    r.text = text
+    style(r.font, size, bold, color)
+    return tb
+
+
+def _line(sl, x1, y1, x2, y2, color, wt=1.0, dash=False):
+    c = sl.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, _pt(x1), _pt(y1), _pt(x2), _pt(y2))
+    c.line.color.rgb = rgb(color)
+    c.line.width = Pt(wt)
+    if dash:
+        c.line.dash_style = MSO_LINE_DASH_STYLE.DASH
+    return c
+
+
+def nw_panel(sl, nw, cmp_, X0=565.0, Y0=155.0, W=366.0, H=205.0):
+    """1장 오른쪽 위 1/4: 하루별 예상 막대 + 범위선 + 풍력 예보."""
+    BLU, RED, SKY, PNK = COL["PL"], "C83C3C", "BDD9F0", "F4D8D8"
+    rows = nw["rows"]
+    calm = [r for r in rows if r["wind_gw"] < 2.0]
+    _lbl(sl, X0, Y0 + 2, W, 14, "다음 주 예상 가격 (%s~%s, PLN/MWh) · 바람 예보 기준" % (md(nw["from"]), md(nw["to"])), 9, True, INK2)
+    sub = "주 평균 약 %s  (범위 %s~%s)" % (f0(r10(nw["avg"])), f0(r10(nw["lo"])), f0(r10(nw["hi"])))
+    if calm:
+        sub += "  ·  %s 바람 약함" % (md(calm[0]["d"]) + ("~" + md(calm[-1]["d"]) if len(calm) > 1 else ""))
+    _lbl(sl, X0, Y0 + 17, W, 12, sub, 8.5, True, RED if calm else INK)
+    cx, cy, cw, ch = X0 + 28, Y0 + 46, W - 34, 112.0
+    top = max(r["hi"] for r in rows)
+    step = 500.0 if top <= 2600 else 1000.0
+    pmax = math.ceil(top * 1.12 / step) * step
+    py = lambda v: cy + ch - ch * max(0.0, v) / pmax
+    g = 0.0
+    while g < pmax + 1:
+        _line(sl, cx, py(g), cx + cw, py(g), GRID, 0.5)
+        _lbl(sl, X0, py(g) - 5, 26, 10, f0(g), 6.5, False, MUTED, PP_ALIGN.RIGHT)
+        g += step
+    _line(sl, cx, py(nw["avg"]), cx + cw, py(nw["avg"]), MUTED, 0.75, dash=True)
+    n = len(rows)
+    sp = cw / n
+    for i, r in enumerate(rows):
+        x = cx + i * sp
+        lowwind = r["wind_gw"] < 2.0
+        rect(sl, (x + sp * 0.22) / 72, py(r["p"]) / 72, sp * 0.56 / 72, max(0.5, py(0) - py(r["p"])) / 72, RED if lowwind else BLU)
+        _line(sl, x + sp / 2, py(r["hi"]), x + sp / 2, py(r["lo"]), INK, 0.75)
+        _lbl(sl, x - 2, py(r["hi"]) - 11, sp + 4, 10, f0(r["p"]), 7, True, RED if lowwind else INK)
+        _lbl(sl, x, cy + ch + 2, sp, 10, "%s %s" % (md(r["d"]), WD[dd(r["d"]).weekday()]), 6.5, False, INK)
+        rect(sl, (x + sp * 0.1) / 72, (cy + ch + 13) / 72, sp * 0.8 / 72, 11 / 72, PNK if lowwind else SKY)
+        _lbl(sl, x, cy + ch + 14, sp, 10, "%sGW" % f0(r["wind_gw"], 1), 6.5, lowwind, INK)
+    note = "막대 = 예상, 선 = 범위 · 아래 = 풍력 예보(GW)"
+    if nw.get("bt_mape") is not None:
+        note += " · 최근 %d주 주평균 오차 %s%%(%d주는 실제보다 낮게)" % (nw["bt_n"], f0(nw["bt_mape"]), nw["bt_low"])
+    if cmp_:
+        note += " · 지난주 예상 %s → 실제 %s" % (f0(r10(cmp_["pred"])), f0(cmp_["actual"]))
+    _lbl(sl, X0, Y0 + H - 12, W, 11, note, 6.5, False, MUTED)
+
+
 def build_ppt(path, ctx):
     W, P, K, ws, we, tag = ctx["W"], ctx["P"], ctx["K"], ctx["ws"], ctx["we"], ctx["tag"]
     prs = Presentation()
@@ -577,21 +797,34 @@ def build_ppt(path, ctx):
                "하루전 전력가격 일평균 (PLN/MWh, 최근 12주) · 자료: %s, 환율 %s" % (SRC["px"], SRC["fx"]),
                legend=True, skip=7)
 
-    # ── 차트: 원자재 2×2 (각자 단위 → 각자 축)
-    mx, my, mw, mh = 7.85, 2.15, 2.5, 1.4
-    for i, (key, title, nd) in enumerate((("EUA", "탄소배출권 EUA (€/t) · %s" % SRC["eua"], 2),
-                                          ("BRENT", "브렌트유 ($/bbl) · %s" % SRC["brent"], 1))):
-        src = ctx["daily_src"][key]
-        ks = [d for d in sorted(src) if cs[0] <= d <= we.isoformat()]
-        line_chart(sl, mx + i * (mw + 0.08), my, mw, mh, [md(d) for d in ks],
-                   [(title, [src[d] for d in ks], COL[key])], title, nd=nd, skip=max(1, len(ks) // 4), tsize=8.5)
-    for i, (key, wbk, title) in enumerate((("TTF", "WB_TTF_EU", "가스 TTF (%s, 월평균) · " + SRC["wb"]),
-                                           ("COAL", "WB_COAL_AU", "석탄 뉴캐슬 (%s, 월평균) · " + SRC["wb"]))):
-        s = ctx["MON"].get(wbk, {})
-        pts = s.get("points", [])[-CHART_MONTHS:]
-        t = title % UNIT_FIX.get(wbk, s.get("unit", ""))
-        line_chart(sl, mx + i * (mw + 0.08), my + mh + 0.05, mw, mh, [p["period"][2:].replace("-", ".") for p in pts],
-                   [(t, [p["value"] for p in pts], COL[key])], t, nd=1, skip=3, tsize=8.5)
+    # ── 오른쪽 위 1/4: 다음 주 예상 가격 (2026-11-19). 예보 부족·실패 시 원래 원자재 2×2 차트
+    drawn, nw = False, ctx.get("NW") or {}
+    if nw.get("ok"):
+        n0 = len(sl.shapes)
+        try:
+            nw_panel(sl, nw, ctx.get("NW_CMP"))
+            drawn = True
+        except Exception as e:
+            print("!! 다음 주 예상 칸 실패 → 원자재 차트로 대체: %r" % e, flush=True)
+            traceback.print_exc()
+            sp_tree = sl.shapes._spTree
+            for shp in list(sl.shapes)[n0:]:
+                sp_tree.remove(shp._element)
+    if not drawn:
+        mx, my, mw, mh = 7.85, 2.15, 2.5, 1.4
+        for i, (key, title, nd) in enumerate((("EUA", "탄소배출권 EUA (€/t) · %s" % SRC["eua"], 2),
+                                              ("BRENT", "브렌트유 ($/bbl) · %s" % SRC["brent"], 1))):
+            src = ctx["daily_src"][key]
+            ks = [d for d in sorted(src) if cs[0] <= d <= we.isoformat()]
+            line_chart(sl, mx + i * (mw + 0.08), my, mw, mh, [md(d) for d in ks],
+                       [(title, [src[d] for d in ks], COL[key])], title, nd=nd, skip=max(1, len(ks) // 4), tsize=8.5)
+        for i, (key, wbk, title) in enumerate((("TTF", "WB_TTF_EU", "가스 TTF (%s, 월평균) · " + SRC["wb"]),
+                                               ("COAL", "WB_COAL_AU", "석탄 뉴캐슬 (%s, 월평균) · " + SRC["wb"]))):
+            s = ctx["MON"].get(wbk, {})
+            pts = s.get("points", [])[-CHART_MONTHS:]
+            t = title % UNIT_FIX.get(wbk, s.get("unit", ""))
+            line_chart(sl, mx + i * (mw + 0.08), my + mh + 0.05, mw, mh, [p["period"][2:].replace("-", ".") for p in pts],
+                       [(t, [p["value"] for p in pts], COL[key])], t, nd=1, skip=3, tsize=8.5)
 
     # ── 이번 주 포인트
     rect(sl, 0.4, 5.12, 8.15, 1.86, CARD, rounded=True)
@@ -1426,6 +1659,28 @@ def build_xlsx(path, ctx):
              ["가격 구성", "발전원가 = 연료비 ÷ 효율(가스 0.55·석탄 0.41) + 배출계수(가스 0.37·석탄 0.83 t/MWh) × 배출권가 + 운전비 2€/MWh. "
                          "가스 쪽 무게 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가), 0~100%로 제한한 환산값(실제 시간 비율 아님). 가스 원가보다 비싸면 초과분 = 희소성 프리미엄, "
                          "석탄 원가보다 싸면 = 재생에너지 과잉 할인. 전력 = ENTSO-E × ECB, 가스 = World Bank TTF 월평균(공개자료 기준, TGE 아님)."]]
+    nw = ctx.get("NW") or {}
+    if nw.get("ok"):                       # 다음 주 예상 (2026-11-19)
+        fz = nw["fit"]
+        rows_nw = [[dd(r["d"]), WD[dd(r["d"]).weekday()], r2(r["wind100"], 1), r2(r["wind_gw"], 2), r2(r["load_gw"], 2),
+                    r2(r["p"], 0), r2(r["lo"], 0), r2(r["hi"], 0)] for r in nw["rows"]]
+        rows_nw += [[], ["주 평균", "", "", "", "", r2(nw["avg"], 0), r2(nw["lo"], 0), r2(nw["hi"], 0)], [],
+                    ["계산 방법", "ln 가격 = a + b·풍력GW + c·수요GW + d·주말 (최근 %d일, %s까지). 풍력 1GW당 %s%%, 수요 1GW당 %s%%, "
+                     "직전 %d일 수준 보정 %s%%. 풍력 = 풍속 예보 × 같은 기간 일별 관계(설명력 %.0f%%). 수요 = 지난주 같은 요일 실적. "
+                     "범위 = 잔차 하위 10%%~상위 10%%(확률 구간 아님)." % (fz["n"], fz["until"], sg(fz["wind_pct_per_gw"], 1),
+                                                         sg(fz["load_pct_per_gw"], 1), NW_ANCHOR, sg(fz["anchor_pct"], 1), (fz["wind_map_r2"] or 0) * 100)]]
+        if ctx.get("NW_CMP"):
+            c = ctx["NW_CMP"]
+            rows_nw += [["지난주 채점", "예상 %s → 실제 %s (%s)" % (f0(c["pred"]), f0(c["actual"]), sg(c["err"] * 100, 1, "%"))]]
+        sheet(wb, "다음주_예상", ["날짜", "요일", "풍속 예보 100m (km/h)", "풍력 환산 (GW)", "수요 가정 (GW, 지난주 같은 요일)",
+                               "예상 가격 (PLN/MWh)", "범위 하단", "범위 상단"], rows_nw,
+              {1: "yyyy-mm-dd", 3: "0.0", 4: "0.00", 5: "0.00", 6: "#,##0", 7: "#,##0", 8: "#,##0"}, [12, 9, 14, 12, 16, 14, 11, 11])
+        if nw.get("backtest"):
+            sheet(wb, "다음주_예상_채점", ["주 시작(월)", "실제 주평균", "계산 주평균", "차이 %"],
+                  [[dd(b["week"]), r2(b["actual"], 0), r2(b["pred"], 0), r2(b["err"] * 100, 1)] for b in nw["backtest"]]
+                  + [[], ["평균 오차 %", "", "", r2(nw["bt_mape"], 1)],
+                     ["설명", "그 주 월요일 전 %d일로 식을 만들고, 실제 풍력 + 지난주 같은 요일 수요를 넣어 계산(바람 예보 오차는 빠짐)." % NW_FIT]],
+                  {1: "yyyy-mm-dd", 2: "#,##0", 3: "#,##0", 4: "+0.0;-0.0"}, [14, 13, 13, 10])
     sheet(wb, "설명", ["항목", "내용"], notes, None, [16, 120])
     sheet(wb, "출처", ["항목", "자료명", "주소"],
           SRC_LONG + [[], ["수집 시각", ctx["collected"], ""]], None, [16, 80, 70])
@@ -1470,8 +1725,30 @@ def main():
          "TTF": last_month(MON, "WB_TTF_EU"), "COAL": last_month(MON, "WB_COAL_AU")}
     K = {k: v for k, v in K.items() if v}
     out_s, out_info = s_outlook(R, D.get("forecast", {}), W, we, fxp)
+    # 다음 주 예상 가격 (2026-11-19): 주간 실행 때만 기록(pl_nextweek_log.json)하고 지난주 예상과 실제를 비교
+    daily_mode = os.environ.get("PLW_MODE", "").strip().lower() == "daily"
+    try:
+        nw = next_week(R, D.get("forecast", {}), we)
+    except Exception as e:
+        print("!! 다음 주 예상 계산 실패: %r" % e, flush=True)
+        traceback.print_exc()
+        nw = {"ok": False, "why": repr(e)}
+    nxt = (we + dt.timedelta(days=1)).isocalendar()
+    tag_next = "%d-W%02d" % (nxt[0], nxt[1])
+    nw_cmp = None
+    try:
+        if daily_mode:
+            prev = (load(NW_LOG) if os.path.exists(NW_LOG) else {}).get(tag)
+            if prev and prev.get("avg") and W.get("px_PL_pln"):
+                nw_cmp = {"week": tag, "pred": prev["avg"], "actual": W["px_PL_pln"], "err": prev["avg"] / W["px_PL_pln"] - 1}
+        else:
+            nw_cmp, _ = nw_log_update(nw, tag_next, tag, W.get("px_PL_pln"))
+    except Exception as e:
+        print("!! 다음 주 예상 기록 실패: %r" % e, flush=True)
+    print("다음 주 예상: %s" % (("평균 %.0f (%.0f~%.0f), %d일" % (nw["avg"], nw["lo"], nw["hi"], len(nw["rows"])))
+                               if nw.get("ok") else nw.get("why")), flush=True)
     bullets = [("가격", s_price(W, P)), ("수급", s_cause(dec, fit, W, P)), ("주변국", s_region(W, P)),
-               ("원자재", s_commod(K)), ("다음 주", out_s)]
+               ("원자재", s_commod(K)), ("다음 주", out_s), ("예상", s_nextweek(nw, nw_cmp))]
     ctx = {"R": R, "W": W, "P": P, "F4": F4, "K": K, "MON": MON, "FXD": FXD, "fxp": fxp, "fxk": fxk,
            "ws": ws, "we": we, "tag": tag, "iso": (iso[0], iso[1]),
            "issued": dt.datetime.now(TZ).strftime("%Y-%m-%d"),
@@ -1482,7 +1759,8 @@ def main():
            "fx_p": {"PLN": fxp.avg(dp[0], dp[-1]), "KRW": fxk.avg(dp[0], dp[-1])},
            "M": M, "DG": load("pl_drivers_diag.json"), "FC": D.get("forecast", {}),
            "dec": dec, "fit": fit, "out_info": out_info, "FLOW": load("pl_flows_daily.json"),
-           "OUT": load("pl_outages_latest.json"), "GAS": load("pl_gas_storage.json")}
+           "OUT": load("pl_outages_latest.json"), "GAS": load("pl_gas_storage.json"),
+           "NW": nw, "NW_CMP": nw_cmp}
     try:
         ctx["COMP"] = composition(R, M, we.isoformat())
     except Exception as e:
@@ -1512,7 +1790,8 @@ def main():
     with open(os.path.join(ldir, "summary.json"), "w", encoding="utf-8") as f:
         json.dump({"week": tag, "from": ws.isoformat(), "to": we.isoformat(), "issued": ctx["issued"],
                    "this_week": W, "prev_week": P, "commodities": K, "fit": fit, "decompose": dec,
-                   "outlook": out_info, "bullets": bullets}, f, ensure_ascii=False, indent=2, default=str)
+                   "outlook": out_info, "nextweek": nw, "nextweek_vs_actual": nw_cmp,
+                   "bullets": bullets}, f, ensure_ascii=False, indent=2, default=str)
 
     print("\n=== %s (%s~%s) ===" % (tag, ws, we), flush=True)
     for lab, txt in bullets:
