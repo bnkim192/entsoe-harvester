@@ -1,7 +1,7 @@
 """
 폴란드 과거 겨울(10~1월) 바람·수요·가격 한 번 받기 (2026-11-19 신규, 12월 판단용 과거 비교)
 
-기간  2023-10-01 ~ 2024-01-31, 2024-10-01 ~ 2025-01-31, 2025-10-01 ~ 2025-12-31
+기간  2021~2024년 겨울(10~1월) 4번 + 2025-10-01 ~ 2025-12-31
       (2026-01-01 이후는 pl_drivers_daily.json 에 이미 있음)
 자료  ENTSO-E  A44 PL 하루전 가격(EUR) · A65 수요 · A75 전원별 발전(풍력 육상·해상, 태양광 등)
       Open-Meteo Archive(ERA5)  폴란드 3개 지점 100m 풍속·기온 (pl_drivers_daily 와 같은 지점)
@@ -15,7 +15,8 @@ import datetime as dt
 import requests
 import fetch_pl_drivers as fd
 
-PERIODS = [("2023-10-01", "2024-02-01"), ("2024-10-01", "2025-02-01"), ("2025-10-01", "2026-01-01")]
+PERIODS = [("2021-10-01", "2022-02-01"), ("2022-10-01", "2023-02-01"), ("2023-10-01", "2024-02-01"),
+           ("2024-10-01", "2025-02-01"), ("2025-10-01", "2026-01-01")]   # 2026-11-19 2021·2022 겨울 추가(에너지 위기 시기 포함)
 OUT = "pl_winter_hist.json"
 
 
@@ -74,7 +75,7 @@ def weather():
 def ecb_pln():
     try:
         r = requests.get("https://data-api.ecb.europa.eu/service/data/EXR/D.PLN.EUR.SP00.A",
-                         params={"startPeriod": "2023-09-20", "endPeriod": "2026-01-05", "format": "csvdata"}, timeout=60)
+                         params={"startPeriod": "2021-09-20", "endPeriod": "2026-01-05", "format": "csvdata"}, timeout=60)
         out = {}
         lines = r.text.splitlines()
         hdr = lines[0].split(",")
