@@ -43,58 +43,79 @@
     },
     {
       "item": "수요",
-      "points": 30923,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 wind_on",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 wind_off",
-      "points": 13076,
+      "points": 13079,
       "days": 136
     },
     {
       "item": "발전 solar",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 gas",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 hardcoal",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 lignite",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 biomass",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 hydro_ps",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 hydro_ror",
-      "points": 30924,
+      "points": 30927,
       "days": 322
     },
     {
       "item": "발전 hydro_res",
-      "points": 30924,
+      "points": 30927,
       "days": 322
+    },
+    {
+      "item": "기상예보 Warszawa",
+      "hours": 720,
+      "last": "2026-12-04T23:00",
+      "wind_last": "2026-12-04T19:00",
+      "temp_last": "2026-12-04T19:00"
+    },
+    {
+      "item": "기상예보 Pomorze",
+      "hours": 720,
+      "last": "2026-12-04T23:00",
+      "wind_last": "2026-12-04T19:00",
+      "temp_last": "2026-12-04T19:00"
+    },
+    {
+      "item": "기상예보 Slask",
+      "hours": 720,
+      "last": "2026-12-04T23:00",
+      "wind_last": "2026-12-04T19:00",
+      "temp_last": "2026-12-04T19:00"
     },
     {
       "item": "기상",
