@@ -2,120 +2,114 @@
   "collect": [
     {
       "item": "가격 PL",
-      "points": 31008,
-      "days": 323
+      "points": 0,
+      "days": 0
     },
     {
       "item": "가격 DE",
-      "points": 31008,
-      "days": 323
+      "points": 0,
+      "days": 0
     },
     {
       "item": "가격 CZ",
-      "points": 31008,
-      "days": 323
+      "points": 0,
+      "days": 0
     },
     {
       "item": "가격 SK",
-      "points": 31008,
-      "days": 323
+      "points": 0,
+      "days": 0
     },
     {
       "item": "가격 LT",
-      "points": 31008,
-      "days": 323
+      "points": 0,
+      "days": 0
     },
     {
       "item": "가격 SE4",
-      "points": 31008,
-      "days": 323
-    },
-    {
-      "item": "가격 UA 코드·통화",
-      "eic": "10Y1001C--000182",
-      "currency": "UAH"
+      "points": 0,
+      "days": 0
     },
     {
       "item": "가격 UA",
-      "points": 7752,
-      "days": 323,
-      "fx_days": 330
+      "points": 0,
+      "days": 0
     },
     {
       "item": "수요",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 wind_on",
-      "points": 30930,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 wind_off",
-      "points": 13082,
-      "days": 136
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 solar",
-      "points": 30930,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 gas",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 hardcoal",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 lignite",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 biomass",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 hydro_ps",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 hydro_ror",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "발전 hydro_res",
-      "points": 30929,
-      "days": 322
+      "points": 0,
+      "days": 0
     },
     {
       "item": "기상예보 Warszawa",
       "hours": 720,
       "last": "2026-12-04T23:00",
-      "wind_last": "2026-12-04T19:00",
-      "temp_last": "2026-12-04T19:00"
+      "wind_last": "2026-12-04T23:00",
+      "temp_last": "2026-12-04T23:00"
     },
     {
       "item": "기상예보 Pomorze",
       "hours": 720,
       "last": "2026-12-04T23:00",
-      "wind_last": "2026-12-04T19:00",
-      "temp_last": "2026-12-04T19:00"
+      "wind_last": "2026-12-04T23:00",
+      "temp_last": "2026-12-04T23:00"
     },
     {
       "item": "기상예보 Slask",
       "hours": 720,
       "last": "2026-12-04T23:00",
-      "wind_last": "2026-12-04T19:00",
-      "temp_last": "2026-12-04T19:00"
+      "wind_last": "2026-12-04T23:00",
+      "temp_last": "2026-12-04T23:00"
     },
     {
       "item": "기상",
@@ -123,115 +117,94 @@
       "forecast_days": 16
     }
   ],
-  "skipped_currency": [
-    "UAH"
-  ],
+  "skipped_currency": [],
   "base": [
     "2026-09-01",
     "2026-10-26"
   ],
   "spike": [
     "2026-10-27",
-    "2026-11-18"
+    "2026-10-27"
   ],
   "compare": {
     "px_PL": {
-      "base": 152.59187336309523,
-      "spike": 248.16702445652172,
-      "chg_pct": 62.63449618054273
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "px_DE": {
-      "base": 148.94479523809522,
-      "spike": 241.84115036231884,
-      "chg_pct": 62.36965513009329
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "px_CZ": {
-      "base": 157.64761688988096,
-      "spike": 259.8479528985507,
-      "chg_pct": 64.8283418581951
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "px_SK": {
-      "base": 185.80563125,
-      "spike": 273.41466938405796,
-      "chg_pct": 47.15090578507854
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "px_LT": {
-      "base": 103.19710200892858,
-      "spike": 234.09876358695652,
-      "chg_pct": 126.84625733647286
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "px_SE4": {
-      "base": 115.67235543154762,
-      "spike": 243.25893568840578,
-      "chg_pct": 110.299975980312
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "load": {
-      "base": 17980.09837659226,
-      "spike": 19812.533504981886,
-      "chg_pct": 10.191463305758198
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "wind": {
-      "base": 3076.7207709821428,
-      "spike": 2664.9107255434783,
-      "chg_pct": -13.384706513591338
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "solar": {
-      "base": 2643.177209255952,
-      "spike": 1265.6075783514493,
-      "chg_pct": -52.11794449802649
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "resload": {
-      "base": 12260.200396354167,
-      "spike": 15882.015201086955,
-      "chg_pct": 29.541236583782204
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "gas": {
-      "base": 1722.495698422619,
-      "spike": 2438.801349184783,
-      "chg_pct": 41.58533756677147
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "coal": {
-      "base": 9792.968171644345,
-      "spike": 12032.329460144927,
-      "chg_pct": 22.867033255399317
+      "base": null,
+      "spike": null,
+      "chg_pct": null
     },
     "temp": {
       "base": 13.120783730158731,
-      "spike": 4.7328502415458935,
-      "chg_pct": -63.928601073827494
+      "spike": 6.420833333333333,
+      "chg_pct": -51.06364478384968
     },
     "wind100": {
       "base": 20.5140873015873,
-      "spike": 18.666485507246374,
-      "chg_pct": -9.006502542269889
+      "spike": 18.006944444444443,
+      "chg_pct": -12.221566674081885
     },
     "rad": {
       "base": 2.900946428571429,
-      "spike": 1.215086956521739,
-      "chg_pct": -58.11411942825471
+      "spike": 2.1813333333333333,
+      "chg_pct": -24.806149060548798
     }
   },
   "verdict": {
-    "base_days": 56,
-    "spike_days": 23,
-    "px_base": 152.59187336309523,
-    "px_spike": 248.16702445652172,
-    "rise": 95.57515109342648,
-    "res_base_gw": 12.260200396354167,
-    "res_spike_gw": 15.882015201086958,
-    "fit_simple": {
-      "per_gw": 13.712889773247861,
-      "r2": 0.7678159259675315,
-      "explained": 49.66554719641799
-    },
-    "fit_trend": {
-      "per_gw": 14.339709645459052,
-      "per_day": -0.3315300468144569,
-      "r2": 0.7875088193657546,
-      "explained_res": 51.9357726894932,
-      "explained_trend": -13.095436849171048,
-      "unexplained": 56.73481525310433
-    },
-    "pl_vs_de": "지역 공통(독일도 비슷하게 상승)"
+    "base_days": 0,
+    "spike_days": 0
   }
 }
