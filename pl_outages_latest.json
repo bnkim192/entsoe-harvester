@@ -1,7 +1,7 @@
 {
  "source": "ENTSO-E A80(발전기)·A77(발전소) Unavailability",
  "zone": "PL",
- "fetched_utc": "2026-11-19T01:28:41+00:00",
+ "fetched_utc": "2026-11-19T03:36:24+00:00",
  "today_pl": "2026-11-19",
  "until_pl": "2026-12-31",
  "note": "미리 공시된 계획정지 기준(고장정지·늦은 공시는 빠짐, 일정은 바뀔 수 있음). 정지 MW = 정격 − 정지 중 최저 가용용량. 하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). 같은 발전기는 그날 가장 큰 정지 1건만 셈. 폴란드는 A77(발전소 단위) 자료가 없어 A80(발전기 단위)만 씀.",
@@ -1449,7 +1449,7 @@
   },
   {
    "mrid": "c4iCRTwGaMzhbJVkxchi_A",
-   "rev": 1,
+   "rev": 2,
    "status": null,
    "doc": "A80",
    "type": "계획",
@@ -1459,7 +1459,7 @@
    "nominal_mw": 358.0,
    "avail_min_mw": 168.0,
    "unavail_mw": 190.0,
-   "start_utc": "2026-11-19T07:00:00+00:00",
+   "start_utc": "2026-11-19T06:00:00+00:00",
    "end_utc": "2026-11-19T13:00:00+00:00",
    "reason": "Non-usable capacity due to power plant equipment failure"
   },
