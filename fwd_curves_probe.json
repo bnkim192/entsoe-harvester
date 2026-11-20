@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-19T15:11:22+00:00",
+ "fetched_utc": "2026-11-20T14:50:38+00:00",
  "log": [
   {
    "tag": "ttf cookies",
@@ -11,7 +11,7 @@
   {
    "tag": "ttf page",
    "status": 200,
-   "len": 122307,
+   "len": 122273,
    "productId": [
     "4331"
    ],
@@ -25,7 +25,7 @@
    "hid": 7979,
    "try": 1,
    "status": 403,
-   "len": 4543,
+   "len": 4542,
    "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!"
   },
   {
@@ -34,7 +34,7 @@
    "hid": 7979,
    "try": 2,
    "status": 403,
-   "len": 4543,
+   "len": 4542,
    "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!"
   },
   {
@@ -43,7 +43,7 @@
    "hid": 7979,
    "try": 3,
    "status": 403,
-   "len": 4543,
+   "len": 4542,
    "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!"
   },
   {
@@ -56,7 +56,7 @@
   {
    "tag": "eua page",
    "status": 200,
-   "len": 91993,
+   "len": 91959,
    "productId": [
     "390"
    ],
@@ -70,7 +70,7 @@
    "hid": 564,
    "try": 1,
    "status": 403,
-   "len": 4543,
+   "len": 4542,
    "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!"
   },
   {
@@ -79,7 +79,7 @@
    "hid": 564,
    "try": 2,
    "status": 403,
-   "len": 4543,
+   "len": 4542,
    "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!"
   },
   {
@@ -88,7 +88,7 @@
    "hid": 564,
    "try": 3,
    "status": 403,
-   "len": 4543,
+   "len": 4542,
    "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!"
   }
  ]

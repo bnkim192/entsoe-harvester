@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-19T15:11:05+00:00",
+ "fetched_utc": "2026-11-20T14:50:18+00:00",
  "start": "2020-01-01",
  "agsi_recent": [
   {
@@ -13,27 +13,27 @@
   {
    "page": 1,
    "status": 200,
-   "len": 147044
+   "len": 147039
   },
   {
    "page": 2,
    "status": 200,
-   "len": 146138
+   "len": 146144
   },
   {
    "page": 3,
    "status": 200,
-   "len": 146180
+   "len": 146182
   },
   {
    "page": 4,
    "status": 200,
-   "len": 145685
+   "len": 145682
   },
   {
    "page": 5,
    "status": 200,
-   "len": 144722
+   "len": 144736
   },
   {
    "page": 6,
@@ -43,7 +43,7 @@
   {
    "page": 7,
    "status": 200,
-   "len": 143008
+   "len": 143006
   },
   {
    "page": 8,
@@ -53,12 +53,12 @@
   {
    "page": 9,
    "status": 200,
-   "len": 53974
+   "len": 54450
   }
  ],
  "agsi": {
   "status": 200,
-  "rows": 2533,
+  "rows": 2534,
   "key_set": false,
   "last_page": 9
  }

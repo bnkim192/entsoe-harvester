@@ -1,6 +1,7 @@
 {
- "generated": "2026-11-19 15:06 UTC",
+ "generated": "2026-11-20 14:46 UTC",
  "eua": {
+  "2026-11-20": 80.6,
   "2026-11-19": 81.31,
   "2026-11-17": 87.15,
   "2026-11-16": 87.4,
@@ -14824,7 +14825,7 @@
   {
    "item": "EUA emission-spot-primary-market-auction-report-2026-data.xlsx",
    "ok": true,
-   "note": "199일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용199 제외0"
+   "note": "200일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용200 제외0"
   },
   {
    "item": "브렌트 EIA",

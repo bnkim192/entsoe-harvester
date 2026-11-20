@@ -1,245 +1,65 @@
 {
- "fetched_utc": "2026-11-19T14:54:16+00:00",
+ "fetched_utc": "2026-11-20T14:20:01+00:00",
  "log": [
   {
    "tag": "A11 DE→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"af5f56dd19084aa76503c7bfe942d5d9\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 DE→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"565819d7a887a39d6b5688afb49629ba\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 DE→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"4482fcf4310dba229f71cdb3c05e3dc4\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=60705"
   },
   {
    "tag": "A11 PL→DE 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"329d763655442f3317d030e2d5dff1e4\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→DE 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"4efce686ad1a27522356f515e424e471\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→DE 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"23185fbd864eaf984b8e7fb0ab720347\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 DE→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"da6d51a24ddc23b733568f5eca8a83b0\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 DE→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"a86b166addac3a0ac2997962121cea95\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 DE→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"0f7f704ea179c6df7bf11398a1c6837b\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→DE 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"a2643111278fa6f48a49ae13f84b51c2\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→DE 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"b56bc1a7c120e919e500bf580a881aaf\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→DE 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"90195de970fefc14ddef142bf04789a1\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=22881"
   },
   {
    "tag": "A11 CZ→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"4e26a403eb08f1bd5fa23784dcd9964c\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 CZ→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"72d7a21eb170465139344fd7ea128754\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 CZ→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"4e0276c4f43cf6bdd2563f2daba9e4b0\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=12693"
   },
   {
    "tag": "A11 PL→CZ 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"d22045dd9a41626a0f63a7b4806ef177\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→CZ 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"a499f5606e4045dda7053450219ef4d4\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→CZ 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"ca8397f1332401a0e9bf3182de5cef42\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=56987"
   },
   {
    "tag": "A11 SK→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"510339d83f74233197993fa965d049ee\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 SK→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"ff8c7b6654db11cbcf65a100e3d0598b\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 SK→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"f9c783629b83de5398057b1c9f728e2f\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=8359"
   },
   {
    "tag": "A11 PL→SK 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"0f16a7bed4fe32527f0c4d24998737b0\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→SK 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"4329e61dc537224718c49b60c7339518\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→SK 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"44f2a68d8ea7b4834b30b6b48cd207e2\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=60495"
   },
   {
    "tag": "A11 LT→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"b4ba17c152feb89baf20e418b8d24a29\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 LT→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"d5faa15b5202bec8d050e6124f7b772c\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 LT→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"c7e576908e30783364dde60a286ed6ae\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=49614"
   },
   {
    "tag": "A11 PL→LT 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"08dfd4b43ead682462900c5d40ebfd4c\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→LT 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"54e6acbe848c76d9aa5cc99ef18a9c5c\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→LT 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"02363de2f918f025616f80f65ac37d61\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=22727"
   },
   {
    "tag": "A11 SE4→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"4854e19497743b324c321e91485a6bf3\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 SE4→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"2a42e2ce95fbcab91120bee73bd4a909\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 SE4→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"4bd379792170207e890c3b67552ab588\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=4396"
   },
   {
    "tag": "A11 PL→SE4 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"523bd975006df6b1af638e92c84ddab4\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→SE4 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"a2bebe694a608415b6f5edd75bb336c0\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→SE4 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"d8b3d8d6b8b146d6fd8c9d9291429c20\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=37282"
   },
   {
    "tag": "A11 UA→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"2322901e8c2a93f40c2f7b091d840f6e\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 UA→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"cf9c10522deec9c314d7e21b0857c38e\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 UA→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"aeb29505dafe443751fb04fbd8dad331\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=32930"
   },
   {
    "tag": "A11 PL→UA 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"bf37d864677e7b6e28b66e0d3cd41db7\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→UA 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"7a2244bf5ed95f4d00f869851d783725\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→UA 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"87dd53235e94897c2e2e2a3762d0d46f\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 UA→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"c03117234c568a8677c70d7ae8ab03ad\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 UA→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"5cc72d18a27068af7f9197f1d93042f0\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 UA→PL 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"e025355b4c9af7c3c6aec27d37577b00\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→UA 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"ee069dbf33882c66f1ddc5a2e7ea91f3\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→UA 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"a1dba88eed2a8858a2fd8fd6629841d5\",\"timestamp\":\"2026-11-19T14"
-  },
-  {
-   "tag": "A11 PL→UA 2026-11",
-   "ok": false,
-   "note": "HTTP 599 {\"uuAppErrorMap\":{\"uu-gateway-router/connectTimeout\":{\"id\":\"d0b65f284a172707fbe56ef612644cc1\",\"timestamp\":\"2026-11-19T14"
+   "ok": true,
+   "note": "len=36911"
   }
  ]
 }
