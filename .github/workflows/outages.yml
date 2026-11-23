@@ -76,6 +76,13 @@ jobs:
           git config user.name "entsoe-bot"
           git config user.email "entsoe-bot@users.noreply.github.com"
           git add -A
-          git commit -m "chore: pl daily $(date +%F)" || echo "no change"
-          git pull --rebase || true
-          git push || echo "push skip"
+          git commit -m "chore: pl daily $(date +%F)" || { echo "no change"; exit 0; }
+          # 2026-11-23: 다른 실행과 같은 파일을 고쳐 충돌하면 이번 실행 결과를 우선하고, 5번까지 다시 시도. 끝내 실패하면 빨간색으로 표시
+          for i in 1 2 3 4 5; do
+            if git pull --rebase -X theirs && git push; then echo "push 완료"; exit 0; fi
+            echo "push 실패 ${i}회 → 다시 시도"
+            git rebase --abort 2>/dev/null || true
+            sleep 15
+          done
+          echo "::error::저장소 저장 실패(5회) — 결과는 Artifacts 에서 받을 수 있음"
+          exit 1
