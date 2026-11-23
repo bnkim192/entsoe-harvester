@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-22T13:57:18+00:00",
+ "fetched_utc": "2026-11-23T00:08:27+00:00",
  "start": "2020-01-01",
  "agsi_recent": [
   {
@@ -13,37 +13,37 @@
   {
    "page": 1,
    "status": 200,
-   "len": 147040
+   "len": 147038
   },
   {
    "page": 2,
    "status": 200,
-   "len": 146152
+   "len": 146159
   },
   {
    "page": 3,
    "status": 200,
-   "len": 146183
+   "len": 146181
   },
   {
    "page": 4,
    "status": 200,
-   "len": 145680
+   "len": 145679
   },
   {
    "page": 5,
    "status": 200,
-   "len": 144768
+   "len": 144779
   },
   {
    "page": 6,
    "status": 200,
-   "len": 143151
+   "len": 143154
   },
   {
    "page": 7,
    "status": 200,
-   "len": 143005
+   "len": 143004
   },
   {
    "page": 8,
@@ -53,12 +53,18 @@
   {
    "page": 9,
    "status": 200,
-   "len": 55403
+   "len": 55879
+  }
+ ],
+ "agsi_empty": [
+  {
+   "page": 3,
+   "head": "{\"last_page\":9,\"total\":0,\"dataset\":\"\",\"gas_day\":\"2026-11-21\",\"data\":[]}"
   }
  ],
  "agsi": {
   "status": 200,
-  "rows": 2536,
+  "rows": 2537,
   "key_set": false,
   "last_page": 9
  }

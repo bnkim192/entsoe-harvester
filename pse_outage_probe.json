@@ -1,0 +1,187 @@
+{
+ "fetched_utc": "2026-11-22T23:49:08+00:00",
+ "pdf": {
+  "status": 200,
+  "bytes": 219590,
+  "chars": 43802,
+  "all_names": [
+   "cmbp-tp",
+   "cmbu-tu",
+   "cor-prog",
+   "cor-q-1",
+   "cor-rozl",
+   "crb-prog",
+   "crb-rozl",
+   "cross-border",
+   "csdac-pln",
+   "d-1",
+   "day-ahead",
+   "eb-rozl",
+   "en-rozl",
+   "gen-jw",
+   "his-bil-mocy",
+   "his-obc",
+   "his-wlk-cal",
+   "intra-day",
+   "it-oeb",
+   "it-omb-rbb",
+   "it-ot",
+   "it-pp",
+   "it-use",
+   "it-use-rbb",
+   "kmb-kro",
+   "krb-rozl",
+   "kse-load",
+   "mbp-tp",
+   "mbu-tu",
+   "non-parallel",
+   "non-usable",
+   "oeb-bpkdbo",
+   "ogr-b",
+   "ogr-b-head",
+   "ogr-d1",
+   "ogr-d1-head",
+   "ogr-d2",
+   "ogr-d2-head",
+   "ogr-d39",
+   "ogr-m",
+   "ogr-m-head",
+   "ogr-oper",
+   "ogr-r",
+   "ogr-r-head",
+   "ogr-rmb",
+   "pk5l-wp",
+   "pomb-rbn",
+   "popmb-rmb",
+   "poze-redoze",
+   "price-cost",
+   "price-fcst",
+   "prog-obc",
+   "rce-pln",
+   "ro-prog",
+   "ro-rozl",
+   "saldo-en",
+   "scheduled-magazine",
+   "sk-d",
+   "sk-d-1",
+   "sk-rozl",
+   "timefrom-to",
+   "unav-pk5l",
+   "use-sprz-rbb",
+   "use-sprz-rbn",
+   "wsp-wrm",
+   "zeb-rozl"
+  ],
+  "lines": [
+   "Plan koordynacyjny 5-",
+   "pk5l-wp pk5l-wp swm_pbm",
+   "Suma niedostępności (postoje + ubytki)",
+   "Plan koordynacyjny 5-",
+   "Remonty",
+   "unav-pk5l unav-pk5l omsr_una",
+   "v_pk5l_el",
+   "v_pk5l_ty",
+   "remontów = POS) [brak w raporcie]",
+   "v_pk5l_st",
+   "v_pk5l_jg",
+   "v_pk5l_re",
+   "v_pk5l_en",
+   "v_pk5l_sn",
+   "v_pk5l_m",
+   "v_pk5l_dir",
+   "v_pk5l_st",
+   "Ubytki mocy jednostek",
+   "Ubytki Elektrowniane Declared Non-usable capacity",
+   "ub_siec grid_lim Ubytki sieciowe Grid limitation",
+   "ub_sum ub_sum Ubytki mocy jednostek wytwórczych w",
+   "rk_jg rk_jg    spowodowane remontami kapitalnymi",
+   "rs_jg rs_jg    spowodowane remontami średnimi",
+   "rb_jg rb_jg    spowodowane remontami bieżącymi",
+   "ra_jg ra_jg    spowodowane remontami awaryjnymi",
+   "sub_jg sub_jg Ubytki mocy ze względu na warunki"
+  ]
+ },
+ "tries": [
+  {
+   "name": "oeb-bpkdbo",
+   "status": 400,
+   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $top\",\"status\":400}}"
+  },
+  {
+   "name": "pk5l-wp",
+   "status": 400,
+   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $top\",\"status\":400}}"
+  },
+  {
+   "name": "unav-pk5l",
+   "status": 400,
+   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $top\",\"status\":400}}"
+  },
+  {
+   "name": "pk5l-remonty",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: pk5l-remonty.\",\"status\":404}}"
+  },
+  {
+   "name": "pk5l-remonty-jwcd",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: pk5l-remonty-jwcd.\",\"status\":404}}"
+  },
+  {
+   "name": "pk5l-ubytki",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: pk5l-ubytki.\",\"status\":404}}"
+  },
+  {
+   "name": "pk5l-jwcd",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: pk5l-jwcd.\",\"status\":404}}"
+  },
+  {
+   "name": "pk5l-wp-jwcd",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: pk5l-wp-jwcd.\",\"status\":404}}"
+  },
+  {
+   "name": "ubytki",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: ubytki.\",\"status\":404}}"
+  },
+  {
+   "name": "ubytki-mocy",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: ubytki-mocy.\",\"status\":404}}"
+  },
+  {
+   "name": "pkd-ubytki",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: pkd-ubytki.\",\"status\":404}}"
+  },
+  {
+   "name": "pk5l",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: pk5l.\",\"status\":404}}"
+  },
+  {
+   "name": "plan-remontow",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: plan-remontow.\",\"status\":404}}"
+  },
+  {
+   "name": "remonty-jwcd",
+   "status": 404,
+   "head": "{\"error\":{\"code\":\"EntityNotFound\",\"message\":\"Invalid Entity path: remonty-jwcd.\",\"status\":404}}"
+  },
+  {
+   "name": "pdgobpkd",
+   "status": 400,
+   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $top\",\"status\":400}}"
+  },
+  {
+   "name": "pdgopkd",
+   "status": 400,
+   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $top\",\"status\":400}}"
+  }
+ ],
+ "ok": []
+}
