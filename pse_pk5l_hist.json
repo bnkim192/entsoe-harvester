@@ -1,5 +1,5 @@
 {
-"fetched_utc": "2026-11-23T06:27:47+00:00",
+"fetched_utc": "2026-11-23T06:58:55+00:00",
 "note": "PSE unav-pk5l, business_date 2021-10~2026-12. 같은 mrid_zas 의 여러 publication_ts = 판 이력",
 "rows": [
 {
@@ -62054,17 +62054,17 @@
 "reason": "WE",
 "mrid_zas": "_6820bdbb-1558-4e5e-b46f-e63357c0d27d",
 "direction": "C",
-"end_dtime": "2026-11-24 00:00:00",
-"snd_dtime": "2026-11-22 10:59:13",
+"end_dtime": "2026-11-23 09:00:00",
+"snd_dtime": "2026-11-23 07:55:15",
 "unit_code": "RYB 4-08",
 "power_plant": "Rybnik",
 "start_dtime": "2026-11-21 14:30:00",
 "business_date": "2026-11-21",
-"end_dtime_utc": "2026-11-23 23:00:00",
-"snd_dtime_utc": "2026-11-22 09:59:13",
-"publication_ts": "2026-11-22 10:59:17.256",
+"end_dtime_utc": "2026-11-23 08:00:00",
+"snd_dtime_utc": "2026-11-23 06:55:15",
+"publication_ts": "2026-11-23 07:55:22.178",
 "start_dtime_utc": "2026-11-21 13:30:00",
-"publication_ts_utc": "2026-11-22 09:59:17.256"
+"publication_ts_utc": "2026-11-23 06:55:22.178"
 },
 {
 "type": "POS",
