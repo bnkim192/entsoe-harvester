@@ -1,7 +1,7 @@
 {
  "source": "ENTSO-E A80(발전기)·A77(발전소) Unavailability",
  "zone": "PL",
- "fetched_utc": "2026-11-23T02:40:04+00:00",
+ "fetched_utc": "2026-11-23T03:51:12+00:00",
  "today_pl": "2026-11-23",
  "until_pl": "2026-12-31",
  "note": "미리 공시된 계획정지 기준(고장정지·늦은 공시는 빠짐, 일정은 바뀔 수 있음). 정지 MW = 정격 − 정지 중 최저 가용용량. 하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). 같은 발전기는 그날 가장 큰 정지 1건만 셈. 폴란드는 A77(발전소 단위) 자료가 없어 A80(발전기 단위)만 씀.",
@@ -22,16 +22,16 @@
    }
   },
   "2026-11-23": {
-   "n": 35,
-   "unavail_mw": 10451.4,
+   "n": 36,
+   "unavail_mw": 10661.3,
    "by_type": {
     "계획": 9297.3,
-    "고장": 1154.1
+    "고장": 1364.0
    },
    "by_fuel": {
     "갈탄": 2700.0,
     "가스": 1721.1,
-    "유연탄": 5685.5,
+    "유연탄": 5895.4,
     "바이오": 208.0,
     "양수": 136.8
    }
@@ -1598,6 +1598,22 @@
    "start_utc": "2026-11-12T23:12:00+00:00",
    "end_utc": "2026-11-22T23:00:00+00:00",
    "reason": "Short-term planned outage"
+  },
+  {
+   "mrid": "X2SFpGmdgkjb3Ydea0VpxA",
+   "rev": 1,
+   "status": null,
+   "doc": "A80",
+   "type": "고장",
+   "plant": "Jaworzno 3",
+   "unit": "Jaworzno 3 B3",
+   "fuel": "유연탄",
+   "nominal_mw": 209.9,
+   "avail_min_mw": 0.0,
+   "unavail_mw": 209.9,
+   "start_utc": "2026-11-23T02:22:00+00:00",
+   "end_utc": "2026-11-23T06:00:00+00:00",
+   "reason": "Non-usable capacity due to power plant equipment failure"
   },
   {
    "mrid": "YLDRjtdL22o3GhPS0ma5ww",
