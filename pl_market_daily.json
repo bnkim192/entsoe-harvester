@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-23 03:48 UTC",
+ "generated": "2026-11-23 04:15 UTC",
  "eua": {
   "2026-11-20": 80.6,
   "2026-11-19": 81.31,
@@ -14848,22 +14848,22 @@
   {
    "item": "TGE gas_rdn",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   },
   {
    "item": "TGE power_rdn",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   },
   {
    "item": "TGE power_otf",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   },
   {
    "item": "TGE gas_otf",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   }
  ]
 }
