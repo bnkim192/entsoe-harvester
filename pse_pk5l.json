@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-23T01:10:54+00:00",
+ "fetched_utc": "2026-11-23T01:42:28+00:00",
  "source": "PSE raporty.pse.pl API unav-pk5l (Plan Koordynacyjny 5-letni, Remonty)",
  "reason_codes": {
   "RK": "대정비",
@@ -7,361 +7,1672 @@
   "RB": "일상 정비",
   "RA": "긴급 정비"
  },
- "tries": [
+ "rows_total": 137,
+ "y2027": [
   {
-   "tag": "bd_q_2026-11-23",
-   "filter": "business_date eq '2026-11-23'",
-   "rows": 4,
-   "max_end": "2026-12-02 22:15:00",
-   "bd": [
-    "2026-11-23"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-23",
-   "filter": "business_date eq 2026-11-23",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_q_2026-11-22",
-   "filter": "business_date eq '2026-11-22'",
-   "rows": 3,
-   "max_end": "2026-11-25 00:00:00",
-   "bd": [
-    "2026-11-22"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-22",
-   "filter": "business_date eq 2026-11-22",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_q_2026-11-21",
-   "filter": "business_date eq '2026-11-21'",
-   "rows": 3,
-   "max_end": "2026-11-28 00:00:00",
-   "bd": [
-    "2026-11-21"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-21",
-   "filter": "business_date eq 2026-11-21",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_q_2026-11-20",
-   "filter": "business_date eq '2026-11-20'",
-   "rows": 7,
-   "max_end": "2026-12-01 00:00:00",
-   "bd": [
-    "2026-11-20"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-20",
-   "filter": "business_date eq 2026-11-20",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_q_2026-11-19",
-   "filter": "business_date eq '2026-11-19'",
-   "rows": 8,
-   "max_end": "2026-11-28 00:00:00",
-   "bd": [
-    "2026-11-19"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-19",
-   "filter": "business_date eq 2026-11-19",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_q_2026-11-18",
-   "filter": "business_date eq '2026-11-18'",
-   "rows": 1,
-   "max_end": "2026-11-18 20:45:00",
-   "bd": [
-    "2026-11-18"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-18",
-   "filter": "business_date eq 2026-11-18",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_q_2026-11-17",
-   "filter": "business_date eq '2026-11-17'",
-   "rows": 3,
-   "max_end": "2026-11-28 00:00:00",
-   "bd": [
-    "2026-11-17"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-17",
-   "filter": "business_date eq 2026-11-17",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_q_2026-11-16",
-   "filter": "business_date eq '2026-11-16'",
-   "rows": 2,
-   "max_end": "2026-12-01 00:00:00",
-   "bd": [
-    "2026-11-16"
-   ]
-  },
-  {
-   "tag": "bd_2026-11-16",
-   "filter": "business_date eq 2026-11-16",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "start_2027_q",
-   "filter": "start_dtime ge '2027-01-01 00:00:00'",
-   "rows": 100,
-   "max_end": "2031-12-14 18:00:00",
-   "bd": [
-    "2031-10-11",
-    "2031-11-15",
-    "2031-11-29"
-   ]
-  },
-  {
-   "tag": "end_2027_q",
-   "filter": "end_dtime ge '2027-01-01 00:00:00'",
-   "rows": 100,
-   "max_end": "2031-12-14 18:00:00",
-   "bd": [
-    "2031-10-11",
-    "2031-11-15",
-    "2031-11-29"
-   ]
-  },
-  {
-   "tag": "start_2027",
-   "filter": "start_dtime ge 2027-01-01T00:00:00",
-   "rows": 0,
-   "max_end": null,
-   "bd": []
-  },
-  {
-   "tag": "bd_ge_q",
-   "filter": "business_date ge '2026-11-16'",
-   "rows": 100,
-   "max_end": "2031-12-14 18:00:00",
-   "bd": [
-    "2031-10-11",
-    "2031-11-15",
-    "2031-11-29"
-   ]
-  }
- ],
- "latest_business_date": "2031-11-29",
- "rows_total": 131,
- "unav_rows": [
-  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
    "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
    "state": "AK",
+   "start": "2026-07-25 00:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-07-17 10:35:16.746"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-08-08 07:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-08-03 14:14:16.452"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-09-16 09:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-09-14 06:23:16.893"
+  },
+  {
+   "plant": "Kozienice 2",
+   "unit": "KOZ24S10",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2026-09-19 00:01:00",
+   "end": "2027-03-17 22:00:00",
+   "published": "2026-11-03 22:33:15.763"
+  },
+  {
+   "plant": "Łagisza",
+   "unit": "LGA_4S10",
+   "type": "POS",
    "reason": "RS",
-   "mrid_zas": "_1c3daab4-b4d4-4e91-b6e6-8fecaa170e5b",
-   "direction": "C",
-   "end_dtime": "2031-12-14 18:00:00",
-   "snd_dtime": "2026-08-07 14:09:11",
-   "unit_code": "BEL 2-04",
-   "power_plant": "Bełchatów",
-   "start_dtime": "2031-11-30 00:00:00",
-   "business_date": "2031-11-29",
-   "end_dtime_utc": "2031-12-14 17:00:00",
-   "snd_dtime_utc": "2026-08-07 12:09:11",
-   "publication_ts": "2026-08-07 14:09:16.339",
-   "start_dtime_utc": "2031-11-29 23:00:00",
-   "publication_ts_utc": "2026-08-07 12:09:16.339"
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2026-09-29 09:39:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-23 11:53:11.555"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-10-09 00:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-07 06:17:17.360"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-10-22 00:15:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-20 12:19:16.131"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-11-04 00:15:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-30 13:21:16.432"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL 4-06",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AN",
+   "start": "2026-11-27 00:01:00",
+   "end": "2027-02-25 00:00:00",
+   "published": "2024-07-02 12:24:10.402"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-06",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2026-12-22 00:00:00",
+   "end": "2027-02-13 00:00:00",
+   "published": "2026-08-07 14:33:16.830"
+  },
+  {
+   "plant": "Ostrołęka B",
+   "unit": "OSB_2S01",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AN",
+   "start": "2027-01-01 00:01:00",
+   "end": "2030-01-01 00:00:00",
+   "published": "2025-12-23 09:38:16.059"
+  },
+  {
+   "plant": "Ostrołęka B",
+   "unit": "OSB_2S02",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AN",
+   "start": "2027-01-01 00:01:00",
+   "end": "2030-01-01 00:00:00",
+   "published": "2025-12-23 09:40:10.582"
+  },
+  {
+   "plant": "Turów",
+   "unit": "TUR 2-06",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-01-09 00:00:00",
+   "end": "2027-04-07 06:00:00",
+   "published": "2026-08-07 14:33:20.433"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO_4S01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AN",
+   "start": "2027-01-15 23:00:00",
+   "end": "2027-01-19 00:00:00",
+   "published": "2026-06-23 14:26:11.472"
+  },
+  {
+   "plant": "Jaworzno 3",
+   "unit": "JW3 1-03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-02-15 00:01:00",
+   "end": "2027-03-22 00:00:00",
+   "published": "2024-06-20 12:06:10.837"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-05",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-02-24 00:01:00",
+   "end": "2027-03-17 00:00:00",
+   "published": "2025-09-06 07:55:20.557"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL_4S07",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-02-27 00:01:00",
+   "end": "2027-05-27 23:45:00",
+   "published": "2026-08-27 10:51:11.477"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-02-28 00:00:00",
+   "end": "2027-04-14 18:00:00",
+   "published": "2026-08-07 14:34:18.259"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-02-28 00:01:00",
+   "end": "2027-03-30 18:00:00",
+   "published": "2025-09-06 08:06:24.831"
+  },
+  {
+   "plant": "Jaworzno 3",
+   "unit": "JW3_2S01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-03-01 00:00:00",
+   "end": "2027-04-01 00:00:00",
+   "published": "2026-10-20 09:25:16.201"
+  },
+  {
+   "plant": "Dolna Odra",
+   "unit": "DOD_2-06",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-03-01 00:01:00",
+   "end": "2027-03-22 00:00:00",
+   "published": "2025-01-20 12:57:23.281"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S09",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-03-03 00:00:00",
+   "end": "2027-03-23 00:00:00",
+   "published": "2026-08-18 10:49:11.557"
+  },
+  {
+   "plant": "EC Włocławek",
+   "unit": "WLC_2-01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-03-04 00:01:00",
+   "end": "2027-03-09 16:00:00",
+   "published": "2024-06-12 12:46:29.189"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-03-06 00:01:00",
+   "end": "2027-04-20 18:00:00",
+   "published": "2024-06-12 12:47:36.606"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL_4S06",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-03-06 00:01:00",
+   "end": "2027-06-03 23:00:00",
+   "published": "2025-05-20 14:22:11.483"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-03-08 00:00:00",
+   "end": "2027-03-22 00:00:00",
+   "published": "2026-08-07 14:33:22.647"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO 4-01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-03-12 23:00:00",
+   "end": "2027-03-16 00:00:00",
+   "published": "2024-08-14 12:59:10.442"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-03-21 00:01:00",
+   "end": "2027-05-20 00:00:00",
+   "published": "2025-09-06 07:59:21.679"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-05",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-03-30 00:00:00",
+   "end": "2027-04-20 00:00:00",
+   "published": "2026-08-07 14:34:28.491"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO_4S01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-04-02 23:00:00",
+   "end": "2027-04-06 00:00:00",
+   "published": "2026-06-23 14:44:11.378"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ11-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-04-03 00:01:00",
+   "end": "2027-05-03 00:00:00",
+   "published": "2025-03-10 14:45:10.529"
+  },
+  {
+   "plant": "Rybnik",
+   "unit": "RYB 4-07",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-04-05 00:01:00",
+   "end": "2027-06-14 00:00:00",
+   "published": "2025-01-20 12:26:20.474"
+  },
+  {
+   "plant": "Łagisza",
+   "unit": "LGA 4-10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-04-05 00:01:00",
+   "end": "2027-05-10 00:00:00",
+   "published": "2024-06-12 12:47:10.386"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-04-11 00:00:00",
+   "end": "2027-04-25 18:00:00",
+   "published": "2026-08-07 14:34:25.472"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-11",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-04-16 00:00:00",
+   "end": "2027-04-30 18:00:00",
+   "published": "2026-08-07 14:37:17.130"
+  },
+  {
+   "plant": "Rybnik",
+   "unit": "RYB 2-06",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-04-17 00:00:00",
+   "end": "2027-05-17 00:00:00",
+   "published": "2026-09-14 11:02:21.506"
+  },
+  {
+   "plant": "Turów",
+   "unit": "TUR 4-11",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-04-18 00:00:00",
+   "end": "2027-06-07 11:00:00",
+   "published": "2026-08-07 14:35:16.405"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ11S02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-01 00:01:00",
+   "end": "2027-05-31 00:00:00",
+   "published": "2026-08-26 15:00:11.745"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12S03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-01 00:01:00",
+   "end": "2027-05-30 00:00:00",
+   "published": "2026-08-26 15:00:17.242"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12S04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-01 00:01:00",
+   "end": "2027-05-31 00:00:00",
+   "published": "2026-08-26 15:33:12.499"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12S08",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-01 00:01:00",
+   "end": "2027-05-31 00:00:00",
+   "published": "2026-08-26 15:27:11.670"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-12",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-04 00:00:00",
+   "end": "2027-05-18 18:00:00",
+   "published": "2026-08-07 14:37:19.766"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO_4S01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-05-07 23:00:00",
+   "end": "2027-05-11 00:00:00",
+   "published": "2026-02-12 08:34:20.879"
+  },
+  {
+   "plant": "EC Stalowa Wola",
+   "unit": "STW42-12",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-05-08 00:01:00",
+   "end": "2027-05-17 00:00:00",
+   "published": "2025-06-17 12:30:12.490"
+  },
+  {
+   "plant": "EC Stalowa Wola",
+   "unit": "STW42S12",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-05-08 00:01:00",
+   "end": "2027-05-18 00:00:00",
+   "published": "2025-09-18 08:38:10.598"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12-07",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-05-08 00:01:00",
+   "end": "2027-08-06 00:00:00",
+   "published": "2025-03-10 14:36:10.489"
+  },
+  {
+   "plant": "Turów",
+   "unit": "TUR 2-05",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-05-08 00:01:00",
+   "end": "2027-06-07 06:00:00",
+   "published": "2024-07-02 09:00:16.367"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-10 00:01:00",
+   "end": "2027-06-24 18:00:00",
+   "published": "2024-06-12 12:47:39.024"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-01",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AN",
+   "start": "2027-05-10 07:01:00",
+   "end": "2027-10-08 20:00:00",
+   "published": "2025-10-22 13:37:16.129"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-02",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AN",
+   "start": "2027-05-10 07:01:00",
+   "end": "2027-05-10 16:00:00",
+   "published": "2025-10-22 13:47:16.282"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-03",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AN",
+   "start": "2027-05-10 07:01:00",
+   "end": "2027-05-10 16:00:00",
+   "published": "2025-10-22 13:47:17.943"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S09",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-05-12 00:00:00",
+   "end": "2027-05-17 00:00:00",
+   "published": "2026-04-24 10:46:18.256"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-12 00:00:00",
+   "end": "2027-05-24 00:00:00",
+   "published": "2026-04-25 08:39:10.834"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-15 00:00:00",
+   "end": "2027-06-04 00:00:00",
+   "published": "2026-08-18 10:50:12.663"
+  },
+  {
+   "plant": "Turów",
+   "unit": "TUR 2-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-17 00:01:00",
+   "end": "2027-06-02 10:00:00",
+   "published": "2025-09-06 07:54:15.541"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-05-23 00:01:00",
+   "end": "2027-06-06 18:00:00",
+   "published": "2025-12-19 08:42:11.049"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-24 00:00:00",
+   "end": "2027-07-23 00:00:00",
+   "published": "2026-08-07 14:38:17.569"
+  },
+  {
+   "plant": "Jaworzno 3",
+   "unit": "JW3_2S04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-24 00:01:00",
+   "end": "2027-07-23 00:00:00",
+   "published": "2026-05-20 07:57:16.586"
+  },
+  {
+   "plant": "Karolin 2",
+   "unit": "KAR_1S02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-29 00:01:00",
+   "end": "2027-08-05 00:00:00",
+   "published": "2026-09-04 13:46:13.588"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-05-30 00:00:00",
+   "end": "2027-06-13 18:00:00",
+   "published": "2026-08-07 14:35:22.610"
+  },
+  {
+   "plant": "Siersza",
+   "unit": "SIA 1-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-05-31 00:00:00",
+   "end": "2027-06-21 00:00:00",
+   "published": "2024-11-19 10:40:11.357"
+  },
+  {
+   "plant": "Jaworzno 3",
+   "unit": "JW3 2-05",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-05-31 00:01:00",
+   "end": "2027-07-05 00:00:00",
+   "published": "2024-06-21 10:40:16.183"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-05",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-01 00:00:00",
+   "end": "2027-07-16 18:00:00",
+   "published": "2026-08-07 14:39:16.801"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ11S06",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-06-05 00:01:00",
+   "end": "2027-08-08 00:00:00",
+   "published": "2026-08-26 15:04:13.649"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-06 00:01:00",
+   "end": "2027-06-20 18:00:00",
+   "published": "2025-09-06 08:00:22.112"
+  },
+  {
+   "plant": "Karolin 2",
+   "unit": "KAR_1S02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-07 00:01:00",
+   "end": "2027-06-14 00:00:00",
+   "published": "2026-10-06 13:32:21.299"
+  },
+  {
+   "plant": "Karolin 2",
+   "unit": "KAR_1S03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-07 00:01:00",
+   "end": "2027-06-14 00:00:00",
+   "published": "2026-10-06 13:31:19.595"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ11-06",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-06-12 00:01:00",
+   "end": "2027-09-10 00:00:00",
+   "published": "2025-03-10 14:48:10.401"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12-04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-12 00:01:00",
+   "end": "2027-07-12 00:00:00",
+   "published": "2025-03-10 14:56:05.555"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12-05",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2027-06-12 00:01:00",
+   "end": "2027-07-12 00:00:00",
+   "published": "2025-03-10 15:01:05.995"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-04",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-14 00:01:00",
+   "end": "2027-06-28 00:00:00",
+   "published": "2025-09-06 07:58:20.693"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-09",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-06-16 00:00:00",
+   "end": "2027-11-03 18:00:00",
+   "published": "2026-08-07 14:39:20.515"
+  },
+  {
+   "plant": "Turów",
+   "unit": "TUR 1-01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-25 00:01:00",
+   "end": "2027-07-25 10:00:00",
+   "published": "2025-09-06 07:58:22.081"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 2-05",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-06-27 00:01:00",
+   "end": "2027-08-11 18:00:00",
+   "published": "2025-09-06 08:01:20.704"
+  },
+  {
+   "plant": "EC Żerań 2",
+   "unit": "WZE22-20",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-01 00:00:00",
+   "end": "2027-08-17 00:00:00",
+   "published": "2025-07-19 11:12:15.722"
+  },
+  {
+   "plant": "EC Żerań 2",
+   "unit": "WZE22S20",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-01 00:00:00",
+   "end": "2027-08-22 00:00:00",
+   "published": "2026-07-16 09:42:28.345"
+  },
+  {
+   "plant": "Rybnik",
+   "unit": "RYB 4-07",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-01 00:00:00",
+   "end": "2027-07-31 00:00:00",
+   "published": "2026-09-09 13:20:11.552"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO 4-01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-02 23:00:00",
+   "end": "2027-08-03 00:00:00",
+   "published": "2024-08-14 12:59:11.929"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12S07",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-07-03 00:01:00",
+   "end": "2027-09-05 00:00:00",
+   "published": "2026-08-26 15:01:13.062"
+  },
+  {
+   "plant": "Siersza",
+   "unit": "SIA 1-01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-07-05 00:00:00",
+   "end": "2027-07-26 00:00:00",
+   "published": "2024-11-19 10:40:10.368"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12S01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-10 00:01:00",
+   "end": "2027-08-09 00:00:00",
+   "published": "2026-08-26 15:34:13.063"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12S05",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2027-07-10 00:01:00",
+   "end": "2027-07-25 00:00:00",
+   "published": "2026-08-26 15:28:11.853"
+  },
+  {
+   "plant": "Turów",
+   "unit": "TUR 2-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-18 00:00:00",
+   "end": "2027-08-03 10:00:00",
+   "published": "2026-08-07 14:39:25.663"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-06",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-18 00:01:00",
+   "end": "2027-09-01 18:00:00",
+   "published": "2025-09-06 08:01:22.212"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12-01",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2027-07-18 00:01:00",
+   "end": "2027-08-02 00:00:00",
+   "published": "2025-03-10 15:00:10.563"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12-08",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-18 00:01:00",
+   "end": "2027-08-02 00:00:00",
+   "published": "2025-03-10 15:05:05.334"
+  },
+  {
+   "plant": "Kozienice 1",
+   "unit": "KOZ12S01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-07-18 00:01:00",
+   "end": "2027-08-17 00:00:00",
+   "published": "2025-12-01 10:58:15.974"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-01",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2027-07-23 07:00:00",
+   "end": "2027-07-23 16:00:00",
+   "published": "2025-10-22 13:46:11.970"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-02",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2027-07-23 07:00:00",
+   "end": "2027-07-23 16:00:00",
+   "published": "2025-10-22 13:46:25.753"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-03",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2027-07-23 07:00:00",
+   "end": "2027-07-23 16:00:00",
+   "published": "2025-10-22 13:47:12.957"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-10",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-08-02 00:00:00",
+   "end": "2027-12-20 18:00:00",
+   "published": "2026-08-07 14:39:22.621"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-06",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-08-16 00:00:00",
+   "end": "2027-08-30 18:00:00",
+   "published": "2026-08-07 14:40:16.173"
+  },
+  {
+   "plant": "Turów",
+   "unit": "TUR 1-01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-08-22 00:00:00",
+   "end": "2027-09-21 10:00:00",
+   "published": "2026-08-07 14:40:21.386"
+  },
+  {
+   "plant": "Karolin 2",
+   "unit": "KAR_1S03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-08-23 00:01:00",
+   "end": "2027-09-09 00:00:00",
+   "published": "2026-10-06 13:32:38.913"
+  },
+  {
+   "plant": "Łagisza",
+   "unit": "LGA 4-10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-08-23 00:01:00",
+   "end": "2027-09-27 00:00:00",
+   "published": "2024-06-12 12:47:32.993"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO_4S01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-08-27 23:00:00",
+   "end": "2027-09-29 00:00:00",
+   "published": "2026-02-12 08:35:16.190"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 1-02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-08-31 00:00:00",
+   "end": "2027-10-30 00:00:00",
+   "published": "2026-08-07 14:42:22.341"
+  },
+  {
+   "plant": "Dolna Odra",
+   "unit": "DOD 4-07",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-09-01 00:01:00",
+   "end": "2027-09-22 00:00:00",
+   "published": "2025-01-20 12:57:22.077"
+  },
+  {
+   "plant": "Karolin 2",
+   "unit": "KAR 1-03",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-09-04 00:01:00",
+   "end": "2027-10-06 00:00:00",
+   "published": "2024-06-12 12:59:24.021"
+  },
+  {
+   "plant": "Kozienice 2",
+   "unit": "KOZ24S09",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-09-04 00:01:00",
+   "end": "2027-12-03 00:00:00",
+   "published": "2026-08-26 14:57:11.225"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-07",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-09-05 00:00:00",
+   "end": "2027-09-26 18:00:00",
+   "published": "2026-08-07 14:42:31.011"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-09-06 07:00:00",
+   "end": "2027-09-24 20:00:00",
+   "published": "2025-10-22 13:47:20.266"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-02",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-09-06 07:01:00",
+   "end": "2027-09-24 20:00:00",
+   "published": "2025-10-22 13:46:27.238"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-03",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-09-06 07:01:00",
+   "end": "2027-09-24 20:00:00",
+   "published": "2024-06-12 12:47:24.109"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-07",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-09-11 00:01:00",
+   "end": "2027-11-20 18:00:00",
+   "published": "2025-09-06 08:00:21.193"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-09",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-09-11 00:01:00",
+   "end": "2027-09-25 00:00:00",
+   "published": "2025-12-19 08:42:15.108"
+  },
+  {
+   "plant": "EC Stalowa Wola",
+   "unit": "STW42-12",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-09-11 00:01:00",
+   "end": "2027-09-20 00:00:00",
+   "published": "2025-06-17 12:29:10.739"
+  },
+  {
+   "plant": "EC Stalowa Wola",
+   "unit": "STW42S12",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-09-11 00:01:00",
+   "end": "2027-09-21 00:00:00",
+   "published": "2025-09-18 08:35:16.019"
+  },
+  {
+   "plant": "EC Włocławek",
+   "unit": "WLC_2-01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-09-11 08:01:00",
+   "end": "2027-09-13 16:00:00",
+   "published": "2024-06-12 12:58:29.801"
+  },
+  {
+   "plant": "Kozienice 2",
+   "unit": "KOZ24-09",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-09-18 00:01:00",
+   "end": "2027-12-17 00:00:00",
+   "published": "2025-03-10 14:34:06.275"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL 2-04",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-09-18 00:01:00",
+   "end": "2027-12-17 00:00:00",
+   "published": "2024-06-12 12:47:31.857"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL_2S04",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AN",
+   "start": "2027-09-18 00:01:00",
+   "end": "2027-12-17 00:00:00",
+   "published": "2025-07-31 14:58:05.643"
+  },
+  {
+   "plant": "Karolin 2",
+   "unit": "KAR_1S02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-09-20 00:01:00",
+   "end": "2027-10-27 00:00:00",
+   "published": "2026-10-06 13:32:32.460"
+  },
+  {
+   "plant": "Ostrołęka B",
+   "unit": "OSB_2S02",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-10-04 00:00:00",
+   "end": "2027-12-04 00:00:00",
+   "published": "2026-11-17 06:20:11.371"
+  },
+  {
+   "plant": "Jaworzno 2 JWCD",
+   "unit": "JW2_4-07",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-10-04 00:01:00",
+   "end": "2027-11-08 00:00:00",
+   "published": "2024-06-12 12:47:35.031"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S09",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-10-06 00:00:00",
+   "end": "2027-10-11 00:00:00",
+   "published": "2026-04-24 13:47:14.777"
+  },
+  {
+   "plant": "EC Włocławek",
+   "unit": "WLC_2S01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-10-09 08:01:00",
+   "end": "2027-10-11 16:00:00",
+   "published": "2026-02-19 08:56:10.999"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-08",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-10-17 00:00:00",
+   "end": "2027-10-31 18:00:00",
+   "published": "2026-08-07 14:40:19.285"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-03",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-10-18 07:01:00",
+   "end": "2027-10-22 20:00:00",
+   "published": "2024-06-12 12:47:25.885"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-10-20 00:00:00",
+   "end": "2027-10-25 00:00:00",
+   "published": "2026-04-24 13:48:16.165"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-10-23 00:00:00",
+   "end": "2027-10-28 00:00:00",
+   "published": "2026-05-11 09:44:20.926"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-02",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-10-25 07:01:00",
+   "end": "2027-10-29 20:00:00",
+   "published": "2025-10-22 13:46:28.762"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL_4S05",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AN",
+   "start": "2027-11-06 00:01:00",
+   "end": "2028-02-03 23:00:00",
+   "published": "2026-08-27 10:24:17.061"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL_4S06",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2027-11-06 00:01:00",
+   "end": "2028-02-03 23:45:00",
+   "published": "2026-08-27 10:38:11.569"
+  },
+  {
+   "plant": "Bełchatów",
+   "unit": "BEL 4-14",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-11-07 00:00:00",
+   "end": "2027-11-21 18:00:00",
+   "published": "2026-08-07 14:42:34.618"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S09",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-11-10 00:00:00",
+   "end": "2027-11-15 00:00:00",
+   "published": "2026-04-24 10:46:16.212"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 1-01",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2027-11-14 00:00:00",
+   "end": "2027-11-28 00:00:00",
+   "published": "2026-08-07 14:42:36.630"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-01",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AN",
+   "start": "2027-11-17 07:01:00",
+   "end": "2027-11-17 16:00:00",
+   "published": "2025-10-22 13:46:17.634"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-02",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AN",
+   "start": "2027-11-17 07:01:00",
+   "end": "2027-11-17 16:00:00",
+   "published": "2025-10-22 13:46:20.731"
+  },
+  {
+   "plant": "Żydowo",
+   "unit": "ZYD_1-03",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AN",
+   "start": "2027-11-17 07:01:00",
+   "end": "2027-11-17 16:00:00",
+   "published": "2025-10-22 13:46:19.242"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO 4-01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2027-11-19 23:00:00",
+   "end": "2027-11-23 00:00:00",
+   "published": "2024-08-14 12:59:13.266"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-06",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AN",
+   "start": "2027-11-25 00:01:00",
+   "end": "2027-12-16 00:00:00",
+   "published": "2026-07-27 10:43:11.651"
   }
  ],
- "y2027": [],
+ "dec2026": [
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-07-25 00:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-07-17 10:35:16.746"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-08-08 07:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-08-03 14:14:16.452"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-09-16 09:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-09-14 06:23:16.893"
+  },
+  {
+   "plant": "Kozienice 2",
+   "unit": "KOZ24S10",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AK",
+   "start": "2026-09-19 00:01:00",
+   "end": "2027-03-17 22:00:00",
+   "published": "2026-11-03 22:33:15.763"
+  },
+  {
+   "plant": "Łagisza",
+   "unit": "LGA_4S10",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2026-09-29 09:39:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-23 11:53:11.555"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-10-09 00:00:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-07 06:17:17.360"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-10-22 00:15:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-20 12:19:16.131"
+  },
+  {
+   "plant": "Pątnów 2",
+   "unit": "PAT24S09",
+   "type": "POS",
+   "reason": "WE",
+   "reason_ko": "WE",
+   "state": "AK",
+   "start": "2026-11-04 00:15:00",
+   "end": "2027-01-01 00:00:00",
+   "published": "2026-10-30 13:21:16.432"
+  },
+  {
+   "plant": "Połaniec",
+   "unit": "POL 4-06",
+   "type": "POS",
+   "reason": "RK",
+   "reason_ko": "대정비",
+   "state": "AN",
+   "start": "2026-11-27 00:01:00",
+   "end": "2027-02-25 00:00:00",
+   "published": "2024-07-02 12:24:10.402"
+  },
+  {
+   "plant": "Płock",
+   "unit": "PLO 4-01",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2026-12-04 23:00:00",
+   "end": "2026-12-08 00:00:00",
+   "published": "2024-08-14 12:59:05.468"
+  },
+  {
+   "plant": "Elektrownia Gryfino",
+   "unit": "EGF_4S10",
+   "type": "POS",
+   "reason": "RB",
+   "reason_ko": "일상 정비",
+   "state": "AK",
+   "start": "2026-12-14 00:00:00",
+   "end": "2026-12-21 00:00:00",
+   "published": "2026-11-19 06:18:14.500"
+  },
+  {
+   "plant": "Opole",
+   "unit": "OPL 4-06",
+   "type": "POS",
+   "reason": "RS",
+   "reason_ko": "중정비",
+   "state": "AK",
+   "start": "2026-12-22 00:00:00",
+   "end": "2027-02-13 00:00:00",
+   "published": "2026-08-07 14:33:16.830"
+  }
+ ],
+ "states": [
+  "AK",
+  "AN"
+ ],
+ "types": [
+  "POS"
+ ],
  "log": [
   {
-   "tag": "bd_q_2026-11-23",
-   "filter": "business_date eq '2026-11-23'",
-   "page": 0,
-   "rows": 4,
-   "next": false
+   "from": "2026-12-01",
+   "to": "2027-01-01",
+   "rows": 5
   },
   {
-   "tag": "bd_2026-11-23",
-   "filter": "business_date eq 2026-11-23",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
+   "from": "2027-01-01",
+   "to": "2027-02-01",
+   "rows": 2
   },
   {
-   "tag": "bd_q_2026-11-22",
-   "filter": "business_date eq '2026-11-22'",
-   "page": 0,
-   "rows": 3,
-   "next": false
+   "from": "2027-02-01",
+   "to": "2027-03-01",
+   "rows": 7
   },
   {
-   "tag": "bd_2026-11-22",
-   "filter": "business_date eq 2026-11-22",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
+   "from": "2027-03-01",
+   "to": "2027-04-01",
+   "rows": 9
   },
   {
-   "tag": "bd_q_2026-11-21",
-   "filter": "business_date eq '2026-11-21'",
-   "page": 0,
-   "rows": 3,
-   "next": false
+   "from": "2027-04-01",
+   "to": "2027-05-01",
+   "rows": 12
   },
   {
-   "tag": "bd_2026-11-21",
-   "filter": "business_date eq 2026-11-21",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
+   "from": "2027-05-01",
+   "to": "2027-06-01",
+   "rows": 22
   },
   {
-   "tag": "bd_q_2026-11-20",
-   "filter": "business_date eq '2026-11-20'",
-   "page": 0,
-   "rows": 7,
-   "next": false
+   "from": "2027-06-01",
+   "to": "2027-07-01",
+   "rows": 14
   },
   {
-   "tag": "bd_2026-11-20",
-   "filter": "business_date eq 2026-11-20",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
+   "from": "2027-07-01",
+   "to": "2027-08-01",
+   "rows": 13
   },
   {
-   "tag": "bd_q_2026-11-19",
-   "filter": "business_date eq '2026-11-19'",
-   "page": 0,
-   "rows": 8,
-   "next": false
+   "from": "2027-08-01",
+   "to": "2027-09-01",
+   "rows": 8
   },
   {
-   "tag": "bd_2026-11-19",
-   "filter": "business_date eq 2026-11-19",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
+   "from": "2027-09-01",
+   "to": "2027-10-01",
+   "rows": 16
   },
   {
-   "tag": "bd_q_2026-11-18",
-   "filter": "business_date eq '2026-11-18'",
-   "page": 0,
-   "rows": 1,
-   "next": false
+   "from": "2027-10-01",
+   "to": "2027-11-01",
+   "rows": 10
   },
   {
-   "tag": "bd_2026-11-18",
-   "filter": "business_date eq 2026-11-18",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
+   "from": "2027-11-01",
+   "to": "2027-12-01",
+   "rows": 11
   },
   {
-   "tag": "bd_q_2026-11-17",
-   "filter": "business_date eq '2026-11-17'",
-   "page": 0,
-   "rows": 3,
-   "next": false
+   "from": "2027-12-01",
+   "to": "2028-01-01",
+   "rows": 2
   },
   {
-   "tag": "bd_2026-11-17",
-   "filter": "business_date eq 2026-11-17",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
-  },
-  {
-   "tag": "bd_q_2026-11-16",
-   "filter": "business_date eq '2026-11-16'",
-   "page": 0,
-   "rows": 2,
-   "next": false
-  },
-  {
-   "tag": "bd_2026-11-16",
-   "filter": "business_date eq 2026-11-16",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"A binary operator with incompatible types was detected. Found operand types \\u0027Edm.String\\u0027 and \\u0027Edm.Date\\u0027 for operator kind \\u0027Equal\\u0027"
-  },
-  {
-   "tag": "start_2027_q",
-   "filter": "start_dtime ge '2027-01-01 00:00:00'",
-   "page": 0,
-   "rows": 100,
-   "next": false
-  },
-  {
-   "tag": "start_2027_q",
-   "filter": "start_dtime ge '2027-01-01 00:00:00'",
-   "page": 1,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $skip\",\"status\":400}}"
-  },
-  {
-   "tag": "end_2027_q",
-   "filter": "end_dtime ge '2027-01-01 00:00:00'",
-   "page": 0,
-   "rows": 100,
-   "next": false
-  },
-  {
-   "tag": "end_2027_q",
-   "filter": "end_dtime ge '2027-01-01 00:00:00'",
-   "page": 1,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $skip\",\"status\":400}}"
-  },
-  {
-   "tag": "start_2027",
-   "filter": "start_dtime ge 2027-01-01T00:00:00",
-   "page": 0,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"The DateTimeOffset text \\u00272027-01-01T00:00:00\\u0027 should be in format \\u0027yyyy-mm-ddThh:mm:ss(\\u0027.\\u0027s\\u002B)?(zzzzzz)?\\u0027 and each field valu"
-  },
-  {
-   "tag": "bd_ge_q",
-   "filter": "business_date ge '2026-11-16'",
-   "page": 0,
-   "rows": 100,
-   "next": false
-  },
-  {
-   "tag": "bd_ge_q",
-   "filter": "business_date ge '2026-11-16'",
-   "page": 1,
-   "status": 400,
-   "head": "{\"error\":{\"code\":\"BadRequest\",\"message\":\"Invalid Query Parameter: $skip\",\"status\":400}}"
+   "from": "2026-07-01",
+   "to": "2026-12-01",
+   "rows": 9
   }
- ],
- "wp_rows": []
+ ]
 }
