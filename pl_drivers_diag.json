@@ -43,58 +43,65 @@
     },
     {
       "item": "수요",
-      "points": 31300,
+      "points": 31303,
       "days": 326
     },
     {
       "item": "발전 wind_on",
-      "points": 31301,
+      "points": 31304,
       "days": 326
     },
     {
       "item": "발전 wind_off",
-      "points": 13453,
+      "points": 13456,
       "days": 140
     },
     {
       "item": "발전 solar",
-      "points": 31301,
+      "points": 31304,
       "days": 326
     },
     {
       "item": "발전 gas",
-      "points": 31299,
+      "points": 31303,
       "days": 326
     },
     {
       "item": "발전 hardcoal",
-      "points": 31299,
+      "points": 31303,
       "days": 326
     },
     {
       "item": "발전 lignite",
-      "points": 31299,
+      "points": 31303,
       "days": 326
     },
     {
       "item": "발전 biomass",
-      "points": 31299,
+      "points": 31303,
       "days": 326
     },
     {
       "item": "발전 hydro_ps",
-      "points": 31299,
+      "points": 31303,
       "days": 326
     },
     {
       "item": "발전 hydro_ror",
-      "points": 31299,
+      "points": 31303,
       "days": 326
     },
     {
       "item": "발전 hydro_res",
-      "points": 31299,
+      "points": 31303,
       "days": 326
+    },
+    {
+      "item": "기상예보 Warszawa",
+      "hours": 720,
+      "last": "2026-12-08T23:00",
+      "wind_last": "2026-12-08T19:00",
+      "temp_last": "2026-12-08T19:00"
     },
     {
       "item": "기상예보 Pomorze",
@@ -113,7 +120,7 @@
     {
       "item": "기상",
       "days": 326,
-      "forecast_days": 0
+      "forecast_days": 16
     }
   ],
   "skipped_currency": [
