@@ -610,7 +610,11 @@ def _nw_backtest(R, last):
 
 def next_week(R, FC, we):
     wx = ((FC or {}).get("wx") or {}).get("wind100") or {}
-    days = drange(we + dt.timedelta(days=1), we + dt.timedelta(days=7))
+    # 월요일 정식 실행 = 보고 주 다음 월~일. 주 중간 수동 실행 = 예보 첫날부터 7일(기록은 하지 않음)
+    d0 = we + dt.timedelta(days=1)
+    fk = sorted(k for k in wx if k >= d0.isoformat())
+    start = max(d0, dd(fk[0])) if fk else d0
+    days = drange(start, start + dt.timedelta(days=6))
     have = [d for d in days if wx.get(d) is not None]
     if len(have) < 5:
         return {"ok": False, "why": "바람 예보 %d일(5일 미만)" % len(have)}
@@ -636,7 +640,7 @@ def next_week(R, FC, we):
         return {"ok": False, "why": "계산된 날 %d일" % len(rows)}
     n = len(rows)
     bt = _nw_backtest(R, last)
-    return {"ok": True, "from": days[0], "to": days[-1], "rows": rows,
+    return {"ok": True, "from": days[0], "to": days[-1], "rows": rows, "full_week": start == d0,
             "avg": sum(r["p"] for r in rows) / n, "lo": sum(r["lo"] for r in rows) / n, "hi": sum(r["hi"] for r in rows) / n,
             "fit": {"wind_pct_per_gw": (math.exp(m["c"][1]) - 1) * 100, "load_pct_per_gw": (math.exp(m["c"][2]) - 1) * 100,
                     "anchor_pct": (math.exp(m["adj"]) - 1) * 100, "r2": m["r2"], "n": m["n"], "until": last.isoformat(),
@@ -659,7 +663,7 @@ def nw_log_update(nw, tag_next, W_tag, W_actual):
         cmp_ = {"week": W_tag, "pred": prev["avg"], "lo": prev.get("lo"), "hi": prev.get("hi"), "actual": W_actual,
                 "err": prev["avg"] / W_actual - 1}
         prev["actual"] = W_actual
-    if nw.get("ok"):
+    if nw.get("ok") and nw.get("full_week"):
         log[tag_next] = {"made": dt.datetime.now(TZ).strftime("%Y-%m-%d %H:%M"), "from": nw["from"], "to": nw["to"],
                          "avg": round(nw["avg"], 1), "lo": round(nw["lo"], 1), "hi": round(nw["hi"], 1),
                          "days": [{"d": r["d"], "p": round(r["p"], 1), "wind_gw": round(r["wind_gw"], 2)} for r in nw["rows"]]}
@@ -672,7 +676,8 @@ def s_nextweek(nw, cmp_):
     if not nw.get("ok"):
         return ""
     calm = [r for r in nw["rows"] if r["wind_gw"] < 2.0]
-    txt = "바람 예보로 본 다음 주(%s~%s) 평균 약 %s PLN/MWh(범위 %s~%s)" % (
+    txt = "바람 예보로 본 %s(%s~%s) 평균 약 %s PLN/MWh(범위 %s~%s)" % (
+        "다음 주" if nw.get("full_week") else "앞으로 7일",
         md(nw["from"]), md(nw["to"]), f0(r10(nw["avg"])), f0(r10(nw["lo"])), f0(r10(nw["hi"])))
     if calm:
         txt += " · 바람 약한 %s 약 %s" % (
@@ -681,6 +686,91 @@ def s_nextweek(nw, cmp_):
     if cmp_:
         txt += " · 지난주 예상 %s → 실제 %s(%s)" % (f0(r10(cmp_["pred"])), f0(cmp_["actual"]), sg(cmp_["err"] * 100, 0, "%"))
     return txt
+
+
+def s_plain(W, P, K, nw):
+    """쉬운 말 요약 (2026-11-23 사용자 요청: 계산 표현 대신 '무슨 일 + 우리에게 주는 의미').
+    반환 {"key": [핵심 정리 3줄], "mean": [(라벨, 문장, 강조여부)]}. 숫자에서 규칙으로 만든다."""
+    def updn(p):
+        return "올랐" if p > 0 else "내렸"
+    key, mean = [], []
+    p = pct(W.get("px_PL_pln"), P.get("px_PL_pln"))
+    dw = (W["wind"] - P["wind"]) if (W.get("wind") is not None and P.get("wind") is not None) else None
+    dl = (W["load"] - P["load"]) if (W.get("load") is not None and P.get("load") is not None) else None
+    # ① 지난주
+    if p is None:
+        key.append("지난주 전기값은 하루 평균 %s PLN/MWh입니다." % f0(W.get("px_PL_pln")))
+    elif abs(p) < FLAT:
+        key.append("지난주 전기값은 하루 평균 %s PLN/MWh로 전주와 비슷했습니다." % f0(W["px_PL_pln"]))
+    else:
+        why = ""
+        if dw is not None and abs(dw) >= 0.5:
+            why = " 바람이 %s 때문입니다." % ("강하게 불었기" if dw > 0 else "약했기")
+        elif dl is not None and abs(dl) >= 0.7:
+            why = " 전기 수요가 %s 때문입니다." % ("늘었기" if dl > 0 else "줄었기")
+        key.append("지난주 전기값은 하루 평균 %s PLN/MWh로 전주보다 %s%% %s습니다.%s" % (f0(W["px_PL_pln"]), f0(abs(p)), updn(p), why))
+    # ② 이번 주
+    calm = [r for r in (nw.get("rows") or []) if r["wind_gw"] < 2.0] if nw.get("ok") else []
+    q = pct(nw.get("avg"), W.get("px_PL_pln")) if nw.get("ok") else None
+    if nw.get("ok"):
+        if q is None or abs(q) < FLAT:
+            t = "이번 주는 지난주와 비슷한 평균 약 %s로 예상됩니다." % f0(r10(nw["avg"]))
+        else:
+            t = "이번 주는 다시 %s 가능성이 큽니다. 평균 약 %s로 예상됩니다." % ("오를" if q > 0 else "내릴", f0(r10(nw["avg"])))
+        if calm:
+            top = max(calm, key=lambda r: r["p"])
+            t += " 바람이 약한 %s는 %s대까지 오를 수 있습니다." % (", ".join(mdw(r["d"]) for r in calm[:3]), f0(math.floor(top["p"] / 100) * 100))
+        key.append(t)
+    # ③ 변동성 → 구매 태도
+    if p is not None and abs(p) >= 20:
+        key.append("가격이 바람에 따라 한 주 만에 %s%%씩 오르내립니다. 싼 날을 맞히기보다 기본 물량을 나눠 사 두는 것이 안전합니다." % f0(abs(p)))
+    else:
+        key.append("이번 주 가격 움직임은 크지 않았습니다. 계획한 기본 물량대로 나눠 사는 방식을 유지하면 됩니다.")
+    # 의미: 원인
+    if dw is not None and abs(dw) >= 0.5:
+        if dw > 0:
+            mean.append(("원인", "풍력 발전이 하루 %sGW 늘어 석탄·가스 발전이 덜 필요했음 → 바람이 가격을 가장 크게 움직인다는 점이 다시 확인됨" % f0(dw, 1), False))
+        else:
+            mean.append(("원인", "풍력 발전이 하루 %sGW 줄어 석탄·가스 발전이 더 필요했음 → 바람이 약하면 가격이 바로 오름" % f0(-dw, 1), False))
+    elif dl is not None:
+        mean.append(("원인", "바람 변화는 작았고, 전기 수요가 하루 %sGW %s → 수요와 연료가 가격을 움직임" % (f0(abs(dl), 1), "늘었음" if dl > 0 else "줄었음"), False))
+    # 의미: 주변국
+    pde = pct(W.get("px_DE"), P.get("px_DE"))
+    if p is not None and pde is not None:
+        if abs(p - pde) < 10:
+            mean.append(("주변국", "독일 %s, 폴란드 %s → 비슷하게 움직여 유럽 공통 요인(연료·날씨)이 큼" % (sg(pde, 0, "%"), sg(p, 0, "%")), False))
+        else:
+            mean.append(("주변국", "독일 %s, 폴란드 %s → 폴란드 안의 사정(바람·발전소 정지 등)이 더 크게 작용" % (sg(pde, 0, "%"), sg(p, 0, "%")), False))
+    # 의미: 연료
+    eua, ttf, coal = K.get("EUA"), K.get("TTF"), K.get("COAL")
+    parts, ups, dns = [], 0, 0
+    if eua:
+        parts.append("탄소배출권 %s(%s€/t)" % (sg(eua["chg_pct"], 0, "%"), f0(eua["value"], 1)))
+        ups += (eua.get("chg_pct") or 0) > FLAT
+        dns += (eua.get("chg_pct") or 0) < -FLAT
+    for nm, k in (("가스", ttf), ("석탄", coal)):
+        if k:
+            parts.append("%s %d월 %s" % (nm, int(k["period"][5:7]), sg(k["chg_pct"], 0, "%")))
+            ups += (k.get("chg_pct") or 0) > FLAT
+            dns += (k.get("chg_pct") or 0) < -FLAT
+    if parts:
+        if dns and not ups:
+            tail = "원가 부담이 줄어드는 중"
+        elif ups and not dns:
+            tail = "원가 부담이 커지는 중"
+        elif ups and dns:
+            tail = "원가는 일부 낮아졌지만 다른 연료가 비싸 가격 바닥은 아직 높음"
+        else:
+            tail = "연료·탄소 가격은 큰 변화 없음"
+        mean.append(("연료", " · ".join(parts) + " → " + tail, False))
+    # 의미: 구매
+    if q is not None and q >= FLAT:
+        mean.append(("구매", "이번 주 다시 오를 가능성이 있어, 단기 하락에 맞춰 구매를 미룰 이유는 약함", True))
+    elif q is not None and q <= -FLAT:
+        mean.append(("구매", "이번 주는 더 내릴 수 있어, 추가 구매는 가격을 확인하며 나눠서 진행", True))
+    else:
+        mean.append(("구매", "가격 흐름이 비슷해, 계획한 기본 물량대로 나눠 구매", True))
+    return {"key": key, "mean": mean}
 
 
 def _pt(v):
@@ -714,7 +804,8 @@ def nw_panel(sl, nw, cmp_, X0=565.0, Y0=155.0, W=366.0, H=205.0):
     BLU, RED, SKY, PNK = COL["PL"], "C83C3C", "BDD9F0", "F4D8D8"
     rows = nw["rows"]
     calm = [r for r in rows if r["wind_gw"] < 2.0]
-    _lbl(sl, X0, Y0 + 2, W, 14, "다음 주 예상 가격 (%s~%s, PLN/MWh) · 바람 예보 기준" % (md(nw["from"]), md(nw["to"])), 9, True, INK2)
+    _lbl(sl, X0, Y0 + 2, W, 14, "%s 예상 가격 (%s~%s, PLN/MWh) · 바람 예보 기준" % (
+        "다음 주" if nw.get("full_week") else "앞으로 7일", md(nw["from"]), md(nw["to"])), 9, True, INK2)
     sub = "주 평균 약 %s  (범위 %s~%s)" % (f0(r10(nw["avg"])), f0(r10(nw["lo"])), f0(r10(nw["hi"])))
     if calm:
         sub += "  ·  %s 바람 약함" % (md(calm[0]["d"]) + ("~" + md(calm[-1]["d"]) if len(calm) > 1 else ""))
@@ -826,14 +917,24 @@ def build_ppt(path, ctx):
             line_chart(sl, mx + i * (mw + 0.08), my + mh + 0.05, mw, mh, [p["period"][2:].replace("-", ".") for p in pts],
                        [(t, [p["value"] for p in pts], COL[key])], t, nd=1, skip=3, tsize=8.5)
 
-    # ── 이번 주 포인트
+    # ── 이번 주 포인트 → 쉬운 말 (2026-11-23): 핵심 정리 3줄 + 우리에게 주는 의미. 실패하면 원래 문장
     rect(sl, 0.4, 5.12, 8.15, 1.86, CARD, rounded=True)
-    lines = [[("이번 주 포인트", 10.5, True, INK)]]
-    for lab, txt in ctx["bullets"]:
-        if txt:
-            lines.append([("▪ %s  " % lab, 8.5, True, INK), (txt, 8.5, False, INK2),
-                          ("  [" + BULLET_SRC.get(lab, "") + "]", 7.5, False, MUTED)])
-    textbox(sl, 0.48, 5.16, 8.0, 1.8, lines, after=2)
+    pl = ctx.get("PLAIN") or {}
+    if pl.get("key"):
+        nums = "①②③④"
+        lines = [[("핵심 정리", 10.5, True, INK)]]
+        lines += [[("%s " % nums[i], 8.5, True, INK), (t, 8.5, False, INK)] for i, t in enumerate(pl["key"][:4])]
+        lines.append([("우리에게 주는 의미", 10.5, True, INK)])
+        for lab, txt, strong in pl["mean"]:
+            col = "8C1E1E" if strong else INK2
+            lines.append([("▪ %s  " % lab, 8.5, True, col), (txt, 8.5, strong, col)])
+    else:
+        lines = [[("이번 주 포인트", 10.5, True, INK)]]
+        for lab, txt in ctx["bullets"]:
+            if txt:
+                lines.append([("▪ %s  " % lab, 8.5, True, INK), (txt, 8.5, False, INK2),
+                              ("  [" + BULLET_SRC.get(lab, "") + "]", 7.5, False, MUTED)])
+    textbox(sl, 0.48, 5.16, 8.0, 1.8, lines, after=1)
 
     # ── 수급 표
     rows = [["수급·기상 (일평균)", "이번 주", "전주", "차이", "자료"]]
@@ -1550,9 +1651,18 @@ def build_xlsx(path, ctx):
     add("환율 EUR→PLN", "PLN", ctx["fx_w"]["PLN"], ctx["fx_p"]["PLN"], wk, "ECB")
     add("환율 EUR→KRW", "KRW", ctx["fx_w"]["KRW"], ctx["fx_p"]["KRW"], wk, "ECB")
     rows.append([])
-    rows.append(["이번 주 포인트 (PPT 문장)"])
-    for lab, txt in ctx["bullets"]:
-        rows.append([lab, txt, None, None, None, None, None, BULLET_SRC.get(lab, "")])
+    pl = ctx.get("PLAIN") or {}
+    if pl.get("key"):                       # 쉬운 말 (2026-11-23)
+        rows.append(["핵심 정리"])
+        for i, t in enumerate(pl["key"]):
+            rows.append(["%d" % (i + 1), t])
+        rows.append(["우리에게 주는 의미"])
+        for lab, txt, strong in pl["mean"]:
+            rows.append([lab, txt])
+    else:
+        rows.append(["이번 주 포인트 (PPT 문장)"])
+        for lab, txt in ctx["bullets"]:
+            rows.append([lab, txt, None, None, None, None, None, BULLET_SRC.get(lab, "")])
     sheet(wb, "요약", ["항목", "단위", "이번 주/최근", "비교값(전주·직전)", "변화율(%)", "직전 4주 평균", "기준", "출처"],
           rows, {3: "#,##0.00", 4: "#,##0.00", 5: "0.0", 6: "#,##0.00"}, [30, 12, 14, 16, 10, 14, 34, 16], first=True)
 
@@ -1762,6 +1872,12 @@ def main():
            "OUT": load("pl_outages_latest.json"), "GAS": load("pl_gas_storage.json"),
            "NW": nw, "NW_CMP": nw_cmp}
     try:
+        ctx["PLAIN"] = s_plain(W, P, K, nw)
+    except Exception as e:
+        print("!! 쉬운 말 요약 실패(원래 문장 사용): %r" % e, flush=True)
+        traceback.print_exc()
+        ctx["PLAIN"] = {}
+    try:
         ctx["COMP"] = composition(R, M, we.isoformat())
     except Exception as e:
         print("!! 가격 구성 계산 실패: %r" % e, flush=True)
@@ -1790,7 +1906,7 @@ def main():
     with open(os.path.join(ldir, "summary.json"), "w", encoding="utf-8") as f:
         json.dump({"week": tag, "from": ws.isoformat(), "to": we.isoformat(), "issued": ctx["issued"],
                    "this_week": W, "prev_week": P, "commodities": K, "fit": fit, "decompose": dec,
-                   "outlook": out_info, "nextweek": nw, "nextweek_vs_actual": nw_cmp,
+                   "outlook": out_info, "nextweek": nw, "nextweek_vs_actual": nw_cmp, "plain": ctx.get("PLAIN"),
                    "bullets": bullets}, f, ensure_ascii=False, indent=2, default=str)
 
     print("\n=== %s (%s~%s) ===" % (tag, ws, we), flush=True)
