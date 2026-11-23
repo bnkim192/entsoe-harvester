@@ -1,113 +1,85 @@
 """
-PSE 5개년 조정계획(Plan Koordynacyjny 5-letni) — 중앙급전 발전기(JWCD) 계획 정비 (2026-11-23, v2: 날짜 조건·쪽 넘김)
+PSE 5개년 조정계획(Plan Koordynacyjny 5-letni) — 중앙급전 발전기(JWCD) 계획 정비 (2026-11-23 v3)
 
-엔드포인트(2026-11-23 확인): unav-pk5l (정비 일정), pk5l-wp (기본 수치)
-  unav-pk5l 열: business_date, power_plant, unit_code, type(POS=정지 등), reason(RK 대정비·RS 중정비·RB 일상·RA 긴급 등),
-               state, start_dtime, end_dtime, publication_ts, mrid_zas, direction
-v1 은 조건 없이 받아 2024-06 자료 100줄만 왔다 → v2 는
-  1) 최근 계획일(business_date) 조건, 2) 시작·종료일 조건 등 여러 $filter 형태를 시험하고,
-  2) 100줄이 꽉 차면 @odata.nextLink 또는 $skip 으로 다음 쪽을 받는다.
-  받은 줄을 합쳐 중복을 빼고, 2027년에 걸친 정비만 따로 정리한다.
-산출  pse_pk5l.json  {tries, unav_rows(최신 계획 기준), y2027, wp_sample}   (공개 자료만)
+엔드포인트: unav-pk5l (정비 일정). 열: business_date(= 정비 시작일), power_plant, unit_code, type(POS=정지),
+            reason(RK 대정비·RS 중정비·RB 일상·RA 긴급), state, start_dtime, end_dtime, publication_ts, mrid_zas
+확인된 제약(2026-11-23): 한 번에 최대 100줄, @odata.nextLink 없음, $skip·$top 불가, 문자열 날짜 비교만 됨('YYYY-MM-DD').
+→ business_date 구간으로 나눠 받고, 100줄이 차면 구간을 반으로 쪼개 다시 받는다.
+기간: 2026-12-01 ~ 2028-01-01 시작분 + 2026년 하반기에 시작해 2027년까지 이어지는 정비
+산출  pse_pk5l.json  {y2027:[...], dec2026:[...], rows, log}   (공개 자료만)
 """
 import json, time
 import datetime as dt
 import requests
 
-API = "https://api.raporty.pse.pl/api"
+API = "https://api.raporty.pse.pl/api/unav-pk5l"
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
       "Accept": "application/json"}
-MAX_PAGES = 60
 OUT = "pse_pk5l.json"
 REASON = {"RK": "대정비", "RS": "중정비", "RB": "일상 정비", "RA": "긴급 정비"}
+LOG = []
 
 
-def get(url, params=None):
+def query(flt):
     for k in range(3):
         try:
-            r = requests.get(url, params=params, headers=UA, timeout=120)
-            return r
-        except requests.RequestException:
+            r = requests.get(API, params={"$filter": flt}, headers=UA, timeout=120)
+            if r.status_code == 200:
+                return r.json().get("value", [])
+            LOG.append({"filter": flt, "status": r.status_code, "head": r.text[:200]})
+            return None
+        except (requests.RequestException, ValueError) as e:
+            LOG.append({"filter": flt, "error": type(e).__name__})
             time.sleep(5)
     return None
 
 
-def pull(name, flt, log, tag):
-    """조건 하나로 끝까지(쪽 넘김) 받는다."""
-    rows, page, skip, prev_first = [], 0, 0, None
-    params = {"$filter": flt} if flt else {}
-    url = "%s/%s" % (API, name)
-    while page < MAX_PAGES:
-        r = get(url, params)
-        if r is None or r.status_code != 200:
-            log.append({"tag": tag, "filter": flt, "page": page, "status": r.status_code if r is not None else None,
-                        "head": (r.text[:200] if r is not None else "")})
-            break
-        try:
-            js = r.json()
-        except ValueError:
-            log.append({"tag": tag, "filter": flt, "page": page, "head": r.text[:200]})
-            break
-        vals = js.get("value", [])
-        first = json.dumps(vals[0], sort_keys=True) if vals else None
-        if first is not None and first == prev_first:     # $skip 이 무시되어 같은 쪽이 다시 오면 멈춤
-            log.append({"tag": tag, "filter": flt, "page": page, "note": "같은 쪽 반복 → 중단"})
-            break
-        prev_first = first
-        rows += vals
-        nxt = js.get("@odata.nextLink")
-        log.append({"tag": tag, "filter": flt, "page": page, "rows": len(vals), "next": bool(nxt)})
-        page += 1
-        if nxt:
-            url, params = nxt, None
-        elif len(vals) >= 100:                            # 다음 쪽 링크가 없으면 $skip 시도
-            skip += len(vals)
-            params = dict({"$filter": flt} if flt else {}, **{"$skip": str(skip)})
-        else:
-            break
+def pull_range(d0, d1, extra=""):
+    """business_date 가 [d0, d1) 인 줄. 100줄이면 반으로 쪼갠다."""
+    flt = "business_date ge '%s' and business_date lt '%s'%s" % (d0.isoformat(), d1.isoformat(), extra)
+    rows = query(flt)
+    if rows is None:
+        return []
+    LOG.append({"from": d0.isoformat(), "to": d1.isoformat(), "rows": len(rows)})
+    if len(rows) >= 100 and (d1 - d0).days > 1:
+        mid = d0 + dt.timedelta(days=(d1 - d0).days // 2)
+        time.sleep(0.5)
+        return pull_range(d0, mid, extra) + pull_range(mid, d1, extra)
+    if len(rows) >= 100:
+        LOG.append({"from": d0.isoformat(), "note": "하루에 100줄 이상 — 일부 빠졌을 수 있음"})
     return rows
 
 
-def key(r):
-    return (r.get("mrid_zas"), r.get("unit_code"), r.get("start_dtime"), r.get("end_dtime"), r.get("publication_ts"))
-
-
 def main():
-    log, tries = [], []
-    today = dt.datetime.now(dt.timezone.utc).date()
-    cands = []
-    for k in range(0, 8):
-        d = (today - dt.timedelta(days=k)).isoformat()
-        cands += [("bd_q_%s" % d, "business_date eq '%s'" % d), ("bd_%s" % d, "business_date eq %s" % d)]
-    cands += [("start_2027_q", "start_dtime ge '2027-01-01 00:00:00'"), ("end_2027_q", "end_dtime ge '2027-01-01 00:00:00'"),
-              ("start_2027", "start_dtime ge 2027-01-01T00:00:00"), ("bd_ge_q", "business_date ge '%s'" % (today - dt.timedelta(days=7)).isoformat())]
-    allrows = {}
-    for tag, flt in cands:
-        rs = pull("unav-pk5l", flt, log, tag)
-        tries.append({"tag": tag, "filter": flt, "rows": len(rs),
-                      "max_end": max((r.get("end_dtime") or "" for r in rs), default=None),
-                      "bd": sorted({r.get("business_date") for r in rs})[-3:] if rs else []})
-        for r in rs:
-            allrows[key(r)] = r
-        time.sleep(1)
-    rows = list(allrows.values())
-    # 최신 계획: business_date 가 가장 최근인 줄들
-    bds = sorted({r.get("business_date") for r in rows if r.get("business_date")})
-    latest = bds[-1] if bds else None
-    cur = [r for r in rows if r.get("business_date") == latest] if latest else rows
-    y27 = [r for r in cur if (r.get("end_dtime") or "") >= "2027-01-01" and (r.get("start_dtime") or "") < "2028-01-01"]
-    y27.sort(key=lambda r: (r.get("start_dtime") or "", r.get("power_plant") or ""))
+    rows = []
+    m = dt.date(2026, 12, 1)
+    while m < dt.date(2028, 1, 1):                       # 2026-12 ~ 2027-12 시작분, 달 단위
+        n = dt.date(m.year + (m.month == 12), (m.month % 12) + 1, 1)
+        rows += pull_range(m, n)
+        m = n
+        time.sleep(0.5)
+    # 2026-07 ~ 2026-11 에 시작해 2027년까지 이어지는 것
+    rows += pull_range(dt.date(2026, 7, 1), dt.date(2026, 12, 1), " and end_dtime ge '2027-01-01 00:00:00'")
+    # 중복 제거: 같은 정비(mrid·발전기·시작)는 가장 최근 공시만
+    best = {}
+    for r in rows:
+        k = (r.get("mrid_zas"), r.get("unit_code"), r.get("start_dtime"))
+        if k not in best or (r.get("publication_ts") or "") > (best[k].get("publication_ts") or ""):
+            best[k] = r
+    cur = sorted(best.values(), key=lambda r: (r.get("start_dtime") or "", r.get("power_plant") or ""))
+
+    def slim(r):
+        return {"plant": r.get("power_plant"), "unit": r.get("unit_code"), "type": r.get("type"), "reason": r.get("reason"),
+                "reason_ko": REASON.get(r.get("reason"), r.get("reason")), "state": r.get("state"),
+                "start": r.get("start_dtime"), "end": r.get("end_dtime"), "published": r.get("publication_ts")}
+    y27 = [slim(r) for r in cur if (r.get("end_dtime") or "") >= "2027-01-01" and (r.get("start_dtime") or "") < "2028-01-01"]
+    dec = [slim(r) for r in cur if (r.get("end_dtime") or "") >= "2026-12-01" and (r.get("start_dtime") or "") < "2027-01-01"]
     out = {"fetched_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
            "source": "PSE raporty.pse.pl API unav-pk5l (Plan Koordynacyjny 5-letni, Remonty)",
-           "reason_codes": REASON, "tries": tries, "latest_business_date": latest, "rows_total": len(rows),
-           "unav_rows": cur, "y2027": [{"plant": r.get("power_plant"), "unit": r.get("unit_code"), "type": r.get("type"),
-                                       "reason": r.get("reason"), "reason_ko": REASON.get(r.get("reason"), r.get("reason")),
-                                       "start": r.get("start_dtime"), "end": r.get("end_dtime"), "state": r.get("state"),
-                                       "published": r.get("publication_ts")} for r in y27],
-           "log": log[-120:]}
-    wp = pull("pk5l-wp", "business_date eq '%s'" % latest if latest else None, log, "wp") if latest else []
-    out["wp_rows"] = wp[:2000]
-    print("[pse] 최신 계획일 %s · 줄 %d · 2027년 정비 %d건 · 기본수치 %d줄" % (latest, len(cur), len(y27), len(wp)), flush=True)
+           "reason_codes": REASON, "rows_total": len(cur), "y2027": y27, "dec2026": dec,
+           "states": sorted({r.get("state") for r in cur if r.get("state")}),
+           "types": sorted({r.get("type") for r in cur if r.get("type")}), "log": LOG}
+    print("[pse] 정비 %d건 · 2027년에 걸친 정비 %d건 · 2026년 12월 %d건" % (len(cur), len(y27), len(dec)), flush=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1, default=str)
 
