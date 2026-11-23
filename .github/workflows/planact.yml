@@ -1,0 +1,35 @@
+# 한 번만 돌리는 '정비 1월 계획 vs 실적' 자료 수집 (2022~2025) → pse_pk5l_hist.json, pl_outages_hist_2022_2025.json
+# .github/workflows/planact.yml 경로. 자동 일정 없음(수동 Run 만).
+name: PL Outage Plan vs Actual (one-off)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: entsoe-commit
+  cancel-in-progress: false
+jobs:
+  planact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests tzdata
+      - name: PSE 정비 이력 + ENTSO-E 정지 2022~2025
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_pl_outage_planact.py
+      - name: commit back
+        run: |
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: outage plan vs actual $(date +%F)" || { echo "no change"; exit 0; }
+          for i in 1 2 3 4 5; do
+            if git pull --rebase -X theirs && git push; then echo "push 완료"; exit 0; fi
+            echo "push 실패 ${i}회 → 다시 시도"; git rebase --abort 2>/dev/null || true; sleep 15
+          done
+          echo "::error::저장 실패"; exit 1
