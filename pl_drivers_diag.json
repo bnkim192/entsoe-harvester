@@ -43,65 +43,58 @@
     },
     {
       "item": "수요",
-      "points": 31294,
+      "points": 31298,
       "days": 326
     },
     {
       "item": "발전 wind_on",
-      "points": 31295,
+      "points": 31298,
       "days": 326
     },
     {
       "item": "발전 wind_off",
-      "points": 13447,
+      "points": 13450,
       "days": 140
     },
     {
       "item": "발전 solar",
-      "points": 31295,
+      "points": 31298,
       "days": 326
     },
     {
       "item": "발전 gas",
-      "points": 31295,
+      "points": 31297,
       "days": 326
     },
     {
       "item": "발전 hardcoal",
-      "points": 31295,
+      "points": 31297,
       "days": 326
     },
     {
       "item": "발전 lignite",
-      "points": 31295,
+      "points": 31297,
       "days": 326
     },
     {
       "item": "발전 biomass",
-      "points": 31295,
+      "points": 31297,
       "days": 326
     },
     {
       "item": "발전 hydro_ps",
-      "points": 31295,
+      "points": 31297,
       "days": 326
     },
     {
       "item": "발전 hydro_ror",
-      "points": 31295,
+      "points": 31297,
       "days": 326
     },
     {
       "item": "발전 hydro_res",
-      "points": 31295,
+      "points": 31297,
       "days": 326
-    },
-    {
-      "item": "기상예보 Warszawa",
-      "hours": 720,
-      "last": "2026-12-08T23:00",
-      "wind_last": "2026-12-08T19:00",
-      "temp_last": "2026-12-08T19:00"
     },
     {
       "item": "기상예보 Pomorze",
@@ -120,7 +113,7 @@
     {
       "item": "기상",
       "days": 326,
-      "forecast_days": 16
+      "forecast_days": 0
     }
   ],
   "skipped_currency": [
@@ -167,8 +160,8 @@
     },
     "load": {
       "base": 17980.09837659226,
-      "spike": 19799.846802469136,
-      "chg_pct": 10.120903611105646
+      "spike": 19799.83800617284,
+      "chg_pct": 10.120854688702053
     },
     "wind": {
       "base": 3076.7207709821428,
@@ -182,8 +175,8 @@
     },
     "resload": {
       "base": 12260.200396354167,
-      "spike": 15514.598238811728,
-      "chg_pct": 26.54440985667188
+      "spike": 15514.589442515431,
+      "chg_pct": 26.54433810991399
     },
     "gas": {
       "base": 1722.495698422619,
@@ -218,19 +211,19 @@
     "px_spike": 234.96175154320989,
     "rise": 82.36987818011465,
     "res_base_gw": 12.260200396354167,
-    "res_spike_gw": 15.514598238811729,
+    "res_spike_gw": 15.514589442515431,
     "fit_simple": {
       "per_gw": 13.712889773247861,
       "r2": 0.7678159259675315,
-      "explained": 44.62719889191621
+      "explained": 44.62707826927467
     },
     "fit_trend": {
       "per_gw": 14.339709645459052,
       "per_day": -0.3315300468144569,
       "r2": 0.7875088193657546,
-      "explained_res": 46.66712013164984,
+      "explained_res": 46.666993995314975,
       "explained_trend": -13.758496942799962,
-      "unexplained": 49.46125499126478
+      "unexplained": 49.46138112759964
     },
     "pl_vs_de": "지역 공통(독일도 비슷하게 상승)"
   }
