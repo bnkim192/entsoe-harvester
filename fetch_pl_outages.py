@@ -12,7 +12,7 @@ TGE GPI(gpi.tge.pl)는 GitHub 서버에서도 접속이 막혀(ConnectTimeout) E
   같은 공시의 여러 판(revision)은 가장 최신판만, 취소된 공시(docStatus A09)는 뺀다.
 
 산출물
-  pl_outages_latest.json    오늘 기준 −1일 ~ 다음 달 말일(M+1)에 걸친 정지 목록 + 날짜별 정지 MW 합계(계획·고장, 전원별)
+  pl_outages_latest.json    오늘 기준 −1일 ~ 앞으로 1년(2026-11-23 확대)에 걸친 정지 목록 + 날짜별 정지 MW 합계(계획·고장, 전원별)
                             (2026-11-18 법인 요청으로 +7일에서 M+1 말일까지 늘림. 미리 공시된 계획정지만 보이고, 고장정지·늦은 공시는 빠짐)
   pl_outages_history.jsonl  하루 1줄 누적(오늘 날짜 합계, 같은 날 재실행 시 덮어씀)
   pl_outages_diag.json      요청별 결과
@@ -149,11 +149,8 @@ def parse(xml, doc_type):
 
 
 def m1_next(today):
-    """다음 달(M+1) 말일의 다음 날. 예: 11월 18일이면 1월 1일."""
-    y, m = today.year, today.month + 2
-    if m > 12:
-        y, m = y + 1, m - 12
-    return dt.date(y, m, 1)
+    """수집 끝날(배타). 2026-11-23: 다음 달 말일 → 앞으로 1년으로 확대(ENTSO-E 조회 한도 1년, 시작이 −1일이라 364일)."""
+    return today + dt.timedelta(days=364 - BACK_DAYS)
 
 
 def main():

@@ -714,9 +714,9 @@ def s_plain(W, P, K, nw):
     q = pct(nw.get("avg"), W.get("px_PL_pln")) if nw.get("ok") else None
     if nw.get("ok"):
         if q is None or abs(q) < FLAT:
-            t = "이번 주는 지난주와 비슷한 평균 약 %s로 예상됩니다." % f0(r10(nw["avg"]))
+            t = "이번 주는 지난주와 비슷한 평균 약 %s PLN/MWh로 예상됩니다." % f0(r10(nw["avg"]))
         else:
-            t = "이번 주는 다시 %s 가능성이 큽니다. 평균 약 %s로 예상됩니다." % ("오를" if q > 0 else "내릴", f0(r10(nw["avg"])))
+            t = "이번 주는 다시 %s 가능성이 큽니다. 평균 약 %s PLN/MWh로 예상됩니다." % ("오를" if q > 0 else "내릴", f0(r10(nw["avg"])))
         if calm:
             top = max(calm, key=lambda r: r["p"])
             t += " 바람이 약한 %s는 %s대까지 오를 수 있습니다." % (", ".join(mdw(r["d"]) for r in calm[:3]), f0(math.floor(top["p"] / 100) * 100))
@@ -1765,10 +1765,68 @@ def build_xlsx(path, ctx):
              ["국경 흐름", "ENTSO-E A11 실제 물리 흐름(MW)을 현지 날짜별로 더해 GWh로 환산(20시간 미만인 날 제외). 순수입 = 수입 − 수출, 양수면 폴란드가 들여온 양. "
                          "국경 하나라도 빈 날은 합계 빈칸. 물리 흐름이라 거래소 계약량(상업 거래)과 다를 수 있음. 주변국 상황은 가격을 움직이는 5가지 요인 중 하나."],
              ["발전설비 정지", "ENTSO-E A80 발전기 정지 공시(REMIT). 정지 MW = 정격 − 정지 중 최저 가용용량. 같은 공시는 최신판만, 같은 발전기는 그날 가장 큰 정지 1건만 셈. "
-                            "하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). 계획 = 예정 정비, 고장 = 불시 정지. 보고서 실행일 −1일 ~ +7일."],
+                            "하루 중 일부라도 겹치면 그날 합계에 포함(최대치에 가까움). 계획 = 예정 정비, 고장 = 불시 정지. 수집일 −1일 ~ 앞으로 1년(발전사가 미리 공시한 것만)."],
              ["가격 구성", "발전원가 = 연료비 ÷ 효율(가스 0.55·석탄 0.41) + 배출계수(가스 0.37·석탄 0.83 t/MWh) × 배출권가 + 운전비 2€/MWh. "
                          "가스 쪽 무게 = (실제 가격 − 석탄 원가) ÷ (가스 원가 − 석탄 원가), 0~100%로 제한한 환산값(실제 시간 비율 아님). 가스 원가보다 비싸면 초과분 = 희소성 프리미엄, "
                          "석탄 원가보다 싸면 = 재생에너지 과잉 할인. 전력 = ENTSO-E × ECB, 가스 = World Bank TTF 월평균(공개자료 기준, TGE 아님)."]]
+    try:                                   # PSE 5개년 계획 정비 (2026-11-23): 2027년 + 2026년 12월, 취소(AN) 제외
+        PS = ctx.get("PSE") or {}
+        items = [r for r in (PS.get("dec2026") or []) + (PS.get("y2027") or []) if r.get("state") != "AN"]
+        seen, uniq = set(), []
+        for r in items:
+            k = (r.get("unit"), r.get("start"), r.get("end"))
+            if k not in seen:
+                seen.add(k)
+                uniq.append(r)
+        uniq.sort(key=lambda r: (r.get("start") or "", r.get("plant") or ""))
+        if uniq:
+            def pdt(s):
+                try:
+                    return dt.datetime.strptime(s[:16], "%Y-%m-%d %H:%M")
+                except (TypeError, ValueError):
+                    return None
+            y0, y1 = dt.datetime(2027, 1, 1), dt.datetime(2028, 1, 1)
+            prow = []
+            for r in uniq:
+                s, e = pdt(r.get("start")), pdt(r.get("end"))
+                d27 = max(0.0, (min(e, y1) - max(s, y0)).total_seconds() / 86400) if (s and e) else None
+                prow.append([r.get("plant"), r.get("unit"), r.get("reason_ko") or r.get("reason"), s, e,
+                             r2((e - s).total_seconds() / 86400, 1) if (s and e) else None, r2(d27, 1), r.get("state"), r.get("published")])
+            # 월별: 그 달 하루 평균 정비 중 발전기 수 (같은 발전기 겹치는 기간은 합침)
+            byu = {}
+            for r in uniq:
+                s, e = pdt(r.get("start")), pdt(r.get("end"))
+                if s and e:
+                    byu.setdefault(r.get("unit"), []).append([s, e])
+            mer = {}
+            for u, iv in byu.items():
+                iv.sort()
+                m_ = [iv[0][:]]
+                for a, b in iv[1:]:
+                    if a <= m_[-1][1]:
+                        m_[-1][1] = max(m_[-1][1], b)
+                    else:
+                        m_.append([a, b])
+                mer[u] = m_
+            mrow = []
+            for mo in range(1, 13):
+                a = dt.datetime(2027, mo, 1)
+                b = dt.datetime(2027 + (mo == 12), mo % 12 + 1, 1)
+                ud, units = 0.0, set()
+                for u, m_ in mer.items():
+                    for s, e in m_:
+                        o = (min(e, b) - max(s, a)).total_seconds()
+                        if o > 0:
+                            ud += o / 86400
+                            units.add(u)
+                mrow.append(["2027-%02d" % mo, r2(ud / ((b - a).days), 1), len(units)])
+            sheet(wb, "계획정비_PSE_2027", ["발전소", "발전기", "정비 종류", "시작", "종료", "기간(일)", "2027년 중(일)", "상태", "공시 시각"],
+                  prow + [[], ["월", "하루 평균 정비 중 발전기 수(대)", "그 달 정비 발전기 수(대)"]] + mrow +
+                  [[], ["출처", "PSE Plan Koordynacyjny 5-letni (raporty.pse.pl unav-pk5l), 수집 %s. 취소(AN) 제외. 계획은 바뀔 수 있음. "
+                                "PSE 자료에는 발전기 용량(MW)이 없음. 정비 종류: 대정비(RK)·중정비(RS)·일상(RB)·긴급(RA), WE는 장기 정지로 보이며 의미 확인 필요." % PS.get("fetched_utc", "")]],
+                  {4: "yyyy-mm-dd hh:mm", 5: "yyyy-mm-dd hh:mm", 6: "0.0", 7: "0.0"}, [16, 14, 10, 17, 17, 9, 11, 7, 20])
+    except Exception as e:
+        print("!! PSE 계획정비 시트 실패(건너뜀): %r" % e, flush=True)
     nw = ctx.get("NW") or {}
     if nw.get("ok"):                       # 다음 주 예상 (2026-11-19)
         fz = nw["fit"]
@@ -1870,7 +1928,7 @@ def main():
            "M": M, "DG": load("pl_drivers_diag.json"), "FC": D.get("forecast", {}),
            "dec": dec, "fit": fit, "out_info": out_info, "FLOW": load("pl_flows_daily.json"),
            "OUT": load("pl_outages_latest.json"), "GAS": load("pl_gas_storage.json"),
-           "NW": nw, "NW_CMP": nw_cmp}
+           "NW": nw, "NW_CMP": nw_cmp, "PSE": load("pse_pk5l.json")}
     try:
         ctx["PLAIN"] = s_plain(W, P, K, nw)
     except Exception as e:
