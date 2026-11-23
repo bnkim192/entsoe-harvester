@@ -43,78 +43,78 @@
     },
     {
       "item": "수요",
-      "points": 31292,
+      "points": 31294,
       "days": 326
     },
     {
       "item": "발전 wind_on",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 wind_off",
-      "points": 13444,
+      "points": 13447,
       "days": 140
     },
     {
       "item": "발전 solar",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 gas",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 hardcoal",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 lignite",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 biomass",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 hydro_ps",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 hydro_ror",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "발전 hydro_res",
-      "points": 31292,
+      "points": 31295,
       "days": 326
     },
     {
       "item": "기상예보 Warszawa",
       "hours": 720,
       "last": "2026-12-08T23:00",
-      "wind_last": "2026-12-08T13:00",
+      "wind_last": "2026-12-08T19:00",
       "temp_last": "2026-12-08T19:00"
     },
     {
       "item": "기상예보 Pomorze",
       "hours": 720,
       "last": "2026-12-08T23:00",
-      "wind_last": "2026-12-08T13:00",
+      "wind_last": "2026-12-08T19:00",
       "temp_last": "2026-12-08T19:00"
     },
     {
       "item": "기상예보 Slask",
       "hours": 720,
       "last": "2026-12-08T23:00",
-      "wind_last": "2026-12-08T13:00",
+      "wind_last": "2026-12-08T19:00",
       "temp_last": "2026-12-08T19:00"
     },
     {
@@ -197,13 +197,13 @@
     },
     "temp": {
       "base": 13.120783730158731,
-      "spike": 4.670576131687243,
-      "chg_pct": -64.40322294961919
+      "spike": 4.670781893004115,
+      "chg_pct": -64.40165474057693
     },
     "wind100": {
       "base": 20.5140873015873,
-      "spike": 19.764763374485597,
-      "chg_pct": -3.6527285668893628
+      "spike": 19.764814814814812,
+      "chg_pct": -3.652477810770116
     },
     "rad": {
       "base": 2.900946428571429,

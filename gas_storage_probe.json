@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-23T00:08:27+00:00",
+ "fetched_utc": "2026-11-23T00:51:55+00:00",
  "start": "2020-01-01",
  "agsi_recent": [
   {
@@ -58,7 +58,7 @@
  ],
  "agsi_empty": [
   {
-   "page": 3,
+   "page": 8,
    "head": "{\"last_page\":9,\"total\":0,\"dataset\":\"\",\"gas_day\":\"2026-11-21\",\"data\":[]}"
   }
  ],
