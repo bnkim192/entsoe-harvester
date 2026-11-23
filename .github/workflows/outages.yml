@@ -20,9 +20,14 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install requests openpyxl xlrd python-pptx tzdata pypdf
-      - name: PSE 계획정지 엔드포인트 찾기 (1회용 프로브, 실패해도 계속)
+      - name: PSE 5개년 계획 정비 (unav-pk5l · pk5l-wp)
         continue-on-error: true
-        run: python fetch_pse_outage_probe.py
+        run: python fetch_pse_pk5l.py
+      - name: 발전정지 과거 월별 비교 (ENTSO-E A80, 작년 10~12월 vs 올해)
+        continue-on-error: true
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_pl_outages_hist.py
       - name: 발전설비 정지 (ENTSO-E A80·A77)
         continue-on-error: true
         env:
