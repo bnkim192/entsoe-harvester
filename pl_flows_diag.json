@@ -1,65 +1,65 @@
 {
- "fetched_utc": "2026-11-25T01:19:51+00:00",
+ "fetched_utc": "2026-11-25T16:03:34+00:00",
  "log": [
   {
    "tag": "A11 DE→PL 2026-11",
    "ok": true,
-   "note": "len=67546"
+   "note": "len=54205"
   },
   {
    "tag": "A11 PL→DE 2026-11",
    "ok": true,
-   "note": "len=39177"
+   "note": "len=24996"
   },
   {
    "tag": "A11 CZ→PL 2026-11",
    "ok": true,
-   "note": "len=16308"
+   "note": "len=10887"
   },
   {
    "tag": "A11 PL→CZ 2026-11",
    "ok": true,
-   "note": "len=58813"
+   "note": "len=47316"
   },
   {
    "tag": "A11 SK→PL 2026-11",
    "ok": true,
-   "note": "len=13388"
+   "note": "len=6790"
   },
   {
    "tag": "A11 PL→SK 2026-11",
    "ok": true,
-   "note": "len=61248"
+   "note": "len=50852"
   },
   {
    "tag": "A11 LT→PL 2026-11",
    "ok": true,
-   "note": "len=62480"
+   "note": "len=50169"
   },
   {
    "tag": "A11 PL→LT 2026-11",
    "ok": true,
-   "note": "len=16256"
+   "note": "len=10823"
   },
   {
    "tag": "A11 SE4→PL 2026-11",
    "ok": true,
-   "note": "len=28885"
+   "note": "len=32886"
   },
   {
    "tag": "A11 PL→SE4 2026-11",
    "ok": true,
-   "note": "len=15302"
+   "note": "len=7633"
   },
   {
    "tag": "A11 UA→PL 2026-11",
    "ok": true,
-   "note": "len=60319"
+   "note": "len=46293"
   },
   {
    "tag": "A11 PL→UA 2026-11",
    "ok": true,
-   "note": "len=16276"
+   "note": "len=14710"
   }
  ]
 }

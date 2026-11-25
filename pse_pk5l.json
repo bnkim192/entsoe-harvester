@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-23T04:32:20+00:00",
+ "fetched_utc": "2026-11-25T15:56:01+00:00",
  "source": "PSE raporty.pse.pl API unav-pk5l (Plan Koordynacyjny 5-letni, Remonty)",
  "reason_codes": {
   "RK": "대정비",
@@ -50,8 +50,8 @@
    "reason_ko": "대정비",
    "state": "AK",
    "start": "2026-09-19 00:01:00",
-   "end": "2027-03-17 22:00:00",
-   "published": "2026-11-03 22:33:15.763"
+   "end": "2027-03-20 22:00:00",
+   "published": "2026-11-24 09:43:16.343"
   },
   {
    "plant": "Łagisza",
@@ -1504,8 +1504,8 @@
    "reason_ko": "대정비",
    "state": "AK",
    "start": "2026-09-19 00:01:00",
-   "end": "2027-03-17 22:00:00",
-   "published": "2026-11-03 22:33:15.763"
+   "end": "2027-03-20 22:00:00",
+   "published": "2026-11-24 09:43:16.343"
   },
   {
    "plant": "Łagisza",
@@ -1579,10 +1579,10 @@
    "type": "POS",
    "reason": "RB",
    "reason_ko": "일상 정비",
-   "state": "AK",
+   "state": "AN",
    "start": "2026-12-14 00:00:00",
    "end": "2026-12-21 00:00:00",
-   "published": "2026-11-19 06:18:14.500"
+   "published": "2026-11-24 06:21:11.404"
   },
   {
    "plant": "Opole",
