@@ -1,0 +1,54 @@
+# 폴란드 데이터 매일 업데이트: 전력 가격·주변국·수요·발전·풍속·기온, 탄소배출권·브렌트·환율, 국경 흐름, 가스 저장률
+# .github/workflows/daily.yml 경로에 두어야 인식됨. 주간 PPT(weekly.yml)·정지 공시(outages.yml)는 건드리지 않는다.
+# 2026-11-25: 탄소배출권·브렌트·환율이 weekly.yml(월요일 1회)에만 있어 엔사이트 화면이 최대 1주 늦던 문제 해결
+name: PL Daily Update
+on:
+  schedule:
+    - cron: "0 18 * * *"       # 매일 18:00 UTC = 한국 03:00 = 폴란드 19:00(겨울). EEX 경매(11시)·ECB 환율(16시)·다음날 day-ahead 발표 이후
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: entsoe-commit
+  cancel-in-progress: false
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests openpyxl xlrd tzdata
+      - name: PL drivers (가격·주변국·수요·발전·기상)
+        continue-on-error: true
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_pl_drivers.py
+      - name: Market (탄소배출권·브렌트·가스/석탄 월평균·환율 + TGE 프로브)
+        continue-on-error: true
+        run: python fetch_pl_market.py
+      - name: 국경 간 흐름 (ENTSO-E A11)
+        continue-on-error: true
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_pl_flows.py
+      - name: 가스 저장률 (GIE AGSI+)
+        continue-on-error: true
+        env:
+          AGSI_KEY: ${{ secrets.AGSI_KEY }}
+        run: python fetch_pl_gas_storage.py
+      - name: commit back
+        run: |
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: pl daily update $(date +%F)" || { echo "no change"; exit 0; }
+          for i in 1 2 3 4 5; do
+            if git pull --rebase -X theirs && git push; then echo "push 완료"; exit 0; fi
+            echo "push 실패 ${i}회 → 다시 시도"
+            git rebase --abort 2>/dev/null || true
+            sleep 15
+          done
+          echo "::error::저장소 저장 실패(5회)"
+          exit 1
