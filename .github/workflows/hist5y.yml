@@ -1,5 +1,6 @@
 # 폴란드 5년 일별 자료 한 번 받기 (2022~2025) → pl_hist_5y.json
-# .github/workflows/hist5y.yml 경로에 두어야 인식됨. 수동 실행 전용(Actions 탭 → Run workflow)
+# 위치: .github/workflows/hist5y.yml (기존 파일을 이 내용으로 전체 교체)
+# 수동 실행 전용(Actions 탭 → PL History 5y → Run workflow)
 name: PL History 5y
 on:
   workflow_dispatch:
@@ -14,6 +15,8 @@ jobs:
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -22,16 +25,30 @@ jobs:
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
         run: python fetch_pl_hist5y.py
-      - name: commit back
+      - name: 결과 파일 보관 (저장 실패 대비)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pl-hist-5y
+          path: pl_hist_5y.json
+          if-no-files-found: warn
+      - name: commit back (v3 결과만 따로 옮겨 저장)
         run: |
+          set -e
+          cp pl_hist_5y.json /tmp/pl_hist_5y.json
           git config user.name "entsoe-bot"
           git config user.email "entsoe-bot@users.noreply.github.com"
-          git add pl_hist_5y.json
-          git commit -m "chore: pl history 5y $(date +%F)" || { echo "no change"; exit 0; }
           for i in 1 2 3 4 5; do
-            if git pull --rebase -X theirs && git push; then echo "push 완료"; exit 0; fi
-            git rebase --abort 2>/dev/null || true
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fdq
+            cp /tmp/pl_hist_5y.json pl_hist_5y.json
+            git add pl_hist_5y.json
+            if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+            git commit -m "chore: pl history 5y $(date +%F)"
+            if git push origin HEAD:main; then echo "push 완료"; exit 0; fi
+            echo "push 실패, 15초 후 재시도 ($i/5)"
             sleep 15
           done
-          echo "::error::저장소 저장 실패(5회)"
+          echo "::error::저장소 저장 실패(5회). Artifacts 의 pl-hist-5y 를 받아 주세요"
           exit 1
