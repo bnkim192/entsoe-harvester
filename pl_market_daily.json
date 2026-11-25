@@ -1,6 +1,7 @@
 {
- "generated": "2026-11-23 04:48 UTC",
+ "generated": "2026-11-25 01:04 UTC",
  "eua": {
+  "2026-11-23": 83.06,
   "2026-11-20": 80.6,
   "2026-11-19": 81.31,
   "2026-11-17": 87.15,
@@ -14062,43 +14063,47 @@
    "points": [
     {
      "period": "2026-01",
-     "value": 86.50625
+     "value": 2159125.0
     },
     {
      "period": "2026-02",
-     "value": 73.77333333333334
+     "value": 2220611.111111111
     },
     {
      "period": "2026-03",
-     "value": 68.16999999999999
+     "value": 2270575.0
     },
     {
      "period": "2026-04",
-     "value": 72.81277777777778
+     "value": 2244583.3333333335
     },
     {
      "period": "2026-05",
-     "value": 74.95
+     "value": 2230200.0
     },
     {
      "period": "2026-06",
-     "value": 77.81649999999999
+     "value": 2500775.0
     },
     {
      "period": "2026-07",
-     "value": 80.26050000000001
+     "value": 1990975.0
     },
     {
      "period": "2026-08",
-     "value": 81.62578947368421
+     "value": 1880684.2105263157
     },
     {
      "period": "2026-09",
-     "value": 84.6155
+     "value": 2415850.0
     },
     {
      "period": "2026-10",
-     "value": 85.97285714285715
+     "value": 2309690.476190476
+    },
+    {
+     "period": "2026-11",
+     "value": 2486366.6666666665
     }
    ]
   }
@@ -14338,7 +14343,9 @@
    "2026-11-17": 4.4038,
    "2026-11-18": 4.4118,
    "2026-11-19": 4.417,
-   "2026-11-20": 4.4583
+   "2026-11-20": 4.4583,
+   "2026-11-23": 4.4588,
+   "2026-11-24": 4.4599
   },
   "KRW": {
    "2025-12-22": 1738.72,
@@ -14574,7 +14581,9 @@
    "2026-11-17": 1468.36,
    "2026-11-18": 1461.3,
    "2026-11-19": 1460.23,
-   "2026-11-20": 1472.04
+   "2026-11-20": 1472.04,
+   "2026-11-23": 1475.51,
+   "2026-11-24": 1473.99
   },
   "USD": {
    "2025-12-22": 1.1745,
@@ -14810,7 +14819,9 @@
    "2026-11-17": 1.0989,
    "2026-11-18": 1.0968,
    "2026-11-19": 1.0992,
-   "2026-11-20": 1.099
+   "2026-11-20": 1.099,
+   "2026-11-23": 1.0939,
+   "2026-11-24": 1.0963
   }
  },
  "units": {
@@ -14828,7 +14839,7 @@
   {
    "item": "EUA emission-spot-primary-market-auction-report-2026-data.xlsx",
    "ok": true,
-   "note": "200일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용200 제외0"
+   "note": "201일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용201 제외0"
   },
   {
    "item": "브렌트 EIA",
@@ -14838,32 +14849,32 @@
   {
    "item": "월평균 fuel_monthly",
    "ok": true,
-   "note": "계열 ['WB_TTF_EU', 'WB_COAL_AU', 'WB_COAL_ZA', 'WB_HH_US', 'WB_LNG_JP', 'EUA_EUA_EEXauc'] · 최신 {'WB_TTF_EU': '2026-10', 'WB_COAL_AU': '2026-10', 'WB_COAL_ZA': '2026-10', 'WB_HH_US': '2026-10', 'WB_LNG_JP': '2026-10', 'EUA_EUA_EEXauc': '2026-10'}"
+   "note": "계열 ['WB_TTF_EU', 'WB_COAL_AU', 'WB_COAL_ZA', 'WB_HH_US', 'WB_LNG_JP', 'EUA_EUA_EEXauc'] · 최신 {'WB_TTF_EU': '2026-10', 'WB_COAL_AU': '2026-10', 'WB_COAL_ZA': '2026-10', 'WB_HH_US': '2026-10', 'WB_LNG_JP': '2026-10', 'EUA_EUA_EEXauc': '2026-11'}"
   },
   {
    "item": "환율 ECB",
    "ok": true,
-   "note": "PLN 234일 · KRW 234일 · USD 234일"
+   "note": "PLN 236일 · KRW 236일 · USD 236일"
   },
   {
    "item": "TGE gas_rdn",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   },
   {
    "item": "TGE power_rdn",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   },
   {
    "item": "TGE power_otf",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   },
   {
    "item": "TGE gas_otf",
    "ok": false,
-   "note": "ReadTimeout"
+   "note": "ConnectionError"
   }
  ]
 }
