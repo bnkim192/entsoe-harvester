@@ -1,0 +1,39 @@
+# 독일 전력 선물(energy-charts) 숫자 파일 위치 찾기 (2026-11-26). 1~2분. 수동 실행(Actions → EC Probe → Run workflow)
+name: EC Probe
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: energy-charts 시험
+        continue-on-error: true
+        run: python fetch_ec_probe.py
+      - name: commit back
+        if: always()
+        run: |
+          set -e
+          [ -f ec_probe.json ] || { echo "파일 없음"; exit 0; }
+          mkdir -p /tmp/ec && cp ec_probe.json /tmp/ec/
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fdq
+            cp /tmp/ec/ec_probe.json .
+            git add ec_probe.json
+            if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+            git commit -m "chore: ec probe $(date +%F)"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 15
+          done
+          exit 1
