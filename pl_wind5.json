@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-26T05:48:03+00:00",
+ "fetched_utc": "2026-11-26T06:26:02+00:00",
  "source": "Open-Meteo Archive(ERA5) · Forecast · Seasonal(ECMWF) API, wind_speed_100m",
  "unit": "m/s (하루 평균)",
  "cities": [
@@ -11438,7 +11438,7 @@
   }
  },
  "seasonal": {
-  "fetched_utc": "2026-11-26T05:48:03+00:00",
+  "fetched_utc": "2026-11-26T06:26:02+00:00",
   "cities": {
    "warszawa": {
     "members": 50,
@@ -11830,6 +11830,14 @@
   }
  },
  "log": [
+  {
+   "url": "https://api.open-meteo.com/v1/forecast",
+   "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=180)\"))"
+  },
+  {
+   "url": "https://api.open-meteo.com/v1/forecast",
+   "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=180)\"))"
+  },
   {
    "url": "https://archive-api.open-meteo.com/v1/archive",
    "error": "ReadTimeout(ReadTimeoutError(\"HTTPSConnectionPool(host='archive-api.open-meteo.com', port=443): Read timed out. (read timeout=180)\"))"
