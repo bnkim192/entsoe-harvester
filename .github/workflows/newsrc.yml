@@ -1,0 +1,65 @@
+# WA법인 요청 신규 자료 시험 수집 (2026-11-26): PSE 수요·풍력·태양광 전망, PSE 15분 수요, 5개 도시 풍속(과거·계절 전망)
+# .github/workflows/newsrc.yml 경로에 두어야 인식됨. 수동 실행 전용(Actions 탭 → PL New Sources → Run workflow)
+# 결과 확인 후 daily.yml 에 매일 수집으로 넣을 예정. 기존 워크플로는 건드리지 않음.
+name: PL New Sources
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "과거 자료 시작일 (15분 수요·풍속)"
+        default: "2023-01-01"
+permissions:
+  contents: write
+concurrency:
+  group: entsoe-commit
+  cancel-in-progress: false
+jobs:
+  newsrc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests tzdata
+      - name: PSE 전망(pk5l-wp) + 15분 수요(pdwkseub)
+        continue-on-error: true
+        run: python fetch_pse_extra.py "${{ github.event.inputs.start }}"
+      - name: 5개 도시 풍속 (Open-Meteo 과거 + 계절 전망)
+        continue-on-error: true
+        run: python fetch_pl_wind5.py "${{ github.event.inputs.start }}"
+      - name: 결과 파일 보관 (저장 실패 대비)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pl-new-sources
+          path: |
+            pse_pk5l_wp.json
+            pse_demand15.json
+            pl_wind5.json
+          if-no-files-found: warn
+      - name: commit back (결과만 따로 옮겨 저장)
+        run: |
+          set -e
+          mkdir -p /tmp/newsrc
+          for f in pse_pk5l_wp.json pse_demand15.json pl_wind5.json; do [ -f "$f" ] && cp "$f" /tmp/newsrc/; done
+          ls -la /tmp/newsrc
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          for i in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fdq
+            cp /tmp/newsrc/*.json . 2>/dev/null || true
+            for f in pse_pk5l_wp.json pse_demand15.json pl_wind5.json; do [ -f "$f" ] && git add "$f"; done
+            if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+            git commit -m "chore: pl new sources $(date +%F)"
+            if git push origin HEAD:main; then echo "push 완료"; exit 0; fi
+            echo "push 실패, 15초 후 재시도 ($i/5)"
+            sleep 15
+          done
+          echo "::error::저장소 저장 실패(5회). Artifacts 의 pl-new-sources 를 받아 주세요"
+          exit 1
