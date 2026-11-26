@@ -1,5 +1,5 @@
 {
- "fetched_utc": "2026-11-26T05:25:48+00:00",
+ "fetched_utc": "2026-11-26T05:58:55+00:00",
  "source": "PSE raporty.pse.pl API pdwkseub (15분 수요)",
  "columns": [
   "dtime",
@@ -21,8 +21,8 @@
   "available_capacity"
  ],
  "first_day": "2024-06-13",
- "last_day": "2024-08-11",
- "n_days": 60,
+ "last_day": "2024-11-20",
+ "n_days": 161,
  "complete": false,
  "summary_note": "열마다 mean=하루 평균, max=하루 최대 15분 값, max_at=최대 시각, eve_mean=16~20시 평균",
  "daily": {
@@ -925,1207 +925,2722 @@
     "max_at": "00:15",
     "eve_mean": 148.26
    }
+  },
+  "2024-08-12": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 242.89,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 221.56
+   },
+   "available_capacity": {
+    "mean": 139.08,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 152.75
+   }
+  },
+  "2024-08-13": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 199.47,
+    "max": 829.0,
+    "max_at": "00:15",
+    "eve_mean": 204.4
+   },
+   "available_capacity": {
+    "mean": 142.16,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 141.73
+   }
+  },
+  "2024-08-14": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 198.25,
+    "max": 829.0,
+    "max_at": "00:15",
+    "eve_mean": 191.82
+   },
+   "available_capacity": {
+    "mean": 149.65,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 143.86
+   }
+  },
+  "2024-08-15": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 173.15,
+    "max": 670.0,
+    "max_at": "00:15",
+    "eve_mean": 181.22
+   },
+   "available_capacity": {
+    "mean": 147.31,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 145.29
+   }
+  },
+  "2024-08-16": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 194.79,
+    "max": 781.0,
+    "max_at": "00:15",
+    "eve_mean": 193.15
+   },
+   "available_capacity": {
+    "mean": 126.74,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 138.02
+   }
+  },
+  "2024-08-17": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 176.62,
+    "max": 484.0,
+    "max_at": "00:15",
+    "eve_mean": 189.7
+   },
+   "available_capacity": {
+    "mean": 147.66,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 126.98
+   }
+  },
+  "2024-08-18": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 196.06,
+    "max": 484.0,
+    "max_at": "00:15",
+    "eve_mean": 196.18
+   },
+   "available_capacity": {
+    "mean": 116.06,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 121.49
+   }
+  },
+  "2024-08-19": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 192.42,
+    "max": 670.0,
+    "max_at": "00:15",
+    "eve_mean": 187.21
+   },
+   "available_capacity": {
+    "mean": 133.36,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 120.71
+   }
+  },
+  "2024-08-20": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 173.34,
+    "max": 670.0,
+    "max_at": "00:15",
+    "eve_mean": 174.93
+   },
+   "available_capacity": {
+    "mean": 141.22,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 138.37
+   }
+  },
+  "2024-08-21": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 165.83,
+    "max": 670.0,
+    "max_at": "00:15",
+    "eve_mean": 165.9
+   },
+   "available_capacity": {
+    "mean": 146.78,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 137.53
+   }
+  },
+  "2024-08-22": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 156.08,
+    "max": 444.0,
+    "max_at": "00:15",
+    "eve_mean": 152.94
+   },
+   "available_capacity": {
+    "mean": 144.0,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 142.52
+   }
+  },
+  "2024-08-23": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 144.14,
+    "max": 441.0,
+    "max_at": "00:15",
+    "eve_mean": 147.61
+   },
+   "available_capacity": {
+    "mean": 174.95,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 181.28
+   }
+  },
+  "2024-08-24": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 187.45,
+    "max": 834.0,
+    "max_at": "00:15",
+    "eve_mean": 188.0
+   },
+   "available_capacity": {
+    "mean": 124.33,
+    "max": 733.0,
+    "max_at": "18:15",
+    "eve_mean": 122.92
+   }
+  },
+  "2024-08-25": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 195.54,
+    "max": 834.0,
+    "max_at": "00:15",
+    "eve_mean": 188.71
+   },
+   "available_capacity": {
+    "mean": 110.26,
+    "max": 733.0,
+    "max_at": "18:45",
+    "eve_mean": 123.96
+   }
+  },
+  "2024-08-26": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 176.06,
+    "max": 834.0,
+    "max_at": "18:15",
+    "eve_mean": 189.66
+   },
+   "available_capacity": {
+    "mean": 123.96,
+    "max": 810.0,
+    "max_at": "06:15",
+    "eve_mean": 118.39
+   }
+  },
+  "2024-08-27": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 162.66,
+    "max": 441.0,
+    "max_at": "00:15",
+    "eve_mean": 155.89
+   },
+   "available_capacity": {
+    "mean": 144.85,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 152.17
+   }
+  },
+  "2024-08-28": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 183.97,
+    "max": 834.0,
+    "max_at": "18:15",
+    "eve_mean": 194.19
+   },
+   "available_capacity": {
+    "mean": 127.88,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 122.94
+   }
+  },
+  "2024-08-29": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 201.44,
+    "max": 834.0,
+    "max_at": "00:15",
+    "eve_mean": 175.11
+   },
+   "available_capacity": {
+    "mean": 115.94,
+    "max": 695.0,
+    "max_at": "12:15",
+    "eve_mean": 124.5
+   }
+  },
+  "2024-08-30": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 190.1,
+    "max": 834.0,
+    "max_at": "00:15",
+    "eve_mean": 185.71
+   },
+   "available_capacity": {
+    "mean": 120.44,
+    "max": 810.0,
+    "max_at": "18:15",
+    "eve_mean": 137.59
+   }
+  },
+  "2024-08-31": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 198.43,
+    "max": 670.0,
+    "max_at": "00:15",
+    "eve_mean": 196.75
+   },
+   "available_capacity": {
+    "mean": 140.16,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 146.26
+   }
+  },
+  "2024-09-01": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 204.37,
+    "max": 670.0,
+    "max_at": "00:15",
+    "eve_mean": 189.26
+   },
+   "available_capacity": {
+    "mean": 127.5,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 147.99
+   }
+  },
+  "2024-09-02": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 199.5,
+    "max": 981.0,
+    "max_at": "12:15",
+    "eve_mean": 191.38
+   },
+   "available_capacity": {
+    "mean": 136.1,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 161.37
+   }
+  },
+  "2024-09-03": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 187.16,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 177.14
+   },
+   "available_capacity": {
+    "mean": 156.62,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 157.65
+   }
+  },
+  "2024-09-04": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 204.27,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 190.46
+   },
+   "available_capacity": {
+    "mean": 151.28,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 155.15
+   }
+  },
+  "2024-09-05": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 196.12,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 189.55
+   },
+   "available_capacity": {
+    "mean": 146.65,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 154.87
+   }
+  },
+  "2024-09-06": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 211.21,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 227.62
+   },
+   "available_capacity": {
+    "mean": 119.83,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 103.88
+   }
+  },
+  "2024-09-07": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 203.01,
+    "max": 500.0,
+    "max_at": "00:15",
+    "eve_mean": 187.81
+   },
+   "available_capacity": {
+    "mean": 108.46,
+    "max": 733.0,
+    "max_at": "18:30",
+    "eve_mean": 119.61
+   }
+  },
+  "2024-09-08": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 211.88,
+    "max": 834.0,
+    "max_at": "18:15",
+    "eve_mean": 195.04
+   },
+   "available_capacity": {
+    "mean": 98.97,
+    "max": 506.0,
+    "max_at": "18:30",
+    "eve_mean": 106.09
+   }
+  },
+  "2024-09-09": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 181.66,
+    "max": 670.0,
+    "max_at": "00:15",
+    "eve_mean": 174.88
+   },
+   "available_capacity": {
+    "mean": 131.02,
+    "max": 650.0,
+    "max_at": "18:15",
+    "eve_mean": 137.24
+   }
+  },
+  "2024-09-10": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 169.07,
+    "max": 534.0,
+    "max_at": "18:15",
+    "eve_mean": 177.1
+   },
+   "available_capacity": {
+    "mean": 136.29,
+    "max": 810.0,
+    "max_at": "01:00",
+    "eve_mean": 136.89
+   }
+  },
+  "2024-09-11": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 177.79,
+    "max": 534.0,
+    "max_at": "00:15",
+    "eve_mean": 181.86
+   },
+   "available_capacity": {
+    "mean": 143.93,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 135.77
+   }
+  },
+  "2024-09-12": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 184.39,
+    "max": 534.0,
+    "max_at": "00:15",
+    "eve_mean": 185.06
+   },
+   "available_capacity": {
+    "mean": 127.27,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 114.96
+   }
+  },
+  "2024-09-13": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 192.28,
+    "max": 981.0,
+    "max_at": "12:15",
+    "eve_mean": 196.79
+   },
+   "available_capacity": {
+    "mean": 112.94,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 118.25
+   }
+  },
+  "2024-09-14": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 224.28,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 230.68
+   },
+   "available_capacity": {
+    "mean": 106.64,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 114.42
+   }
+  },
+  "2024-09-15": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 215.04,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 199.83
+   },
+   "available_capacity": {
+    "mean": 112.05,
+    "max": 810.0,
+    "max_at": "00:30",
+    "eve_mean": 126.13
+   }
+  },
+  "2024-09-16": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 198.8,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 197.08
+   },
+   "available_capacity": {
+    "mean": 132.74,
+    "max": 539.0,
+    "max_at": "00:15",
+    "eve_mean": 139.56
+   }
+  },
+  "2024-09-17": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 191.25,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 182.52
+   },
+   "available_capacity": {
+    "mean": 149.75,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 154.63
+   }
+  },
+  "2024-09-18": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 190.96,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 177.06
+   },
+   "available_capacity": {
+    "mean": 148.13,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 163.2
+   }
+  },
+  "2024-09-19": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 192.22,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 178.25
+   },
+   "available_capacity": {
+    "mean": 154.5,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 165.15
+   }
+  },
+  "2024-09-20": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 198.13,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 179.1
+   },
+   "available_capacity": {
+    "mean": 138.81,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 153.4
+   }
+  },
+  "2024-09-21": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 230.99,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 229.84
+   },
+   "available_capacity": {
+    "mean": 102.64,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 100.25
+   }
+  },
+  "2024-09-22": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 220.57,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 212.21
+   },
+   "available_capacity": {
+    "mean": 100.85,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 121.66
+   }
+  },
+  "2024-09-23": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 187.9,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 182.23
+   },
+   "available_capacity": {
+    "mean": 133.69,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 145.99
+   }
+  },
+  "2024-09-24": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 197.35,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 188.16
+   },
+   "available_capacity": {
+    "mean": 130.47,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 132.4
+   }
+  },
+  "2024-09-25": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 203.73,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 190.17
+   },
+   "available_capacity": {
+    "mean": 136.3,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 135.34
+   }
+  },
+  "2024-09-26": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 201.59,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 202.25
+   },
+   "available_capacity": {
+    "mean": 137.78,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 138.55
+   }
+  },
+  "2024-09-27": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 218.98,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 216.09
+   },
+   "available_capacity": {
+    "mean": 138.34,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 138.86
+   }
+  },
+  "2024-09-28": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 226.69,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 212.08
+   },
+   "available_capacity": {
+    "mean": 128.64,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 131.88
+   }
+  },
+  "2024-09-29": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 256.58,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 235.94
+   },
+   "available_capacity": {
+    "mean": 96.61,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 107.97
+   }
+  },
+  "2024-09-30": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 247.32,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 236.64
+   },
+   "available_capacity": {
+    "mean": 96.89,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 108.19
+   }
+  },
+  "2024-10-01": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 269.94,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 271.23
+   },
+   "available_capacity": {
+    "mean": 77.41,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 80.87
+   }
+  },
+  "2024-10-02": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 258.95,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 241.5
+   },
+   "available_capacity": {
+    "mean": 81.76,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 103.75
+   }
+  },
+  "2024-10-03": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 264.56,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 259.93
+   },
+   "available_capacity": {
+    "mean": 83.65,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 91.38
+   }
+  },
+  "2024-10-04": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 250.56,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 237.14
+   },
+   "available_capacity": {
+    "mean": 99.6,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 99.21
+   }
+  },
+  "2024-10-05": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 233.53,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 243.51
+   },
+   "available_capacity": {
+    "mean": 100.63,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 92.71
+   }
+  },
+  "2024-10-06": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 243.24,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 245.92
+   },
+   "available_capacity": {
+    "mean": 90.31,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 83.28
+   }
+  },
+  "2024-10-07": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 242.28,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 235.38
+   },
+   "available_capacity": {
+    "mean": 103.44,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 118.37
+   }
+  },
+  "2024-10-08": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 223.53,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 211.83
+   },
+   "available_capacity": {
+    "mean": 120.76,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 137.66
+   }
+  },
+  "2024-10-09": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 231.17,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 205.96
+   },
+   "available_capacity": {
+    "mean": 136.48,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 147.1
+   }
+  },
+  "2024-10-10": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 207.07,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 206.42
+   },
+   "available_capacity": {
+    "mean": 148.29,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 138.31
+   }
+  },
+  "2024-10-11": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 221.82,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 204.46
+   },
+   "available_capacity": {
+    "mean": 126.33,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 128.5
+   }
+  },
+  "2024-10-12": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 259.96,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 243.75
+   },
+   "available_capacity": {
+    "mean": 94.44,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 105.12
+   }
+  },
+  "2024-10-13": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 258.19,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 248.23
+   },
+   "available_capacity": {
+    "mean": 107.52,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 110.24
+   }
+  },
+  "2024-10-14": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 236.98,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 195.49
+   },
+   "available_capacity": {
+    "mean": 114.05,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 119.6
+   }
+  },
+  "2024-10-15": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 253.17,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 227.5
+   },
+   "available_capacity": {
+    "mean": 87.81,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 98.72
+   }
+  },
+  "2024-10-16": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 241.96,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 247.39
+   },
+   "available_capacity": {
+    "mean": 98.67,
+    "max": 810.0,
+    "max_at": "06:30",
+    "eve_mean": 102.55
+   }
+  },
+  "2024-10-17": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 255.2,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 258.48
+   },
+   "available_capacity": {
+    "mean": 104.2,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 109.52
+   }
+  },
+  "2024-10-18": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 228.06,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 205.39
+   },
+   "available_capacity": {
+    "mean": 114.8,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 120.59
+   }
+  },
+  "2024-10-19": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 261.32,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 260.45
+   },
+   "available_capacity": {
+    "mean": 93.53,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 94.6
+   }
+  },
+  "2024-10-20": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 274.13,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 272.47
+   },
+   "available_capacity": {
+    "mean": 84.81,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 84.9
+   }
+  },
+  "2024-10-21": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 244.53,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 233.52
+   },
+   "available_capacity": {
+    "mean": 102.26,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 103.76
+   }
+  },
+  "2024-10-22": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 255.46,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 262.06
+   },
+   "available_capacity": {
+    "mean": 94.75,
+    "max": 822.0,
+    "max_at": "19:00",
+    "eve_mean": 97.11
+   }
+  },
+  "2024-10-23": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 248.33,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 252.06
+   },
+   "available_capacity": {
+    "mean": 97.61,
+    "max": 810.0,
+    "max_at": "06:30",
+    "eve_mean": 99.26
+   }
+  },
+  "2024-10-24": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 263.12,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 264.3
+   },
+   "available_capacity": {
+    "mean": 98.68,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 93.03
+   }
+  },
+  "2024-10-25": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 256.64,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 253.98
+   },
+   "available_capacity": {
+    "mean": 99.71,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 103.99
+   }
+  },
+  "2024-10-26": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 254.02,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 248.28
+   },
+   "available_capacity": {
+    "mean": 94.06,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 93.71
+   }
+  },
+  "2024-10-27": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 248.32,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 225.86
+   },
+   "available_capacity": {
+    "mean": 95.17,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 118.23
+   }
+  },
+  "2024-10-28": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 232.95,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 224.46
+   },
+   "available_capacity": {
+    "mean": 104.08,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 103.91
+   }
+  },
+  "2024-10-29": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 233.19,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 226.08
+   },
+   "available_capacity": {
+    "mean": 97.87,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 95.58
+   }
+  },
+  "2024-10-30": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 223.76,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 211.4
+   },
+   "available_capacity": {
+    "mean": 117.47,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 138.09
+   }
+  },
+  "2024-10-31": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 234.6,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 239.88
+   },
+   "available_capacity": {
+    "mean": 107.55,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 112.68
+   }
+  },
+  "2024-11-01": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 249.45,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 255.86
+   },
+   "available_capacity": {
+    "mean": 91.87,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 81.05
+   }
+  },
+  "2024-11-02": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 272.57,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 237.23
+   },
+   "available_capacity": {
+    "mean": 63.77,
+    "max": 525.0,
+    "max_at": "06:15",
+    "eve_mean": 87.99
+   }
+  },
+  "2024-11-03": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 277.14,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 270.96
+   },
+   "available_capacity": {
+    "mean": 68.79,
+    "max": 665.0,
+    "max_at": "19:00",
+    "eve_mean": 78.58
+   }
+  },
+  "2024-11-04": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 261.09,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 265.39
+   },
+   "available_capacity": {
+    "mean": 84.83,
+    "max": 520.0,
+    "max_at": "18:15",
+    "eve_mean": 92.09
+   }
+  },
+  "2024-11-05": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 273.42,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 273.46
+   },
+   "available_capacity": {
+    "mean": 87.17,
+    "max": 535.0,
+    "max_at": "06:15",
+    "eve_mean": 88.25
+   }
+  },
+  "2024-11-06": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 252.93,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 262.75
+   },
+   "available_capacity": {
+    "mean": 91.51,
+    "max": 540.0,
+    "max_at": "18:15",
+    "eve_mean": 75.5
+   }
+  },
+  "2024-11-07": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 229.63,
+    "max": 834.0,
+    "max_at": "00:15",
+    "eve_mean": 228.8
+   },
+   "available_capacity": {
+    "mean": 117.2,
+    "max": 781.0,
+    "max_at": "18:15",
+    "eve_mean": 126.12
+   }
+  },
+  "2024-11-08": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 225.74,
+    "max": 834.0,
+    "max_at": "00:15",
+    "eve_mean": 233.33
+   },
+   "available_capacity": {
+    "mean": 107.0,
+    "max": 654.0,
+    "max_at": "19:00",
+    "eve_mean": 113.28
+   }
+  },
+  "2024-11-09": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 213.67,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 198.57
+   },
+   "available_capacity": {
+    "mean": 125.62,
+    "max": 809.0,
+    "max_at": "18:15",
+    "eve_mean": 145.88
+   }
+  },
+  "2024-11-10": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 196.33,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 192.04
+   },
+   "available_capacity": {
+    "mean": 148.91,
+    "max": 809.0,
+    "max_at": "18:15",
+    "eve_mean": 155.56
+   }
+  },
+  "2024-11-11": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 181.28,
+    "max": 981.0,
+    "max_at": "00:15",
+    "eve_mean": 196.24
+   },
+   "available_capacity": {
+    "mean": 154.62,
+    "max": 810.0,
+    "max_at": "06:30",
+    "eve_mean": 123.33
+   }
+  },
+  "2024-11-12": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 187.39,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 183.45
+   },
+   "available_capacity": {
+    "mean": 135.06,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 130.22
+   }
+  },
+  "2024-11-13": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 190.58,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 190.44
+   },
+   "available_capacity": {
+    "mean": 133.58,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 152.38
+   }
+  },
+  "2024-11-14": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 190.35,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 198.04
+   },
+   "available_capacity": {
+    "mean": 131.33,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 122.15
+   }
+  },
+  "2024-11-15": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 209.82,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 231.56
+   },
+   "available_capacity": {
+    "mean": 117.78,
+    "max": 970.0,
+    "max_at": "12:15",
+    "eve_mean": 108.38
+   }
+  },
+  "2024-11-16": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 248.72,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 243.63
+   },
+   "available_capacity": {
+    "mean": 91.41,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 97.32
+   }
+  },
+  "2024-11-17": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 234.57,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 215.29
+   },
+   "available_capacity": {
+    "mean": 114.02,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 124.51
+   }
+  },
+  "2024-11-18": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 161.99,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 187.67
+   },
+   "available_capacity": {
+    "mean": 149.96,
+    "max": 963.0,
+    "max_at": "06:30",
+    "eve_mean": 142.04
+   }
+  },
+  "2024-11-19": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 186.93,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 183.7
+   },
+   "available_capacity": {
+    "mean": 124.41,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 143.48
+   }
+  },
+  "2024-11-20": {
+   "n": 400,
+   "non_us_cap": {
+    "mean": 164.38,
+    "max": 833.0,
+    "max_at": "00:15",
+    "eve_mean": 163.63
+   },
+   "available_capacity": {
+    "mean": 148.16,
+    "max": 810.0,
+    "max_at": "00:15",
+    "eve_mean": 144.57
+   }
   }
  },
  "recent_15min": {},
  "log": [
   {
    "ep": "pdwkseub",
-   "day": "2024-06-23",
+   "day": "2024-10-02",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-23",
+   "day": "2024-10-03",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-01",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-09-30",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-24",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-24",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-24",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-24",
+   "day": "2024-09-28",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-25",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-25",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-25",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-25",
+   "day": "2024-10-03",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-26",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-26",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-26",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-26",
+   "day": "2024-10-01",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-27",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-27",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-27",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-27",
+   "day": "2024-10-02",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "filter": "business_date ge '2024-06-28' and business_date lt '2024-06-29' and dtime ge '2024-06-28 00:00:00' and dtime lt '2024-06-28 06:00:00'",
-   "status": 500,
-   "head": "{\"error\":{\"code\":\"DatabaseOperationFailed\",\"message\":\"While processing your request the database ran into an error.\",\"status\":500}}"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-28",
+   "day": "2024-10-04",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-28",
+   "day": "2024-10-05",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-06",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-09",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-07",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-08",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-04",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-28",
+   "day": "2024-10-05",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-07",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-06",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-08",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-05",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-28",
+   "day": "2024-10-09",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-04",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-07",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-09",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-06",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-05",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-29",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-29",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-29",
+   "day": "2024-10-08",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-29",
+   "day": "2024-10-04",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-06-30",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-30",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-30",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-06-30",
+   "day": "2024-10-09",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-01",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-01",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-01",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-01",
+   "day": "2024-10-07",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-02",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-02",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-02",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-02",
+   "day": "2024-10-06",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "filter": "business_date ge '2024-07-03' and business_date lt '2024-07-04' and dtime ge '2024-07-03 00:00:00' and dtime lt '2024-07-03 06:00:00'",
-   "status": 500,
-   "head": "{\"error\":{\"code\":\"DatabaseOperationFailed\",\"message\":\"While processing your request the database ran into an error.\",\"status\":500}}"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-03",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-03",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-03",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-03",
+   "day": "2024-10-08",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-04",
+   "day": "2024-10-10",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-04",
+   "day": "2024-10-13",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-11",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-12",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-14",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-10",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-04",
+   "day": "2024-10-13",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-15",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-11",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-12",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-14",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-13",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-04",
+   "day": "2024-10-10",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-12",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-15",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-11",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-14",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-15",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-13",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-05",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-05",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-05",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-05",
+   "day": "2024-10-12",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-06",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-06",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-06",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-06",
+   "day": "2024-10-10",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-07",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-07",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-07",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-07",
+   "day": "2024-10-11",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-08",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-08",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-08",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-08",
+   "day": "2024-10-14",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-09",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-09",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-09",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-09",
+   "day": "2024-10-15",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-10",
+   "day": "2024-10-16",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-10",
+   "day": "2024-10-19",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-17",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-18",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-21",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-20",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-17",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-10",
+   "day": "2024-10-16",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-19",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-18",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-20",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-21",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-16",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-10",
+   "day": "2024-10-17",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-19",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-21",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-18",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-20",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-16",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-11",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-11",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-11",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-11",
+   "day": "2024-10-17",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-12",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-12",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-12",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-12",
+   "day": "2024-10-19",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-13",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-13",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-13",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-13",
+   "day": "2024-10-21",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-14",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-14",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-14",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-14",
+   "day": "2024-10-18",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-15",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-15",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-15",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-15",
+   "day": "2024-10-20",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-16",
+   "day": "2024-10-24",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-16",
+   "day": "2024-10-23",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-22",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-26",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-27",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-25",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-23",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-16",
+   "day": "2024-10-22",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-24",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-27",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-26",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-25",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-22",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-16",
+   "day": "2024-10-27",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-23",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-24",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-26",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-25",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-23",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-17",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-17",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-17",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-17",
+   "day": "2024-10-24",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-18",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-18",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-18",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-18",
+   "day": "2024-10-22",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-19",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-19",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-19",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-19",
+   "day": "2024-10-25",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-20",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-20",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-20",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-20",
+   "day": "2024-10-26",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-21",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-21",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-21",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-21",
+   "day": "2024-10-27",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-22",
+   "day": "2024-10-31",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-22",
+   "day": "2024-10-30",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-29",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-28",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-01",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-02",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-31",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-22",
+   "day": "2024-10-30",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-29",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-31",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-22",
+   "day": "2024-10-28",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-01",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-02",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-29",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-30",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-31",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-23",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-23",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-23",
+   "day": "2024-10-28",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-23",
+   "day": "2024-11-01",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-02",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-10-29",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-24",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-24",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-24",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-24",
+   "day": "2024-10-30",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-25",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-25",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-25",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-25",
+   "day": "2024-10-28",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-26",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-26",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-26",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-26",
+   "day": "2024-11-01",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-27",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-27",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-27",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-27",
+   "day": "2024-11-02",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-28",
+   "day": "2024-11-03",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-28",
+   "day": "2024-11-04",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-06",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-05",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-03",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-28",
+   "day": "2024-11-07",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-08",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-04",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-06",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-05",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-03",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-28",
+   "day": "2024-11-07",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-08",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-04",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-06",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-05",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-03",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-29",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-29",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-29",
+   "day": "2024-11-08",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-29",
+   "day": "2024-11-07",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-04",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-30",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-30",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-30",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-30",
+   "day": "2024-11-05",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-07-31",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-31",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-31",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-07-31",
+   "day": "2024-11-06",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-01",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-01",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-01",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-01",
+   "day": "2024-11-07",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-02",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-02",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-02",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-02",
+   "day": "2024-11-08",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-03",
+   "day": "2024-11-09",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-03",
+   "day": "2024-11-10",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-09",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-03",
+   "day": "2024-11-12",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-13",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-11",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-14",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-10",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-12",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-09",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-03",
+   "day": "2024-11-13",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-11",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-14",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-10",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-09",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-04",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-04",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-04",
+   "day": "2024-11-12",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-04",
+   "day": "2024-11-13",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-11",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-14",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-10",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-05",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-05",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-05",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-05",
+   "day": "2024-11-12",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-06",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-06",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-06",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-06",
+   "day": "2024-11-13",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-07",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-07",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-07",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-07",
+   "day": "2024-11-11",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-08",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-08",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-08",
-   "hour": 12,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-08",
+   "day": "2024-11-14",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-09",
+   "day": "2024-11-15",
    "hour": 0,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-09",
+   "day": "2024-11-16",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-18",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-15",
    "hour": 6,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-09",
+   "day": "2024-11-20",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-17",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-19",
+   "hour": 0,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-16",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-18",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-15",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-09",
+   "day": "2024-11-20",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-19",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-17",
+   "hour": 6,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-16",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-15",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-10",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-10",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-10",
+   "day": "2024-11-18",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-10",
+   "day": "2024-11-19",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-16",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-11",
-   "hour": 0,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-11",
-   "hour": 6,
-   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
-  },
-  {
-   "ep": "pdwkseub",
-   "day": "2024-08-11",
+   "day": "2024-11-17",
    "hour": 12,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   },
   {
    "ep": "pdwkseub",
-   "day": "2024-08-11",
+   "day": "2024-11-20",
+   "hour": 12,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-18",
+   "hour": 18,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-19",
+   "hour": 18,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-17",
+   "hour": 18,
+   "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
+  },
+  {
+   "ep": "pdwkseub",
+   "day": "2024-11-20",
    "hour": 18,
    "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"
   }
