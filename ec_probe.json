@@ -32,8 +32,8 @@
   },
   {
    "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/matomo_tcode.js?v=2ecaf454",
-   "status": null,
-   "len": 122
+   "status": 200,
+   "len": 751
   },
   {
    "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/menuMap.js?v=2ecaf454",
@@ -162,6 +162,13 @@
    "head": ""
   },
   {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
    "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/all.json",
    "status": 404,
    "len": 548,
@@ -212,6 +219,13 @@
   },
   {
    "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/year.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/data/.json",
    "status": 404,
    "len": 548,
    "ctype": "text/html",
@@ -288,7 +302,21 @@
    "head": ""
   },
   {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/data/.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
    "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/index.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/json.json",
    "status": 404,
    "len": 548,
    "ctype": "text/html",
@@ -337,6 +365,13 @@
    "head": ""
   },
   {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/json.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
    "url": "https://www.energy-charts.info/charts/price_futures_bars/geocode.json",
    "status": 404,
    "len": 548,
@@ -345,6 +380,13 @@
   },
   {
    "url": "https://www.energy-charts.info/charts/price_futures_bars/global/version.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/json.json",
    "status": 404,
    "len": 548,
    "ctype": "text/html",
@@ -384,5 +426,51 @@
   "len": 3562,
   "head": "<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en><head><title>Energy-Charts</title><meta charset=utf-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta name=theme-color content=#009374><link rel=alternate hreflang=de href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=de&amp;c=DE\"><link rel=alternate hreflang=en href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=en&amp;c=DE\"><link rel=alternate hreflang=fr href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=fr&amp;c=DE\"><link rel=alternate hreflang=it href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=it&amp;c=DE\"><link rel=alternate hreflang=x-default href=https://www.energy-charts.info/charts/price_futures_bars/chart.htm><meta name=description content=\"Die Energy-Charts bieten interaktive Grafiken zu: Stromproduktion, Stromerzeugung, Emissionen, Klimadaten, Spotmarktpreisen, Szenarien zur Energiewende und eine umfangreiche Kartenanwendung zu: Kraftwerken, Ãbertragungsleitungen und Meteodaten\"><meta name=robots content=noodp,noydir,index,follow><meta name=author content=\"Leonhard Gandhi\"><meta name=publisher content=\"Fraunhofer ISE\"><meta name=copyright content=\"Fraunhofer ISE\"><link rel=icon href=../../img/favicon.ico type=image/x-icon><link rel=favicon href=../../img/favicon.ico type=image/x-icon><link rel=\"shortcut icon\" href=../../img/fa"
  },
- "fetched_utc": "2026-11-26T06:42:26+00:00"
+ "futures_js": "window.ecAppState.page={activePage:\"prices\",activeSubPage:\"price_futures_bars\"},setAppState(window.ecAppState.page.activePage,window.ecAppState.page.activeSubPage),window.pageTitle=translate(\"pageTitle_price_futures_bars\"),createChartFrame(),createDateSelect(),resolveURLVariables();var dmy=$(\"#datetimepicker\").val().split(\".\"),d=new Date(dmy[2],dmy[1]-1,dmy[0]);if(void 0===window.globalSettings.datetimepicker)var latest_URL=getLatestDataset(d);else latest_URL=getDataset(d);function createDateSelect(){let e={year:{selected:\"current\",showAll:!0,showAverageWeek:!1},quarter:{selected:\"current\",showAll:!0,showAverageWeek:!1},month:{selected:\"current\",showAll:!0,showAverageWeek:!1},week:{selected:\"current\",showAll:!0,showAverageWeek:!1}};window.intervals=e,window.globalSettings=getUrlVariables();let t=getCardHeader(\"intervalselection\",\"intervals\",\"accordion\",\"collapseIntervalSelect\",!0);t+='<div id=\"collapseIntervalSelect\" class=\"collapse show collapseIntervalSelect\"  aria-labelledby=\"headingIntervalSelect\">',t+=\"<div class='col-12 collapseBody collapseBody'>\",t+=setupIntervalSelect(e,\"year\",\"interval_select\"),t+=\"</div></div>\";createDependantDateSelection({day:{type:\"calendar\"}},defaultInterval=\"day\",parentClass=\"\",append=null,name_extension=\"\",fake_menu=!1,title=\"trading_day\"),t+=getCardHeader(\"sources\",\"sources\",\"accordion\",\"collapseSources\",!0);t+=createRadioMenue(\"\",{1:{title:\"electricity_base\",name:\"electricity\",value:\"power\"}},\"source\",\"electricity\",\"h3\",!0,\"Sources\",!1,!0,!1),$(\"#chartSteering #accordion\").append(t),$(\"#chartSteering #accordion\").append(createMenuForStackingOptions(!1,!1,!1,!1,!1,!1,!1,!0)),showConfigMenu(!0,!0,!0,!1,!0),$(\"#chartSteering #accordion\").append(createMenueFooter())}function getSourceURL(e){let t=\"./\";return t+=\"data/\",t+=JSON.parse(window.sessionStorage.locale).country.toLowerCase()+\"/\",t+=$('input[name=\"source\"]:checked').attr(\"value\"),t+=\"_\",t+=$(\"#interval_select option:selected\").attr(\"value\"),t+=\"_\",t+=e.substr(6,4)+\"_\"+e.substr(3,2)+\"_\"+e.substr(0,2),t+=\".json\",t}function getLatestDataset(e,t){void 0===t&&(window._chartRequestSeq=(window._chartRequestSeq||0)+1,t=window._chartRequestSeq,window._chartRequest&&\"function\"==typeof window._chartRequest.abort&&window._chartRequest.abort(),window.subtractFromSourceURL=0),datestring=(\"0\"+e.getDate()).slice(-2)+\".\"+(\"0\"+(e.getMonth()+1)).slice(-2)+\".\"+e.getFullYear(),window._chartRequest=$.ajax({url:getSourceURL(datestring),method:\"GET\",dataType:\"json\",success:function(a){t===window._chartRequestSeq&&(window.subtractFromSourceURL=0,selectDatasetInMenuOnURLFound(e,a))},error:function(a){t===window._chartRequestSeq&&404===a.status&&(window.subtractFromSourceURL++,window.subtractFromSourceURL<30?(e.setDate(e.getDate()-1),getLatestDataset(e,t)):(alert(translate(\"noCurrentData\")),window.subtractFromSourceURL=0,$(\".pageTitle, .loader, .subtitle\").hide(),$(\".noData\").show()))}})}function getDataset(e){window._chartRequestSeq=(window._chartRequestSeq||0)+1;const t=window._chartRequestSeq;window._chartRequest&&\"function\"==typeof window._chartRequest.abort&&window._chartRequest.abort(),datestring=(\"0\"+e.getDate()).slice(-2)+\".\"+(\"0\"+(e.getMonth()+1)).slice(-2)+\".\"+e.getFullYear(),window._chartRequest=$.ajax({url:getSourceURL(datestring),method:\"GET\",dataType:\"json\",success:function(a){t===window._chartRequestSeq&&(window.subtractFromSourceURL=0,selectDatasetInMenuOnURLFound(e,a))},error:function(e){t===window._chartRequestSeq&&(window.subtractFromSourceURL=0,$(\"#chart, .noData, .pageTitle, .subtitle\").hide(),$(\".pageTitle, .loader, .subtitle\").hide(),$(\".noData\").show())}})}function selectDatasetInMenuOnURLFound(e,t){if(datestring=(\"0\"+e.getDate()).slice(-2)+\".\"+(\"0\"+(e.getMonth()+1)).slice(-2)+\".\"+e.getFullYear(),$(\"#datetimepicker\").val()!=datestring){var a=$(\"#datetimepicker\"),r=$._data(a[0],\"events\").change.slice();a.off(\"change\"),a.val(datestring),$.each(r,function(e,t){a.on(\"change\",t)}),setURLVar(\"datetimepicker\",datestring)}void 0!==t&&downloadChartData(t)}function downloadChartData(e){if(void 0===e){if(void 0!==window.globalSettings.datetimepicker){t=$(\"#datetimepicker\").val().split(\".\");getDataset(new Date(t[2],t[1]-1,t[0]));return}var t=$(\"#datetimepicker\").val().split(\".\");getLatestDataset(new Date(t[2],t[1]-1,t[0]))}sourceURL=getSourceURL($(\"#datetimepicker\").val()),$(\"#chart, .noData, .pageTitle, .subtitle\").hide(),$(\".loader\").show(),charts[sourceURL]=[],charts[sourceURL].xAxisValues=e[0].xAxisValues,charts[sourceURL].y0AxisDecimalPlaces=e[0].y0AxisDecimalPlaces,charts[sourceURL].series=e,defineCommentValues(e),charts[sourceURL].series=e,charts[sourceURL].chartType=\"column\",charts[sourceURL].dateFormat=!1,charts[sourceURL].hideSumInTooltip=!0,charts[sourceURL].stackLabelPartSumDecimals=2,charts[sourceURL].stackLabelSumDecimals=2,createChart(),$(\".pageTitle, .subtitle\").show()}window.subtractFromSourceURL=0;",
+ "snips": [
+  {
+   "file": "chartFunctions.js",
+   "at": 11333,
+   "text": "ms.interval}`).change(),$(`${r}#year`).change())}else{const t=e||\"\";parseInt($(`${t}#year option:selected`).attr(\"value\"))!==window.selectMenuItems.year&&$(`${t}#year option[value=${window.selectMenuItems.year}]`).prop(\"selected\",!0).change()}}function getLatestDataset(e,t=!1){let r=createNewURL();$.ajax({url:r,method:\"GET\",dataType:\"json\",success:function(t){return window.subtractFromSourceURL=0,selectDatasetInMenuOnURLFound(e),!0},error:function(t){if(404===t.status){if(window.subtractFromSourceURL++,!(window.subtractFromSourceURL<8))return void 0!==e&&alert(translate(\"noCurrentData\")),window.subtractFromSourceURL=0,!1;getLatestDataset(e)}}})}function getLatestDataSetInternal(){let e=getSo"
+  },
+  {
+   "file": "chartFunctions.js",
+   "at": 11876,
+   "text": "eturn void 0!==e&&alert(translate(\"noCurrentData\")),window.subtractFromSourceURL=0,!1;getLatestDataset(e)}}})}function getLatestDataSetInternal(){let e=getSourceURL(\"new\"),t=e.lastIndexOf(\"/\"),r=e.substr(0,t)+\"/\",i=e.substr(t+1,e.length),n=$(\".interval option:selected\").attr(\"value\");i.split(\"_\");$.getJSON(r,e=>{let t=0,r=0;for(let s in e){let a=e[s].name.split(\".\").join(\"_\").split(\"_\"),o=!1,c=0,l=0,u=a.indexOf(\"json\");a.splice(u,1);let d=[];for(let e in a){let t=a[e];t===n?(o=!0,d.push(e)):-1!==[\"week\",\"year\",\"month\",\"quarter\",\"season\",\"halfyear\"].indexOf(t)&&d.push(e),isNaN(parseInt(t))||(parseInt(t)>1900?c=parseInt(t):l=parseInt(t),d.push(e))}for(let e in d)delete a[d[e]];a=a.filter(funct"
+  },
+  {
+   "file": "chartFunctions.js",
+   "at": 109291,
+   "text": "sourceURL].xAxisShowDate,t=charts[sourceURL].xAxisShowTime;return!t&&isAutomaticTimeInXAxisLabelsEnabled()&&(t=axisHasTickWithTimeOfDay(this.axis)),e&&t&&null!==toTimestampOrNull(this.value)?formatDate(this.value,!0,!1,!1)+\"<br>\"+formatDate(this.value,!1,!0,!1):formatDate(this.value,e,t,!1)}return\"./data/kompare_renovation_rates.json\"==sourceURL||\"./data/kompare_biomass_potential_vs_used.json\"==sourceURL?\"\"+properlyFormatNumber(this.value):\"\"+this.value},enabled:!0,step:charts[sourceURL].steps},plotBands:r,tickInterval:charts[sourceURL].tickInterval,type:!1===charts[sourceURL].dateFormat?\"linear\":\"datetime\",min:charts[sourceURL].minxAxisIndex,max:charts[sourceURL].maxxAxisIndex,overflow:\"all"
+  },
+  {
+   "file": "chartFunctions.js",
+   "at": 109342,
+   "text": "howTime;return!t&&isAutomaticTimeInXAxisLabelsEnabled()&&(t=axisHasTickWithTimeOfDay(this.axis)),e&&t&&null!==toTimestampOrNull(this.value)?formatDate(this.value,!0,!1,!1)+\"<br>\"+formatDate(this.value,!1,!0,!1):formatDate(this.value,e,t,!1)}return\"./data/kompare_renovation_rates.json\"==sourceURL||\"./data/kompare_biomass_potential_vs_used.json\"==sourceURL?\"\"+properlyFormatNumber(this.value):\"\"+this.value},enabled:!0,step:charts[sourceURL].steps},plotBands:r,tickInterval:charts[sourceURL].tickInterval,type:!1===charts[sourceURL].dateFormat?\"linear\":\"datetime\",min:charts[sourceURL].minxAxisIndex,max:charts[sourceURL].maxxAxisIndex,overflow:\"allow\",events:{afterSetExtremes:function(e){if(handleZ"
+  },
+  {
+   "file": "chartSteering.js",
+   "at": 1922,
+   "text": "elete buttons[e]);_use_first&&(n=buttons[Object.keys(buttons)[0]].title);for(let e in t)for(let a in buttons)t[e]==buttons[a].name?delete buttons[a]:buttons[a].name=s;for(let e in buttons)buttons[e].name+=s;return createRadioMenue(e,buttons,\"source\",n,a,o,r,!0,l,!0)}function loadSourcesByCountry(){$.ajax({type:\"GET\",url:\"../../charts/_metadata/generation_units_by_country.csv\",dataType:\"text\",async:!1,success:function(e){let t=$.csv.toArrays(e);window.generationUnitsByCountry=[];for(let e in t){generationUnitsByCountry[t[e][0].toLowerCase()]=[];for(let a=2;a<t[e].length;a++){let n=t[e][0].toLowerCase();generationUnitsByCountry[n][t[0][a]]=t[e][a]}}}})}Number.prototype.mod=function(e){return(t"
+  },
+  {
+   "file": "chartSteering.js",
+   "at": 21807,
+   "text": "for(let a in t[e].options)l+=`<option value=\"${t[e].options[a].value}\">${translate(t[e].options[a].title)}</option>\"`;else createSelect2OptionList(i.optionsURL,i.name,i.select2Keys,i.checked);l+=\"</select></div></div>\"}s=\"\"}return l+=\"</div></div>\",l}function createSelect2OptionList(e,t,a,n=null){$.getJSON(e,function(){}).done(function(e){$.each(e,function(e,i){let o=\"object\"==typeof i[a[1]]?i[a[1]][0][window.lang]:i[a[1]],r=i.StationID==n;$(\"#\"+t).append($(\"<option>\",{value:i[a[0]],text:o,selected:r}))}),resolveURLVariables()})}function createCheckboxMenue(e,t,a,n,i=\"h2\",o=\"\",r=!1,l=\"\"){let s=\"\",c=\"\";const d=Array.isArray(n)?n:String(null==n?\"\":n).split(\" \").filter(Boolean);let u=Object.key"
+  },
+  {
+   "file": "chartSteering.js",
+   "at": 48615,
+   "text": "xporting.exportChart({type:e,filename:a,scale:$(\"#export_scale\").val(),sourceWidth:$(\"#export_width\").val(),sourceHeight:$(\"#export_height\").val(),libURL:window.Root_URL+\"global/frameworks/\",allowHTML:!0,chartOptions:{chart:{backgroundColor:\"white\"},pdfFontURL:\"https://utils.highcharts.local/samples/data/ArialHB-normal.js\"}}),r.forEach(e=>{const a=t.get(e);a&&a.remove(!1)}),t.update({legend:i},!1),t.colorAxis?.[0]&&o&&t.colorAxis[0].update(o,!1),t.redraw()}function JSDateToExcelDate(e,t){return 25569+(e.getTime()-60*e.getTimezoneOffset()*1e3)/864e5}function formatColumn(e,t,a){e.getColumn(t+1).numFmt=a}function exportDataAsCSV(_type,dataUnit=void 0){if(\"import-export\"===window.ecAppState.pag"
+  }
+ ],
+ "fj_cands": [
+  "https://www.energy-charts.info/charts/price_futures_bars/json.json",
+  "https://www.energy-charts.info/charts/price_futures_bars/data/json.json",
+  "https://www.energy-charts.info/charts/price_futures_bars/data/de/json.json",
+  "https://www.energy-charts.info/charts/price_futures_bars/data/.json",
+  "https://www.energy-charts.info/charts/price_futures_bars/data/data/.json",
+  "https://www.energy-charts.info/charts/price_futures_bars/data/de/data/.json"
+ ],
+ "fetched_utc": "2026-11-26T06:46:10+00:00"
 }
