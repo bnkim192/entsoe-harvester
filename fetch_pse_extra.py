@@ -1,40 +1,30 @@
 """
-PSE 공개 API 추가 수집 (2026-11-26 v2, WA법인 요청 2·3번)
+PSE 공개 API 추가 수집 (2026-11-26 v4, WA법인 요청 2번)
 
-1) pk5l-wp  : 5개년 조정계획 기본값 = 전력망 수요 전망 · 풍력 전망 · 태양광 전망 (오늘부터 15일)
-2) pdwkseub : 15분 단위 수요 (요청 3번 PEAK 영향도 분석용)
-              하루씩 받아 '하루 요약'(평균·최대·최대 시각·저녁 16~20시 평균)을 쌓고, 최근 14일은 15분 원자료도 남김
+pk5l-wp : 5개년 조정계획 기본값 = 전력망 수요 전망(grid_demand_fcst) · 풍력 전망(fcst_wi_tot_gen)
+          · 태양광 전망(fcst_pv_tot_gen) 등, 시간별, 오늘부터 약 15~18일
 
-v2 변경 (v1 은 2023년부터 하루씩 1,400번 넘게 요청하다 150분 제한에 걸려 아무것도 저장 못 함)
- - 이미 받은 날은 건너뜀(최근 3일만 다시 받음) → 여러 번 돌리면 이어서 받음
- - 60일마다 중간 저장
- - 시간 한도(환경변수 PSE_BUDGET_MIN, 기본 80분)가 되면 멈추고 저장 → 다음 실행이 이어 받음
+v4 변경
+ - pdwkseub(15분 자료) 수집 삭제: 받아 보니 수요가 아니라 발전기별 15분 가용용량이었고,
+   발전기 수만큼 줄이 생겨 하루 수천 줄 → 80분 넘게 걸림. 15분 수요 PEAK 는 ENTSO-E 실수요로 따로 계산
+ - 하루 요약에서 grid_demand_fcst 가 빠지던 오류 수정 ('grid' 안의 'id' 글자를 id 열로 잘못 봄)
 
-PSE 제약: 한 번에 최대 100줄, 다음 쪽 없음, 날짜는 문자열 비교('YYYY-MM-DD')
-
-사용  python fetch_pse_extra.py              → 전망 + 15분 수요 최근 14일 (매일용)
-      python fetch_pse_extra.py 2023-01-01   → 15분 수요를 그날부터 (받은 날은 건너뜀)
-산출  pse_pk5l_wp.json, pse_demand15.json   (공개 자료만)
+사용  python fetch_pse_extra.py   (몇 초면 끝남, 인자는 받아도 무시)
+산출  pse_pk5l_wp.json   (공개 자료만)
 """
-import json, os, sys, time
+import json, time
 import datetime as dt
 import requests
-from concurrent.futures import ThreadPoolExecutor
-
-WORKERS = int(os.environ.get("PSE_WORKERS", "6"))   # v3: 하루씩 요청을 6개 동시에 (v2 는 하나씩이라 요청당 5초, 2023년부터 2시간 넘게 걸림)
-CHUNK = 30
 
 API = "https://api.raporty.pse.pl/api"
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
       "Accept": "application/json"}
 EP_FC = "pk5l-wp"
-EP_15 = "pdwkseub"
 OUT_FC = "pse_pk5l_wp.json"
-OUT_15 = "pse_demand15.json"
 LOG = []
 TODAY = dt.date.today()
-BUDGET_SEC = float(os.environ.get("PSE_BUDGET_MIN", "80")) * 60
-T_START = time.time()
+SKIP_WORDS = {"id", "mrid", "source"}                  # 열 이름을 '_' 로 나눈 단어 기준
+SKIP_PREFIX = ("business_date", "publication", "period", "plan_dtime", "dtime")
 
 
 def log(msg):
@@ -57,19 +47,8 @@ def query(ep, flt):
     return None
 
 
-def time_col(rows):
-    for r in rows[:1]:
-        for k in r:
-            if "dtime" in k.lower() and "utc" not in k.lower() and "publication" not in k.lower():
-                return k
-        for k in r:
-            if "dtime" in k.lower() or "period" in k.lower():
-                return k
-    return None
-
-
 def pull(ep, d0, d1):
-    """business_date 가 [d0, d1) 인 줄."""
+    """business_date 가 [d0, d1) 인 줄. 한 번에 100줄 제한이라 100줄이 차면 기간을 반으로 나눔."""
     flt = "business_date ge '%s' and business_date lt '%s'" % (d0.isoformat(), d1.isoformat())
     rows = query(ep, flt)
     if rows is None:
@@ -81,30 +60,23 @@ def pull(ep, d0, d1):
         b = pull(ep, mid, d1)
         return (a or []) + (b or [])
     if len(rows) >= 100:
-        tc = time_col(rows)
-        if tc:                                             # 하루가 100줄 이상 → 시각으로 6시간씩
-            out = []
-            for h0 in range(0, 24, 6):
-                f2 = flt + " and %s ge '%s %02d:00:00' and %s lt '%s %02d:00:00'" % (
-                    tc, d0.isoformat(), h0, tc, (d0 if h0 < 18 else d1).isoformat(), (h0 + 6) % 24)
-                part = query(ep, f2)
-                if part is None:
-                    LOG.append({"ep": ep, "day": d0.isoformat(), "note": "시각 쪼개기 실패, 100줄만 남김"})
-                    return rows
-                if len(part) >= 100:
-                    LOG.append({"ep": ep, "day": d0.isoformat(), "hour": h0, "note": "6시간에 100줄 이상, 일부 빠졌을 수 있음"})
-                out += part
-                time.sleep(0.3)
-            return out
-        LOG.append({"ep": ep, "day": d0.isoformat(), "note": "하루 100줄 이상, 시각 열 없음, 일부 빠졌을 수 있음"})
+        LOG.append({"ep": ep, "day": d0.isoformat(), "note": "하루 100줄 이상, 일부 빠졌을 수 있음"})
     return rows
 
 
+def time_col(rows):
+    for r in rows[:1]:
+        for k in r:
+            if "dtime" in k.lower() and "utc" not in k.lower() and "publication" not in k.lower():
+                return k
+    return None
+
+
 def numeric_cols(rows):
-    skip = ("id", "mrid", "business_date", "publication", "source")
     cols = []
     for k in (rows[0] if rows else {}):
-        if any(s in k.lower() for s in skip) or "dtime" in k.lower() or "period" in k.lower():
+        kl = k.lower()
+        if kl.startswith(SKIP_PREFIX) or SKIP_WORDS & set(kl.split("_")):
             continue
         vals = [r.get(k) for r in rows[:50]]
         try:
@@ -134,7 +106,7 @@ def day_summary(rows, tc, cols):
     return s
 
 
-def run_forecast():
+def main():
     rows = pull(EP_FC, TODAY - dt.timedelta(days=1), TODAY + dt.timedelta(days=16))
     if rows is None:
         log("[pk5l-wp] 받지 못함 (LOG 확인)")
@@ -148,99 +120,13 @@ def run_forecast():
     daily = {d: day_summary(v, tc, cols) for d, v in sorted(by_day.items()) if d}
     out = {"fetched_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
            "source": "PSE raporty.pse.pl API %s (Plan Koordynacyjny 5-letni, wielkosci podstawowe)" % EP_FC,
+           "key_cols": {"grid_demand_fcst": "수요 전망 MW", "fcst_wi_tot_gen": "풍력 전망 MW",
+                        "fcst_pv_tot_gen": "태양광 전망 MW"},
            "columns": list(rows[0].keys()) if rows else [], "time_col": tc, "numeric_cols": cols,
-           "rows_total": len(rows), "daily": daily, "rows": rows, "log": [x for x in LOG if x.get("ep") == EP_FC]}
+           "rows_total": len(rows), "daily": daily, "rows": rows, "log": LOG}
     with open(OUT_FC, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1, default=str)
-    log("[pk5l-wp] %d줄 · %d일 · 시각 열 %s · 숫자 열 %s" % (len(rows), len(daily), tc, cols))
-
-
-def save15(daily, recent, meta, done):
-    days = sorted(daily)
-    out = {"fetched_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
-           "source": "PSE raporty.pse.pl API %s (15분 수요)" % EP_15,
-           "columns": meta["columns"], "time_col": meta["time_col"], "numeric_cols": meta["numeric_cols"],
-           "first_day": days[0] if days else None, "last_day": days[-1] if days else None, "n_days": len(days),
-           "complete": done,
-           "summary_note": "열마다 mean=하루 평균, max=하루 최대 15분 값, max_at=최대 시각, eve_mean=16~20시 평균",
-           "daily": {k: daily[k] for k in days}, "recent_15min": recent,
-           "log": [x for x in LOG if x.get("ep") == EP_15][-200:]}
-    with open(OUT_15, "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=1, default=str)
-
-
-def run_demand15(start):
-    old = {}
-    if os.path.exists(OUT_15):
-        try:
-            with open(OUT_15, encoding="utf-8") as f:
-                old = json.load(f)
-        except ValueError:
-            old = {}
-    daily = old.get("daily", {})
-    recent = {k: v for k, v in old.get("recent_15min", {}).items()
-              if (TODAY - dt.date.fromisoformat(k)).days <= 14}
-    meta = {"columns": old.get("columns", []), "time_col": old.get("time_col"), "numeric_cols": old.get("numeric_cols", [])}
-    refetch_from = TODAY - dt.timedelta(days=3)                    # 최근 3일은 값이 바뀔 수 있어 다시 받음
-    todo = []
-    n_skip = 0
-    d = start
-    while d <= TODAY:
-        if d.isoformat() in daily and d < refetch_from:
-            n_skip += 1
-        else:
-            todo.append(d)
-        d += dt.timedelta(days=1)
-    log("[pdwkseub] 받을 날 %d · 이미 받은 날 %d · 동시 요청 %d" % (len(todo), n_skip, WORKERS))
-    n_ok = n_empty = n_fail = 0
-    done = True
-    for i in range(0, len(todo), CHUNK):                            # 30일씩 묶어 동시에 받음
-        if time.time() - T_START > BUDGET_SEC:
-            log("[pdwkseub] 시간 한도 %.0f분 도달, %s 에서 멈춤. 다시 실행하면 이어 받음" % (BUDGET_SEC / 60, todo[i]))
-            done = False
-            break
-        part = todo[i:i + CHUNK]
-        with ThreadPoolExecutor(max_workers=WORKERS) as ex:
-            res = list(ex.map(lambda x: pull(EP_15, x, x + dt.timedelta(days=1)), part))
-        for day, rows in zip(part, res):
-            key = day.isoformat()
-            if rows is None:
-                n_fail += 1
-            elif not rows:
-                n_empty += 1
-            else:
-                n_ok += 1
-                tc = time_col(rows)
-                cols = numeric_cols(rows)
-                if not meta["columns"]:
-                    meta["columns"] = list(rows[0].keys())
-                meta["time_col"], meta["numeric_cols"] = tc, cols
-                daily[key] = day_summary(rows, tc, cols)
-                if (TODAY - day).days <= 14:
-                    recent[key] = rows
-        if n_ok == 0 and n_fail >= 5:
-            log("[pdwkseub] 처음부터 연속 실패, 중단 (LOG 확인)")
-            done = False
-            break
-        save15(daily, recent, meta, False)                          # 30일마다 중간 저장
-        log("   %s 까지 · 받음 %d · 빈 날 %d · 실패 %d · %.0f분" %
-            (part[-1], n_ok, n_empty, n_fail, (time.time() - T_START) / 60))
-    save15(daily, recent, meta, done)
-    log("[pdwkseub] 저장 %d일 (%s ~ %s) · 이번에 받음 %d · 건너뜀 %d · 빈 날 %d · 실패 %d · 완료 %s · 숫자 열 %s" %
-        (len(daily), min(daily) if daily else None, max(daily) if daily else None,
-         n_ok, n_skip, n_empty, n_fail, done, meta["numeric_cols"]))
-
-
-def main():
-    start = dt.date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else TODAY - dt.timedelta(days=14)
-    try:
-        run_forecast()
-    except Exception as e:
-        log("[pk5l-wp] 오류 %r" % e)
-    try:
-        run_demand15(start)
-    except Exception as e:
-        log("[pdwkseub] 오류 %r" % e)
+    log("[pk5l-wp] %d줄 · %d일 · 시각 열 %s · 수요 전망 포함 %s" % (len(rows), len(daily), tc, "grid_demand_fcst" in cols))
 
 
 if __name__ == "__main__":
