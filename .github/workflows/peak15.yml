@@ -1,0 +1,54 @@
+# 폴란드 15분 수요 PEAK 수집 (2026-11-26, WA법인 요청 3번). 수동 실행(Actions → PL Peak15 → Run workflow)
+# 처음 한 번은 시작일 2023-01-01 로 백필(약 5~10분). 결과 pl_peak15.json 확인 후 daily.yml 에 매일 수집으로 넣을 예정.
+name: PL Peak15
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: "시작일 (비우면 최근 40일)"
+        default: "2023-01-01"
+permissions:
+  contents: write
+jobs:
+  peak15:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests tzdata
+      - name: ENTSO-E 15분 수요 → 하루 최대·저녁 평균
+        continue-on-error: true
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python fetch_pl_peak15.py "${{ github.event.inputs.start }}"
+      - name: 결과 파일 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pl-peak15
+          path: pl_peak15.json
+          if-no-files-found: warn
+      - name: commit back
+        if: always()
+        run: |
+          set -e
+          [ -f pl_peak15.json ] || { echo "파일 없음"; exit 0; }
+          mkdir -p /tmp/pk && cp pl_peak15.json /tmp/pk/
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fdq
+            cp /tmp/pk/pl_peak15.json .
+            git add pl_peak15.json
+            if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+            git commit -m "chore: pl peak15 $(date +%F)"
+            if git push origin HEAD:main; then echo "push 완료"; exit 0; fi
+            sleep 15
+          done
+          echo "::error::저장 실패. Artifacts 의 pl-peak15 를 받아 주세요"
+          exit 1
