@@ -19,6 +19,10 @@ PSE 제약: 한 번에 최대 100줄, 다음 쪽 없음, 날짜는 문자열 비
 import json, os, sys, time
 import datetime as dt
 import requests
+from concurrent.futures import ThreadPoolExecutor
+
+WORKERS = int(os.environ.get("PSE_WORKERS", "6"))   # v3: 하루씩 요청을 6개 동시에 (v2 는 하나씩이라 요청당 5초, 2023년부터 2시간 넘게 걸림)
+CHUNK = 30
 
 API = "https://api.raporty.pse.pl/api"
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
@@ -178,44 +182,49 @@ def run_demand15(start):
               if (TODAY - dt.date.fromisoformat(k)).days <= 14}
     meta = {"columns": old.get("columns", []), "time_col": old.get("time_col"), "numeric_cols": old.get("numeric_cols", [])}
     refetch_from = TODAY - dt.timedelta(days=3)                    # 최근 3일은 값이 바뀔 수 있어 다시 받음
+    todo = []
+    n_skip = 0
     d = start
-    n_ok = n_empty = n_fail = n_skip = 0
-    done = True
     while d <= TODAY:
-        key = d.isoformat()
-        if key in daily and d < refetch_from:
+        if d.isoformat() in daily and d < refetch_from:
             n_skip += 1
-            d += dt.timedelta(days=1)
-            continue
+        else:
+            todo.append(d)
+        d += dt.timedelta(days=1)
+    log("[pdwkseub] 받을 날 %d · 이미 받은 날 %d · 동시 요청 %d" % (len(todo), n_skip, WORKERS))
+    n_ok = n_empty = n_fail = 0
+    done = True
+    for i in range(0, len(todo), CHUNK):                            # 30일씩 묶어 동시에 받음
         if time.time() - T_START > BUDGET_SEC:
-            log("[pdwkseub] 시간 한도 %.0f분 도달, %s 에서 멈춤. 다시 실행하면 이어 받음" % (BUDGET_SEC / 60, key))
+            log("[pdwkseub] 시간 한도 %.0f분 도달, %s 에서 멈춤. 다시 실행하면 이어 받음" % (BUDGET_SEC / 60, todo[i]))
             done = False
             break
-        rows = pull(EP_15, d, d + dt.timedelta(days=1))
-        if rows is None:
-            n_fail += 1
-            if n_fail >= 5 and n_ok == 0:
-                log("[pdwkseub] 처음부터 5번 연속 실패, 중단 (LOG 확인)")
-                done = False
-                break
-        elif not rows:
-            n_empty += 1
-        else:
-            n_ok += 1
-            tc = time_col(rows)
-            cols = numeric_cols(rows)
-            if not meta["columns"]:
-                meta["columns"] = list(rows[0].keys())
-            meta["time_col"], meta["numeric_cols"] = tc, cols
-            daily[key] = day_summary(rows, tc, cols)
-            if (TODAY - d).days <= 14:
-                recent[key] = rows
-            if n_ok % 60 == 0:                                     # 중간 저장
-                save15(daily, recent, meta, False)
-                log("   %s 까지 · 받음 %d · 건너뜀 %d · 빈 날 %d · 실패 %d · %.0f분" %
-                    (key, n_ok, n_skip, n_empty, n_fail, (time.time() - T_START) / 60))
-        d += dt.timedelta(days=1)
-        time.sleep(0.1)
+        part = todo[i:i + CHUNK]
+        with ThreadPoolExecutor(max_workers=WORKERS) as ex:
+            res = list(ex.map(lambda x: pull(EP_15, x, x + dt.timedelta(days=1)), part))
+        for day, rows in zip(part, res):
+            key = day.isoformat()
+            if rows is None:
+                n_fail += 1
+            elif not rows:
+                n_empty += 1
+            else:
+                n_ok += 1
+                tc = time_col(rows)
+                cols = numeric_cols(rows)
+                if not meta["columns"]:
+                    meta["columns"] = list(rows[0].keys())
+                meta["time_col"], meta["numeric_cols"] = tc, cols
+                daily[key] = day_summary(rows, tc, cols)
+                if (TODAY - day).days <= 14:
+                    recent[key] = rows
+        if n_ok == 0 and n_fail >= 5:
+            log("[pdwkseub] 처음부터 연속 실패, 중단 (LOG 확인)")
+            done = False
+            break
+        save15(daily, recent, meta, False)                          # 30일마다 중간 저장
+        log("   %s 까지 · 받음 %d · 빈 날 %d · 실패 %d · %.0f분" %
+            (part[-1], n_ok, n_empty, n_fail, (time.time() - T_START) / 60))
     save15(daily, recent, meta, done)
     log("[pdwkseub] 저장 %d일 (%s ~ %s) · 이번에 받음 %d · 건너뜀 %d · 빈 날 %d · 실패 %d · 완료 %s · 숫자 열 %s" %
         (len(daily), min(daily) if daily else None, max(daily) if daily else None,
