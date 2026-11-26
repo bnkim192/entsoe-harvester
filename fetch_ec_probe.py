@@ -42,6 +42,23 @@ def main():
             refs.add(m)
         time.sleep(0.5)
     RES["refs"] = sorted(refs)[:200]
+    # v2: 이 화면 전용 스크립트(futures.js) 전체와, 공통 스크립트에서 데이터 주소를 만드는 부분을 남김
+    st4, fj, _ = get(CH + "/futures.js")
+    RES["futures_js"] = fj[:20000]
+    RES["snips"] = []
+    for nm in ["chartFunctions.js", "chartSteering.js", "createDateSelect.js"]:
+        st5, js2, _ = get(BASE + "/global/javascript/" + nm)
+        for m in re.finditer(r"(getJSON|\.ajax\(|fetch\(|XMLHttpRequest|dataPath|data_path|\"data/\"|'data/'|/data/)", js2):
+            RES["snips"].append({"file": nm, "at": m.start(), "text": js2[max(0, m.start() - 300): m.start() + 400]})
+            if len(RES["snips"]) > 40:
+                break
+    for s in set(re.findall(r"""["'`]([A-Za-z0-9_./\-]{3,80})["'`]""", fj)):
+        if "/" in s or s.endswith(".json"):
+            for base in (CH + "/", CH + "/data/", CH + "/data/de/"):
+                cands_url = base + s.lstrip("./")
+                if not cands_url.endswith(".json"):
+                    cands_url += ".json"
+                RES.setdefault("fj_cands", []).append(cands_url)
     cands = set()
     for r in refs:
         if r.endswith(".json") and "{" not in r and "$" not in r:
@@ -49,9 +66,11 @@ def main():
     for c in ["de", "DE", "de-lu"]:
         for nm in ["month", "quarter", "year", "month_%d" % Y, "week_%d_%02d" % (Y, W), "all", "index", "latest"]:
             cands.add("%s/data/%s/%s.json" % (CH, c, nm))
+    for c2 in RES.get("fj_cands", [])[:40]:
+        cands.add(c2)
     cands.add(CH + "/data/")
     cands.add(CH + "/data/de/")
-    for url in sorted(cands)[:80]:
+    for url in sorted(cands)[:120]:
         st3, txt, ct = get(url)
         RES["tests"].append({"url": url, "status": st3, "len": len(txt), "ctype": ct, "head": txt[:300] if st3 == 200 else ""})
         print(st3, len(txt), url, flush=True)
