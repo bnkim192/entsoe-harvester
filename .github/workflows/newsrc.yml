@@ -1,6 +1,6 @@
-# WA법인 요청 신규 자료 시험 수집 (2026-11-26): PSE 수요·풍력·태양광 전망, PSE 15분 수요, 5개 도시 풍속(과거·계절 전망)
+# WA법인 요청 신규 자료 시험 수집 (2026-11-26 v2): PSE 수요·풍력·태양광 전망, PSE 15분 수요, 5개 도시 풍속(과거·계절 전망)
 # .github/workflows/newsrc.yml 경로에 두어야 인식됨. 수동 실행 전용(Actions 탭 → PL New Sources → Run workflow)
-# 결과 확인 후 daily.yml 에 매일 수집으로 넣을 예정. 기존 워크플로는 건드리지 않음.
+# v2: 풍속과 PSE 를 따로(동시에) 돌림. PSE 15분 수요는 80분 한도로 받다가 저장하고 멈추며, 다시 돌리면 이어 받음.
 name: PL New Sources
 on:
   workflow_dispatch:
@@ -10,56 +10,91 @@ on:
         default: "2023-01-01"
 permissions:
   contents: write
-concurrency:
-  group: entsoe-commit
-  cancel-in-progress: false
 jobs:
-  newsrc:
+  wind:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install requests tzdata
-      - name: PSE 전망(pk5l-wp) + 15분 수요(pdwkseub)
-        continue-on-error: true
-        run: python fetch_pse_extra.py "${{ github.event.inputs.start }}"
+      - run: pip install requests
       - name: 5개 도시 풍속 (Open-Meteo 과거 + 계절 전망)
         continue-on-error: true
         run: python fetch_pl_wind5.py "${{ github.event.inputs.start }}"
-      - name: 결과 파일 보관 (저장 실패 대비)
+      - name: 결과 파일 보관
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pl-new-sources
-          path: |
-            pse_pk5l_wp.json
-            pse_demand15.json
-            pl_wind5.json
+          name: pl-wind5
+          path: pl_wind5.json
           if-no-files-found: warn
-      - name: commit back (결과만 따로 옮겨 저장)
+      - name: commit back
         run: |
           set -e
           mkdir -p /tmp/newsrc
-          for f in pse_pk5l_wp.json pse_demand15.json pl_wind5.json; do [ -f "$f" ] && cp "$f" /tmp/newsrc/; done
+          [ -f pl_wind5.json ] && cp pl_wind5.json /tmp/newsrc/ || { echo "파일 없음"; exit 0; }
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fdq
+            cp /tmp/newsrc/pl_wind5.json .
+            git add pl_wind5.json
+            if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+            git commit -m "chore: pl wind5 $(date +%F)"
+            if git push origin HEAD:main; then echo "push 완료"; exit 0; fi
+            echo "push 실패, 15초 후 재시도 ($i/6)"
+            sleep 15
+          done
+          echo "::error::저장 실패. Artifacts 의 pl-wind5 를 받아 주세요"
+          exit 1
+
+  pse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: PSE 전망(pk5l-wp) + 15분 수요(pdwkseub), 80분 한도
+        continue-on-error: true
+        env:
+          PSE_BUDGET_MIN: "80"
+        run: python fetch_pse_extra.py "${{ github.event.inputs.start }}"
+      - name: 결과 파일 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pse-extra
+          path: |
+            pse_pk5l_wp.json
+            pse_demand15.json
+          if-no-files-found: warn
+      - name: commit back
+        if: always()
+        run: |
+          set -e
+          mkdir -p /tmp/newsrc
+          for f in pse_pk5l_wp.json pse_demand15.json; do [ -f "$f" ] && cp "$f" /tmp/newsrc/; done
           ls -la /tmp/newsrc
           git config user.name "entsoe-bot"
           git config user.email "entsoe-bot@users.noreply.github.com"
-          for i in 1 2 3 4 5; do
+          for i in 1 2 3 4 5 6; do
             git fetch origin main
             git reset --hard origin/main
             git clean -fdq
             cp /tmp/newsrc/*.json . 2>/dev/null || true
-            for f in pse_pk5l_wp.json pse_demand15.json pl_wind5.json; do [ -f "$f" ] && git add "$f"; done
+            for f in pse_pk5l_wp.json pse_demand15.json; do [ -f "$f" ] && git add "$f"; done
             if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
-            git commit -m "chore: pl new sources $(date +%F)"
+            git commit -m "chore: pse extra $(date +%F)"
             if git push origin HEAD:main; then echo "push 완료"; exit 0; fi
-            echo "push 실패, 15초 후 재시도 ($i/5)"
+            echo "push 실패, 15초 후 재시도 ($i/6)"
             sleep 15
           done
-          echo "::error::저장소 저장 실패(5회). Artifacts 의 pl-new-sources 를 받아 주세요"
+          echo "::error::저장 실패. Artifacts 의 pse-extra 를 받아 주세요"
           exit 1
