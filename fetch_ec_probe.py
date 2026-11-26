@@ -1,82 +1,71 @@
 """
-독일 전력 선물(energy-charts price_futures_bars) 숫자 파일 위치 찾기 (2026-11-26)
+독일 전력 선물(energy-charts price_futures_bars) 시험 수집 (2026-11-26 v3)
 
-1) 차트 화면(chart.htm)이 불러오는 스크립트 파일 목록을 받고
-2) 스크립트 안에서 'data/' · '.json' · 'futures' 가 들어간 주소 조각을 모은 뒤
-3) 그 조각과 흔한 이름 후보로 실제 숫자 파일이 있는지 시험한다.
-결과는 ec_probe.json (공개 자료만). 여기서 찾은 주소로 다음에 정식 수집 코드를 만든다.
+futures.js 에서 찾은 주소 규칙:
+  /charts/price_futures_bars/data/{국가}/power_{기간}_{YYYY}_{MM}_{DD}.json
+  기간 = year · quarter · month · week, 날짜 = 거래일. 화면도 없으면 하루씩 최대 30일 전까지 거슬러 찾음.
+기간마다 가장 최근 거래일 파일을 찾아 원자료(시리즈 이름·x축·값)를 ec_probe.json 에 저장한다 (공개 자료만).
+원자료는 EEX 시세 기반이라 상시 업무용이면 이용조건 확인이 필요하다.
 """
-import json, re, time
+import json, time
 import datetime as dt
 import requests
 
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-      "Accept": "*/*", "Referer": "https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=en&c=DE"}
-BASE = "https://www.energy-charts.info"
-CH = BASE + "/charts/price_futures_bars"
+      "Accept": "application/json, text/javascript, */*; q=0.01", "X-Requested-With": "XMLHttpRequest",
+      "Referer": "https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=en&c=DE"}
+CH = "https://www.energy-charts.info/charts/price_futures_bars/data"
 OUT = "ec_probe.json"
-RES = {"scripts": [], "refs": [], "tests": []}
-Y = dt.date.today().year
-W = dt.date.today().isocalendar()[1]
+TODAY = dt.date.today()
 ses = requests.Session()
 
 
-def get(url):
-    try:
-        r = ses.get(url, headers=UA, timeout=60)
-        return r.status_code, r.text or "", r.headers.get("content-type", "")
-    except requests.RequestException as e:
-        return None, repr(e)[:200], ""
+def find(country, interval):
+    tried = []
+    for back in range(0, 15):
+        d = TODAY - dt.timedelta(days=back)
+        url = "%s/%s/power_%s_%04d_%02d_%02d.json" % (CH, country, interval, d.year, d.month, d.day)
+        try:
+            r = ses.get(url, headers=UA, timeout=60)
+        except requests.RequestException as e:
+            tried.append({"url": url, "error": repr(e)[:150]})
+            continue
+        tried.append({"url": url, "status": r.status_code})
+        if r.status_code == 200:
+            try:
+                return d.isoformat(), url, r.json(), tried
+            except ValueError:
+                return d.isoformat(), url, {"raw": r.text[:3000]}, tried
+        time.sleep(0.3)
+    return None, None, None, tried
+
+
+def summarize(js):
+    """시리즈마다 이름·x축·값을 짧게 정리 (전체 원자료도 따로 저장)."""
+    out = []
+    for s in (js if isinstance(js, list) else []):
+        name = s.get("name")
+        if isinstance(name, list):
+            name = name[0]
+        if isinstance(name, dict):
+            name = name.get("en") or name.get("de") or str(name)
+        out.append({"name": name, "x": s.get("xAxisValues"), "data": s.get("data"), "unit": s.get("unit") or s.get("yAxisTitle")})
+    return out
 
 
 def main():
-    st, html, _ = get(CH + "/chart.htm?l=en&c=DE&interval_select=month")
-    RES["page"] = {"status": st, "len": len(html), "head": html[:1500]}
-    srcs = sorted(set(re.findall(r"""src=["']?([^"'\s>]+\.js[^"'\s>]*)""", html)))
-    refs = set()
-    for s in srcs[:25]:
-        url = s if s.startswith("http") else (BASE + s if s.startswith("/") else CH + "/" + s)
-        st2, js, _ = get(url)
-        RES["scripts"].append({"url": url, "status": st2, "len": len(js)})
-        for m in re.findall(r"""["'`]([^"'`\s]{0,120}(?:data/|\.json|futures)[^"'`\s]{0,120})["'`]""", js):
-            refs.add(m)
-        time.sleep(0.5)
-    RES["refs"] = sorted(refs)[:200]
-    # v2: 이 화면 전용 스크립트(futures.js) 전체와, 공통 스크립트에서 데이터 주소를 만드는 부분을 남김
-    st4, fj, _ = get(CH + "/futures.js")
-    RES["futures_js"] = fj[:20000]
-    RES["snips"] = []
-    for nm in ["chartFunctions.js", "chartSteering.js", "createDateSelect.js"]:
-        st5, js2, _ = get(BASE + "/global/javascript/" + nm)
-        for m in re.finditer(r"(getJSON|\.ajax\(|fetch\(|XMLHttpRequest|dataPath|data_path|\"data/\"|'data/'|/data/)", js2):
-            RES["snips"].append({"file": nm, "at": m.start(), "text": js2[max(0, m.start() - 300): m.start() + 400]})
-            if len(RES["snips"]) > 40:
-                break
-    for s in set(re.findall(r"""["'`]([A-Za-z0-9_./\-]{3,80})["'`]""", fj)):
-        if "/" in s or s.endswith(".json"):
-            for base in (CH + "/", CH + "/data/", CH + "/data/de/"):
-                cands_url = base + s.lstrip("./")
-                if not cands_url.endswith(".json"):
-                    cands_url += ".json"
-                RES.setdefault("fj_cands", []).append(cands_url)
-    cands = set()
-    for r in refs:
-        if r.endswith(".json") and "{" not in r and "$" not in r:
-            cands.add(r if r.startswith("http") else (BASE + r if r.startswith("/") else CH + "/" + r))
-    for c in ["de", "DE", "de-lu"]:
-        for nm in ["month", "quarter", "year", "month_%d" % Y, "week_%d_%02d" % (Y, W), "all", "index", "latest"]:
-            cands.add("%s/data/%s/%s.json" % (CH, c, nm))
-    for c2 in RES.get("fj_cands", [])[:40]:
-        cands.add(c2)
-    cands.add(CH + "/data/")
-    cands.add(CH + "/data/de/")
-    for url in sorted(cands)[:120]:
-        st3, txt, ct = get(url)
-        RES["tests"].append({"url": url, "status": st3, "len": len(txt), "ctype": ct, "head": txt[:300] if st3 == 200 else ""})
-        print(st3, len(txt), url, flush=True)
-        time.sleep(0.4)
+    res = {"fetched_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+           "rule": "/charts/price_futures_bars/data/{country}/power_{interval}_{YYYY}_{MM}_{DD}.json", "results": {}}
+    for country in ("de", "pl"):
+        for interval in ("month", "quarter", "year", "week"):
+            day, url, js, tried = find(country, interval)
+            key = "%s_%s" % (country, interval)
+            res["results"][key] = {"trade_day": day, "url": url, "tried": tried[-3:],
+                                   "series": summarize(js) if js is not None else None,
+                                   "raw": js if (js is not None and len(json.dumps(js)) < 60000) else None}
+            print(key, day, url, "시리즈 %d" % len(res["results"][key]["series"] or []), flush=True)
     with open(OUT, "w", encoding="utf-8") as f:
-        json.dump(dict(RES, fetched_utc=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")), f, ensure_ascii=False, indent=1)
+        json.dump(res, f, ensure_ascii=False, indent=1)
 
 
 if __name__ == "__main__":
