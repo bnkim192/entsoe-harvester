@@ -1,0 +1,231 @@
+{
+ "fetched_utc": "2026-11-26T06:05:08+00:00",
+ "results": [
+  {
+   "item": "de_futures",
+   "name": "energy-charts API 목록(openapi)",
+   "url": "https://api.energy-charts.info/openapi.json",
+   "status": 200,
+   "len": 83840,
+   "ctype": "application/json",
+   "numbers": 20,
+   "head": "{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"Energy-Charts API\",\"description\":\"\\n       \\n\\n<h4>Timestamp Format Options</h4>\\n        <p>When specifying timestamps, you can choose from the following three formats:</p>\\n        <ol>\\n            <li><strong>ISO 8601 Format</strong>:\\n                <ul>\\n                    <li>This format includes the full date and time, with an optional timezone indicat",
+   "paths": [
+    "/cbet",
+    "/cbpf",
+    "/frequency",
+    "/installed_power",
+    "/price",
+    "/public_power",
+    "/public_power_forecast",
+    "/ren_share_daily_avg",
+    "/ren_share_forecast",
+    "/signal",
+    "/solar_share",
+    "/solar_share_daily_avg",
+    "/total_power",
+    "/v2",
+    "/v2/cbet",
+    "/v2/cbpf",
+    "/v2/frequency",
+    "/v2/installed_power",
+    "/v2/price",
+    "/v2/price_current",
+    "/v2/price_next_day",
+    "/v2/public_power",
+    "/v2/public_power_forecast",
+    "/v2/ren_share_daily_avg",
+    "/v2/ren_share_forecast",
+    "/v2/signal",
+    "/v2/solar_share",
+    "/v2/solar_share_daily_avg",
+    "/v2/total_power",
+    "/v2/wind_offshore_share",
+    "/v2/wind_offshore_share_daily_avg",
+    "/v2/wind_onshore_share",
+    "/v2/wind_onshore_share_daily_avg",
+    "/wind_offshore_share",
+    "/wind_offshore_share_daily_avg",
+    "/wind_onshore_share",
+    "/wind_onshore_share_daily_avg"
+   ]
+  },
+  {
+   "item": "de_futures",
+   "name": "energy-charts 차트 화면",
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=en&interval_select=month",
+   "status": 200,
+   "len": 3562,
+   "ctype": "text/html",
+   "numbers": 0,
+   "head": "<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en><head><title>Energy-Charts</title><meta charset=utf-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta name=theme-color content=#009374><link rel=alternate hreflang=de href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=de&amp;c=DE\"><li",
+   "json_refs": []
+  },
+  {
+   "item": "de_futures",
+   "name": "energy-charts 차트 데이터(월물)",
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/month.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "numbers": 0,
+   "head": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly er"
+  },
+  {
+   "item": "de_futures",
+   "name": "energy-charts 차트 데이터(월물, 올해)",
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/month_2026.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "numbers": 0,
+   "head": "<html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly error page -->\r\n<!-- a padding to disable MSIE and Chrome friendly er"
+  },
+  {
+   "item": "de_futures",
+   "name": "energy-charts 현물 API(비교용)",
+   "url": "https://api.energy-charts.info/price?bzn=DE-LU&start=2026-11-16&end=2026-11-26",
+   "status": 200,
+   "len": 18991,
+   "ctype": "application/json",
+   "numbers": 1058,
+   "head": "{\"license_info\":\"CC BY 4.0 (creativecommons.org/licenses/by/4.0) from Bundesnetzagentur | SMARD.de\",\"unix_seconds\":[1794783600,1794784500,1794785400,1794786300,1794787200,1794788100,1794789000,1794789900,1794790800,1794791700,1794792600,1794793500,1794794400,1794795300,1794796200,1794797100,1794798000,1794798900,1794799800,1794800700,1794801600,1794802500,1794803400,1794804300,1794805200,179480610"
+  },
+  {
+   "item": "ttf",
+   "name": "Yahoo TTF 근월물(TTF=F)",
+   "url": "https://query1.finance.yahoo.com/v8/finance/chart/TTF=F?range=1mo&interval=1d",
+   "status": 200,
+   "len": 3501,
+   "ctype": "application/json;charset=utf-8",
+   "numbers": 15,
+   "head": "{\"chart\":{\"result\":[{\"meta\":{\"currency\":\"EUR\",\"symbol\":\"TTF=F\",\"exchangeName\":\"NYM\",\"fullExchangeName\":\"NY Mercantile\",\"instrumentType\":\"FUTURE\",\"firstTradeDate\":1508731200,\"regularMarketTime\":1795621127,\"hasPrePostMarketData\":false,\"gmtoffset\":-18000,\"timezone\":\"EST\",\"exchangeTimezoneName\":\"America/New_York\",\"regularMarketPrice\":88.1,\"regularMarketChangePercent\":0.913,\"fulldayPrice\":88.1,\"fullday",
+   "last_close": [
+    89.73600006103516,
+    91.66899871826172,
+    87.3030014038086
+   ],
+   "meta": {
+    "symbol": "TTF=F",
+    "currency": "EUR",
+    "exchangeName": "NYM",
+    "longName": null,
+    "shortName": "Dutch TTF Natural Gas Calendar "
+   }
+  },
+  {
+   "item": "ttf",
+   "name": "ICE 리포트 282 화면",
+   "url": "https://www.ice.com/report/282",
+   "status": 200,
+   "len": 123546,
+   "ctype": "text/html; charset=utf-8",
+   "numbers": 447,
+   "head": "<!DOCTYPE html><html lang=\"en\" data-is-cms-page=\"true\" class=\"scroll-smooth\"><head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1\"/><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"/><script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),'event':'gtm.js'});</script><title></title><link rel"
+  },
+  {
+   "item": "ttf",
+   "name": "ICE 지연시세(이전 403 재확인)",
+   "url": "https://www.ice.com/marketdata/DelayedMarkets.shtml?getContractsAsJson=&productId=4331&hubId=7979",
+   "status": 403,
+   "len": 4542,
+   "ctype": "text/html; charset=UTF-8",
+   "numbers": 0,
+   "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n<title>Attention Required! | Cloudflare</title>\n<meta charset=\"UTF-8\" />\n<meta"
+  },
+  {
+   "item": "eua",
+   "name": "ICE 지연시세 EUA(이전 403 재확인)",
+   "url": "https://www.ice.com/marketdata/DelayedMarkets.shtml?getContractsAsJson=&productId=390&hubId=564",
+   "status": 403,
+   "len": 4542,
+   "ctype": "text/html; charset=UTF-8",
+   "numbers": 0,
+   "head": "<!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n<title>Attention Required! | Cloudflare</title>\n<meta charset=\"UTF-8\" />\n<meta"
+  },
+  {
+   "item": "eua",
+   "name": "EEX EUA 선물 화면",
+   "url": "https://www.eex.com/en/market-data/market-data-hub/environmentals/futures",
+   "status": 200,
+   "len": 194344,
+   "ctype": "text/html; charset=utf-8",
+   "numbers": 119,
+   "head": "<!DOCTYPE html>\n<html lang=\"en-US\">\n<head>\n\n<meta charset=\"utf-8\">\n<!-- \n\t________________________________________________________________________________________________\n\n\tThis website is powered by TYPO3 - inspiring people to share!\n\tTYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.\n\tTYPO3 is copyright 1998-2026 of Kasper Sk"
+  },
+  {
+   "item": "eua",
+   "name": "Yahoo 탄소 ETF KRBN(대용 지표)",
+   "url": "https://query1.finance.yahoo.com/v8/finance/chart/KRBN?range=1mo&interval=1d",
+   "status": 200,
+   "len": 3671,
+   "ctype": "application/json;charset=utf-8",
+   "numbers": 10,
+   "head": "{\"chart\":{\"result\":[{\"meta\":{\"currency\":\"USD\",\"symbol\":\"KRBN\",\"exchangeName\":\"PCX\",\"fullExchangeName\":\"NYSEArca\",\"instrumentType\":\"ETF\",\"firstTradeDate\":1596202200,\"regularMarketTime\":1795640400,\"hasPrePostMarketData\":true,\"gmtoffset\":-18000,\"timezone\":\"EST\",\"exchangeTimezoneName\":\"America/New_York\",\"regularMarketPrice\":32.81,\"regularMarketChangePercent\":-0.8857,\"fulldayPrice\":32.81,\"fulldayChange",
+   "last_close": [
+    32.9900016784668,
+    33.10300064086914,
+    32.810001373291016
+   ],
+   "meta": {
+    "symbol": "KRBN",
+    "currency": "USD",
+    "exchangeName": "PCX",
+    "longName": "KraneShares Global Carbon ETF",
+    "shortName": "KraneShares Global Carbon Strat"
+   }
+  },
+  {
+   "item": "eua",
+   "name": "Yahoo EUA 12월물 후보(CKZ26.NYM)",
+   "url": "https://query1.finance.yahoo.com/v8/finance/chart/CKZ26.NYM?range=1mo&interval=1d",
+   "status": 404,
+   "len": 108,
+   "ctype": "application/json;charset=utf-8",
+   "numbers": 0,
+   "head": "{\"chart\":{\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"No data found, symbol may be delisted\"}}}"
+  },
+  {
+   "item": "eua",
+   "name": "Yahoo SparkChange 탄소 ETC(CO2.L)",
+   "url": "https://query1.finance.yahoo.com/v8/finance/chart/CO2.L?range=1mo&interval=1d",
+   "status": 200,
+   "len": 3437,
+   "ctype": "application/json;charset=utf-8",
+   "numbers": 18,
+   "head": "{\"chart\":{\"result\":[{\"meta\":{\"currency\":\"EUR\",\"symbol\":\"CO2.L\",\"exchangeName\":\"LSE\",\"fullExchangeName\":\"LSE\",\"instrumentType\":\"EQUITY\",\"firstTradeDate\":1634540400,\"regularMarketTime\":1795623778,\"hasPrePostMarketData\":false,\"gmtoffset\":0,\"timezone\":\"GMT\",\"exchangeTimezoneName\":\"Europe/London\",\"regularMarketPrice\":78.255,\"regularMarketChangePercent\":-0.974,\"fulldayPrice\":78.255,\"fulldayChange\":-0.77",
+   "last_close": [
+    77.44000244140625,
+    79.86000061035156,
+    79.0250015258789
+   ],
+   "meta": {
+    "symbol": "CO2.L",
+    "currency": "EUR",
+    "exchangeName": "LSE",
+    "longName": "SparkChange Physical Carbon EUA ETC",
+    "shortName": "HANETF ETC SECURITIES PLC SPARK"
+   }
+  },
+  {
+   "item": "pse_fc",
+   "name": "PSE pk5l-wp",
+   "url": "https://api.raporty.pse.pl/api/pk5l-wp?$filter=business_date%20eq%20'2026-11-26'",
+   "status": 200,
+   "len": 18649,
+   "ctype": "application/json; charset=utf-8",
+   "numbers": 48,
+   "head": "{\"value\":[{\"period\":\"00 - 01\",\"plan_dtime\":\"2026-11-26 01:00:00\",\"req_pow_res\":1785.00000,\"business_date\":\"2026-11-26\",\"plan_dtime_utc\":\"2026-11-26 00:00:00\",\"publication_ts\":\"2026-11-26 01:33:42.734\",\"fcst_pv_tot_gen\":0.00000,\"fcst_wi_tot_gen\":428.00000,\"fcst_unav_energy\":0.00000,\"grid_demand_fcst\":18815.00000,\"planned_exchange\":1407.00000,\"publication_ts_utc\":\"2026-11-26 00:33:42.734\",\"sum_unav_"
+  },
+  {
+   "item": "wind_hist",
+   "name": "Open-Meteo 과거 바르샤바",
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=52.2297&longitude=21.0122&start_date=2026-11-11&end_date=2026-11-19&daily=wind_speed_100m_mean&wind_speed_unit=ms",
+   "status": 200,
+   "len": 439,
+   "ctype": "application/json; charset=utf-8",
+   "numbers": 10,
+   "head": "{\"latitude\":52.26713,\"longitude\":20.961182,\"generationtime_ms\":0.07236003875732422,\"utc_offset_seconds\":0,\"timezone\":\"GMT\",\"timezone_abbreviation\":\"GMT\",\"elevation\":113.0,\"daily_units\":{\"time\":\"iso8601\",\"wind_speed_100m_mean\":\"m/s\"},\"daily\":{\"time\":[\"2026-11-11\",\"2026-11-12\",\"2026-11-13\",\"2026-11-14\",\"2026-11-15\",\"2026-11-16\",\"2026-11-17\",\"2026-11-18\",\"2026-11-19\"],\"wind_speed_100m_mean\":[4.75,5.7"
+  }
+ ]
+}
