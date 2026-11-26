@@ -1,0 +1,47 @@
+# 선물 시세 재확인 (2026-11-26): 독일 전력·TTF·EUA 선물을 다른 경로로 받을 수 있는지 시험. 1~2분이면 끝남
+# .github/workflows/market_probe.yml 경로에 두어야 인식됨. 수동 실행 전용(Actions 탭 → Market Probe → Run workflow)
+name: Market Probe
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: 시세 경로 시험
+        continue-on-error: true
+        run: python fetch_market_probe.py
+      - name: 결과 파일 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-probe
+          path: market_probe.json
+          if-no-files-found: warn
+      - name: commit back
+        if: always()
+        run: |
+          set -e
+          [ -f market_probe.json ] || { echo "파일 없음"; exit 0; }
+          mkdir -p /tmp/mp && cp market_probe.json /tmp/mp/
+          git config user.name "entsoe-bot"
+          git config user.email "entsoe-bot@users.noreply.github.com"
+          for i in 1 2 3 4 5 6; do
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fdq
+            cp /tmp/mp/market_probe.json .
+            git add market_probe.json
+            if git diff --cached --quiet; then echo "변경 없음"; exit 0; fi
+            git commit -m "chore: market probe $(date +%F)"
+            if git push origin HEAD:main; then echo "push 완료"; exit 0; fi
+            sleep 15
+          done
+          exit 1
