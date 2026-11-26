@@ -1,476 +1,1085 @@
 {
- "scripts": [
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartFunctions.js?v=2ecaf454",
-   "status": 200,
-   "len": 194605
+ "fetched_utc": "2026-11-26T06:48:48+00:00",
+ "rule": "/charts/price_futures_bars/data/{country}/power_{interval}_{YYYY}_{MM}_{DD}.json",
+ "results": {
+  "de_month": {
+   "trade_day": "2026-11-25",
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_month_2026_11_25.json",
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_month_2026_11_26.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_month_2026_11_25.json",
+     "status": 200
+    }
+   ],
+   "series": [
+    {
+     "name": "Germany",
+     "x": [
+      "11.2026",
+      "12.2026",
+      "01.2027",
+      "02.2027",
+      "03.2027",
+      "04.2027",
+      "05.2027",
+      "06.2027",
+      "07.2027",
+      "08.2027",
+      "09.2027",
+      "10.2027",
+      "11.2027",
+      "12.2027",
+      "01.2028",
+      "02.2028",
+      "03.2028",
+      "04.2028",
+      "05.2028",
+      "06.2028",
+      "07.2028",
+      "08.2028",
+      "09.2028",
+      "10.2028",
+      "11.2028"
+     ],
+     "data": [
+      239.48,
+      222.07,
+      229.41,
+      216.11,
+      155.91,
+      126.49,
+      108.38,
+      116.45,
+      120.27,
+      121.25,
+      132.05,
+      130.54,
+      140.32,
+      139.78,
+      140.74,
+      136.91,
+      113.74,
+      81.86,
+      79.25,
+      80.58,
+      82.36,
+      85.31,
+      96.98,
+      94.51,
+      107.87
+     ],
+     "unit": null
+    },
+    {
+     "name": "France",
+     "x": null,
+     "data": [
+      215.05,
+      208.39,
+      218.14,
+      201.34,
+      136.83,
+      88.86,
+      56.07,
+      76.79,
+      78.22,
+      79.65,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     "unit": null
+    },
+    {
+     "name": "Austria",
+     "x": null,
+     "data": [
+      263.86,
+      259.79,
+      265.3,
+      246.13,
+      180.23,
+      127.0,
+      109.2,
+      116.52,
+      123.27,
+      128.25,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     "unit": null
+    },
+    {
+     "name": "Switzerland",
+     "x": null,
+     "data": [
+      257.78,
+      257.71,
+      252.11,
+      247.9,
+      181.03,
+      128.6,
+      103.65,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ],
+     "unit": null
+    }
+   ],
+   "raw": [
+    {
+     "name": {
+      "en": "Germany",
+      "de": "Deutschland",
+      "it": "Germania",
+      "fr": "Allemagne",
+      "es": "Alemania"
+     },
+     "color": "rgb(228, 26, 28)",
+     "visible": true,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": true
+     },
+     "yAxis": 0,
+     "data": [
+      239.48,
+      222.07,
+      229.41,
+      216.11,
+      155.91,
+      126.49,
+      108.38,
+      116.45,
+      120.27,
+      121.25,
+      132.05,
+      130.54,
+      140.32,
+      139.78,
+      140.74,
+      136.91,
+      113.74,
+      81.86,
+      79.25,
+      80.58,
+      82.36,
+      85.31,
+      96.98,
+      94.51,
+      107.87
+     ],
+     "chartTitle": [
+      {
+       "en": "Power futures (Base)",
+       "de": "Strom Futures (Base)",
+       "fr": "Contrats à terme sur l'électricité (Base)",
+       "it": "Futuro dell'energia (Base)",
+       "es": "Futuros energéticos (Base)"
+      }
+     ],
+     "chartSubTitle": [
+      {
+       "en": "Trading day: 25.11.2026",
+       "de": "Handelstag: 25.11.2026",
+       "fr": "Jour de négociation: 25.11.2026",
+       "es": "Día de negociación: 25.11.2026",
+       "it": "Giorno di negoziazione: 25.11.2026"
+      }
+     ],
+     "xAxisValues": [
+      "11.2026",
+      "12.2026",
+      "01.2027",
+      "02.2027",
+      "03.2027",
+      "04.2027",
+      "05.2027",
+      "06.2027",
+      "07.2027",
+      "08.2027",
+      "09.2027",
+      "10.2027",
+      "11.2027",
+      "12.2027",
+      "01.2028",
+      "02.2028",
+      "03.2028",
+      "04.2028",
+      "05.2028",
+      "06.2028",
+      "07.2028",
+      "08.2028",
+      "09.2028",
+      "10.2028",
+      "11.2028"
+     ],
+     "format": "Highcharts",
+     "xAxisFormat": "integer",
+     "y0AxisDecimalPlaces": 2,
+     "showNavigator": true,
+     "datasource": "EEX",
+     "stacking": "single",
+     "date": 1795674379779,
+     "type": "column",
+     "presettings": {
+      "partsum": 1,
+      "stackLabelPartSumDecimals": 2
+     },
+     "xAxisLabel": [
+      {
+       "en": "Month",
+       "de": "Monat",
+       "fr": "Mois",
+       "es": "Mes",
+       "it": "Mese"
+      }
+     ],
+     "y0AxisLabel": [
+      {
+       "en": "Price (€/MWh)",
+       "de": "Abrechnungspreis (€/MWh)",
+       "fr": "Prix (€/MWh)",
+       "es": "Precio (€/MWh)",
+       "it": "Prezzo (€/MWh)"
+      }
+     ]
+    },
+    {
+     "name": {
+      "en": "France",
+      "de": "Frankreich",
+      "it": "Francia",
+      "fr": "France",
+      "es": "Francia"
+     },
+     "color": "rgb(55, 126, 184)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      215.05,
+      208.39,
+      218.14,
+      201.34,
+      136.83,
+      88.86,
+      56.07,
+      76.79,
+      78.22,
+      79.65,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ]
+    },
+    {
+     "name": {
+      "en": "Austria",
+      "de": "Österreich",
+      "it": "Austria",
+      "fr": "Autriche",
+      "es": "Austria"
+     },
+     "color": "rgb(77, 175, 74)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      263.86,
+      259.79,
+      265.3,
+      246.13,
+      180.23,
+      127.0,
+      109.2,
+      116.52,
+      123.27,
+      128.25,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ]
+    },
+    {
+     "name": {
+      "en": "Switzerland",
+      "de": "Schweiz",
+      "it": "Svizzera",
+      "fr": "Suisse",
+      "es": "Suiza"
+     },
+     "color": "rgb(152, 78, 163)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      257.78,
+      257.71,
+      252.11,
+      247.9,
+      181.03,
+      128.6,
+      103.65,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+     ]
+    }
+   ]
   },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartSteering.js?v=2ecaf454",
-   "status": 200,
-   "len": 88717
+  "de_quarter": {
+   "trade_day": "2026-11-25",
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_quarter_2026_11_25.json",
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_quarter_2026_11_26.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_quarter_2026_11_25.json",
+     "status": 200
+    }
+   ],
+   "series": [
+    {
+     "name": "Germany",
+     "x": [
+      "Q1 2027",
+      "Q2 2027",
+      "Q3 2027",
+      "Q4 2027",
+      "Q1 2028",
+      "Q2 2028",
+      "Q3 2028",
+      "Q4 2028",
+      "Q1 2029",
+      "Q2 2029",
+      "Q3 2029"
+     ],
+     "data": [
+      199.98,
+      117.01,
+      124.44,
+      136.84,
+      130.33,
+      80.55,
+      88.12,
+      102.55,
+      104.15,
+      70.96,
+      78.19
+     ],
+     "unit": null
+    },
+    {
+     "name": "France",
+     "x": null,
+     "data": [
+      184.93,
+      73.71,
+      89.96,
+      110.64,
+      104.07,
+      28.32,
+      42.29,
+      73.11,
+      79.56,
+      37.27,
+      45.88
+     ],
+     "unit": null
+    },
+    {
+     "name": "Austria",
+     "x": null,
+     "data": [
+      230.06,
+      117.48,
+      130.3,
+      157.7,
+      149.34,
+      80.77,
+      92.38,
+      119.7,
+      113.53,
+      74.74,
+      85.73
+     ],
+     "unit": null
+    },
+    {
+     "name": "Switzerland",
+     "x": null,
+     "data": [
+      226.34,
+      114.61,
+      117.72,
+      156.04,
+      150.83,
+      70.69,
+      73.38,
+      null,
+      null,
+      null,
+      null
+     ],
+     "unit": null
+    }
+   ],
+   "raw": [
+    {
+     "name": {
+      "en": "Germany",
+      "de": "Deutschland",
+      "it": "Germania",
+      "fr": "Allemagne",
+      "es": "Alemania"
+     },
+     "color": "rgb(228, 26, 28)",
+     "visible": true,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": true
+     },
+     "yAxis": 0,
+     "data": [
+      199.98,
+      117.01,
+      124.44,
+      136.84,
+      130.33,
+      80.55,
+      88.12,
+      102.55,
+      104.15,
+      70.96,
+      78.19
+     ],
+     "chartTitle": [
+      {
+       "en": "Power futures (Base)",
+       "de": "Strom Futures (Base)",
+       "fr": "Contrats à terme sur l'électricité (Base)",
+       "it": "Futuro dell'energia (Base)",
+       "es": "Futuros energéticos (Base)"
+      }
+     ],
+     "chartSubTitle": [
+      {
+       "en": "Trading day: 25.11.2026",
+       "de": "Handelstag: 25.11.2026",
+       "fr": "Jour de négociation: 25.11.2026",
+       "es": "Día de negociación: 25.11.2026",
+       "it": "Giorno di negoziazione: 25.11.2026"
+      }
+     ],
+     "xAxisValues": [
+      "Q1 2027",
+      "Q2 2027",
+      "Q3 2027",
+      "Q4 2027",
+      "Q1 2028",
+      "Q2 2028",
+      "Q3 2028",
+      "Q4 2028",
+      "Q1 2029",
+      "Q2 2029",
+      "Q3 2029"
+     ],
+     "format": "Highcharts",
+     "xAxisFormat": "integer",
+     "y0AxisDecimalPlaces": 2,
+     "showNavigator": true,
+     "datasource": "EEX",
+     "stacking": "single",
+     "date": 1795674241340,
+     "type": "column",
+     "presettings": {
+      "partsum": 1,
+      "stackLabelPartSumDecimals": 2
+     },
+     "xAxisLabel": [
+      {
+       "en": "Quarter",
+       "de": "Quartal",
+       "fr": "Trimestre",
+       "es": "Trimestre",
+       "it": "Trimestre"
+      }
+     ],
+     "y0AxisLabel": [
+      {
+       "en": "Price (€/MWh)",
+       "de": "Abrechnungspreis (€/MWh)",
+       "fr": "Prix (€/MWh)",
+       "es": "Precio (€/MWh)",
+       "it": "Prezzo (€/MWh)"
+      }
+     ]
+    },
+    {
+     "name": {
+      "en": "France",
+      "de": "Frankreich",
+      "it": "Francia",
+      "fr": "France",
+      "es": "Francia"
+     },
+     "color": "rgb(55, 126, 184)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      184.93,
+      73.71,
+      89.96,
+      110.64,
+      104.07,
+      28.32,
+      42.29,
+      73.11,
+      79.56,
+      37.27,
+      45.88
+     ]
+    },
+    {
+     "name": {
+      "en": "Austria",
+      "de": "Österreich",
+      "it": "Austria",
+      "fr": "Autriche",
+      "es": "Austria"
+     },
+     "color": "rgb(77, 175, 74)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      230.06,
+      117.48,
+      130.3,
+      157.7,
+      149.34,
+      80.77,
+      92.38,
+      119.7,
+      113.53,
+      74.74,
+      85.73
+     ]
+    },
+    {
+     "name": {
+      "en": "Switzerland",
+      "de": "Schweiz",
+      "it": "Svizzera",
+      "fr": "Suisse",
+      "es": "Suiza"
+     },
+     "color": "rgb(152, 78, 163)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      226.34,
+      114.61,
+      117.72,
+      156.04,
+      150.83,
+      70.69,
+      73.38,
+      null,
+      null,
+      null,
+      null
+     ]
+    }
+   ]
   },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartTypeDefs/columnChart.js?v=2ecaf454",
-   "status": 200,
-   "len": 11258
+  "de_year": {
+   "trade_day": "2026-11-25",
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_year_2026_11_25.json",
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_year_2026_11_26.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_year_2026_11_25.json",
+     "status": 200
+    }
+   ],
+   "series": [
+    {
+     "name": "Germany",
+     "x": [
+      "2027",
+      "2028",
+      "2029",
+      "2030",
+      "2031",
+      "2032",
+      "2033",
+      "2034",
+      "2035",
+      "2036"
+     ],
+     "data": [
+      144.33,
+      100.36,
+      86.14,
+      78.98,
+      75.3,
+      71.96,
+      74.1,
+      73.86,
+      74.6,
+      74.85
+     ],
+     "unit": null
+    },
+    {
+     "name": "France",
+     "x": null,
+     "data": [
+      114.53,
+      61.92,
+      56.98,
+      58.93,
+      61.39,
+      62.85,
+      63.1,
+      63.44,
+      63.94,
+      64.44
+     ],
+     "unit": null
+    },
+    {
+     "name": "Austria",
+     "x": null,
+     "data": [
+      158.6,
+      110.52,
+      96.2,
+      89.81,
+      88.9,
+      78.46,
+      null,
+      null,
+      null,
+      null
+     ],
+     "unit": null
+    },
+    {
+     "name": "Switzerland",
+     "x": null,
+     "data": [
+      153.38,
+      101.5,
+      86.84,
+      76.86,
+      78.9,
+      76.34,
+      null,
+      null,
+      null,
+      null
+     ],
+     "unit": null
+    }
+   ],
+   "raw": [
+    {
+     "name": {
+      "en": "Germany",
+      "de": "Deutschland",
+      "it": "Germania",
+      "fr": "Allemagne",
+      "es": "Alemania"
+     },
+     "color": "rgb(228, 26, 28)",
+     "visible": true,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": true
+     },
+     "yAxis": 0,
+     "data": [
+      144.33,
+      100.36,
+      86.14,
+      78.98,
+      75.3,
+      71.96,
+      74.1,
+      73.86,
+      74.6,
+      74.85
+     ],
+     "chartTitle": [
+      {
+       "en": "Power futures (Base)",
+       "de": "Strom Futures (Base)",
+       "fr": "Contrats à terme sur l'électricité (Base)",
+       "it": "Futuro dell'energia (Base)",
+       "es": "Futuros energéticos (Base)"
+      }
+     ],
+     "chartSubTitle": [
+      {
+       "en": "Trading day: 25.11.2026",
+       "de": "Handelstag: 25.11.2026",
+       "fr": "Jour de négociation: 25.11.2026",
+       "es": "Día de negociación: 25.11.2026",
+       "it": "Giorno di negoziazione: 25.11.2026"
+      }
+     ],
+     "xAxisValues": [
+      "2027",
+      "2028",
+      "2029",
+      "2030",
+      "2031",
+      "2032",
+      "2033",
+      "2034",
+      "2035",
+      "2036"
+     ],
+     "format": "Highcharts",
+     "xAxisFormat": "integer",
+     "y0AxisDecimalPlaces": 2,
+     "showNavigator": true,
+     "datasource": "EEX",
+     "stacking": "single",
+     "date": 1795674185813,
+     "type": "column",
+     "presettings": {
+      "partsum": 1,
+      "stackLabelPartSumDecimals": 2
+     },
+     "xAxisLabel": [
+      {
+       "en": "Year",
+       "de": "Jahr",
+       "fr": "Année",
+       "es": "Año",
+       "it": "Anno"
+      }
+     ],
+     "y0AxisLabel": [
+      {
+       "en": "Price (€/MWh)",
+       "de": "Abrechnungspreis (€/MWh)",
+       "fr": "Prix (€/MWh)",
+       "es": "Precio (€/MWh)",
+       "it": "Prezzo (€/MWh)"
+      }
+     ]
+    },
+    {
+     "name": {
+      "en": "France",
+      "de": "Frankreich",
+      "it": "Francia",
+      "fr": "France",
+      "es": "Francia"
+     },
+     "color": "rgb(55, 126, 184)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      114.53,
+      61.92,
+      56.98,
+      58.93,
+      61.39,
+      62.85,
+      63.1,
+      63.44,
+      63.94,
+      64.44
+     ]
+    },
+    {
+     "name": {
+      "en": "Austria",
+      "de": "Österreich",
+      "it": "Austria",
+      "fr": "Autriche",
+      "es": "Austria"
+     },
+     "color": "rgb(77, 175, 74)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      158.6,
+      110.52,
+      96.2,
+      89.81,
+      88.9,
+      78.46,
+      null,
+      null,
+      null,
+      null
+     ]
+    },
+    {
+     "name": {
+      "en": "Switzerland",
+      "de": "Schweiz",
+      "it": "Svizzera",
+      "fr": "Suisse",
+      "es": "Suiza"
+     },
+     "color": "rgb(152, 78, 163)",
+     "visible": false,
+     "showInLegend": true,
+     "showInNavigator": true,
+     "navigatorOptions": {
+      "visible": false
+     },
+     "yAxis": 0,
+     "data": [
+      153.38,
+      101.5,
+      86.84,
+      76.86,
+      78.9,
+      76.34,
+      null,
+      null,
+      null,
+      null
+     ]
+    }
+   ]
   },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartTypeDefs/sparklineChart.js?v=2ecaf454",
-   "status": 200,
-   "len": 13466
+  "de_week": {
+   "trade_day": null,
+   "url": null,
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_week_2026_11_14.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_week_2026_11_13.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/power_week_2026_11_12.json",
+     "status": 404
+    }
+   ],
+   "series": null,
+   "raw": null
   },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/constants.js?v=2ecaf454",
-   "status": 200,
-   "len": 1173
+  "pl_month": {
+   "trade_day": null,
+   "url": null,
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_month_2026_11_14.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_month_2026_11_13.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_month_2026_11_12.json",
+     "status": 404
+    }
+   ],
+   "series": null,
+   "raw": null
   },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/createDateSelect.js?v=2ecaf454",
-   "status": 200,
-   "len": 46966
+  "pl_quarter": {
+   "trade_day": null,
+   "url": null,
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_quarter_2026_11_14.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_quarter_2026_11_13.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_quarter_2026_11_12.json",
+     "status": 404
+    }
+   ],
+   "series": null,
+   "raw": null
   },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/matomo_tcode.js?v=2ecaf454",
-   "status": 200,
-   "len": 751
+  "pl_year": {
+   "trade_day": null,
+   "url": null,
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_year_2026_11_14.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_year_2026_11_13.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_year_2026_11_12.json",
+     "status": 404
+    }
+   ],
+   "series": null,
+   "raw": null
   },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/menuMap.js?v=2ecaf454",
-   "status": 200,
-   "len": 7354
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/dependency_chart.js?v=2ecaf454",
-   "status": 200,
-   "len": 1303992
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/dependency_common.js?v=2ecaf454",
-   "status": 200,
-   "len": 455614
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/footer.js?v=2ecaf454",
-   "status": 200,
-   "len": 15006
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/icons.js?v=2ecaf454",
-   "status": 200,
-   "len": 436894
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/manifest.js?v=2ecaf454",
-   "status": 200,
-   "len": 3638
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/menu.js?v=2ecaf454",
-   "status": 200,
-   "len": 64243
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/vendor.js?v=2ecaf454",
-   "status": 200,
-   "len": 407833
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../utils/lang.js?v=2ecaf454",
-   "status": 200,
-   "len": 11293
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/futures.js?v=2ecaf454",
-   "status": 200,
-   "len": 4881
+  "pl_week": {
+   "trade_day": null,
+   "url": null,
+   "tried": [
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_week_2026_11_14.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_week_2026_11_13.json",
+     "status": 404
+    },
+    {
+     "url": "https://www.energy-charts.info/charts/price_futures_bars/data/pl/power_week_2026_11_12.json",
+     "status": 404
+    }
+   ],
+   "series": null,
+   "raw": null
   }
- ],
- "refs": [
-  ")+e.jsonp+",
-  "+i):!1!==e.jsonp&&(e.url+=(At.test(e.url)?",
-  "+this.options.jsonpParam+",
-  "../../charts/_metadata/generation_units_by_country.csv",
-  "../_metadata/biddingZonesEurope.geojson",
-  "./data/ajax",
-  "./data/array",
-  "./data/kompare_biomass_potential_vs_used.json",
-  "./data/kompare_renovation_rates.json",
-  "./data/maximumInputLength",
-  "./data/maximumSelectionLength",
-  "./data/minimumInputLength",
-  "./data/select",
-  "./data/tags",
-  "./data/tokenizer",
-  ".json",
-  "charts/price_futures/chart.htm",
-  "charts/price_futures_bars/chart.htm",
-  "data/",
-  "data/de/2022_Paper_NBWR_Energy_Charts.pdf",
-  "data/de/2022_Paper_NBWR_Energy_Charts.pdf\\",
-  "geocode.json",
-  "global/version.json",
-  "https://utils.highcharts.local/samples/data/ArialHB-normal.js",
-  "mainMenu.price_futures",
-  "mainMenu.price_futures_bars",
-  "pageTitle_price_futures_bars",
-  "price_futures",
-  "price_futures_bars",
-  "reversegeocode.json",
-  "select2/data/ajax",
-  "select2/data/array",
-  "select2/data/base",
-  "select2/data/maximumInputLength",
-  "select2/data/maximumSelectionLength",
-  "select2/data/minimumInputLength",
-  "select2/data/select",
-  "select2/data/tags",
-  "select2/data/tokenizer",
-  "src/blog/markdown/de/blogMap.json",
-  "src/blog/markdown/en/blogMap.json",
-  "src/blog/markdown/fr/blogMap.json",
-  "},pageTitle_price_futures:{de:",
-  "},pageTitle_price_futures_bars:{de:"
- ],
- "tests": [
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/./data/kompare_biomass_potential_vs_used.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/./data/kompare_renovation_rates.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/",
-   "status": 403,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/all.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/index.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/latest.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/month.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/month_2026.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/quarter.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/week_2026_48.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/year.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/data/.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/all.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/index.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/latest.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/month.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/month_2026.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/quarter.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/week_2026_48.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/year.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/",
-   "status": 403,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/all.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/data/.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/index.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/json.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/latest.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/month.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/month_2026.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/quarter.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/week_2026_48.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/year.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/json.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/geocode.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/global/version.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/json.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/reversegeocode.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/src/blog/markdown/de/blogMap.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/src/blog/markdown/en/blogMap.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  },
-  {
-   "url": "https://www.energy-charts.info/charts/price_futures_bars/src/blog/markdown/fr/blogMap.json",
-   "status": 404,
-   "len": 548,
-   "ctype": "text/html",
-   "head": ""
-  }
- ],
- "page": {
-  "status": 200,
-  "len": 3562,
-  "head": "<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en><head><title>Energy-Charts</title><meta charset=utf-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta name=theme-color content=#009374><link rel=alternate hreflang=de href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=de&amp;c=DE\"><link rel=alternate hreflang=en href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=en&amp;c=DE\"><link rel=alternate hreflang=fr href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=fr&amp;c=DE\"><link rel=alternate hreflang=it href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=it&amp;c=DE\"><link rel=alternate hreflang=x-default href=https://www.energy-charts.info/charts/price_futures_bars/chart.htm><meta name=description content=\"Die Energy-Charts bieten interaktive Grafiken zu: Stromproduktion, Stromerzeugung, Emissionen, Klimadaten, Spotmarktpreisen, Szenarien zur Energiewende und eine umfangreiche Kartenanwendung zu: Kraftwerken, Ãbertragungsleitungen und Meteodaten\"><meta name=robots content=noodp,noydir,index,follow><meta name=author content=\"Leonhard Gandhi\"><meta name=publisher content=\"Fraunhofer ISE\"><meta name=copyright content=\"Fraunhofer ISE\"><link rel=icon href=../../img/favicon.ico type=image/x-icon><link rel=favicon href=../../img/favicon.ico type=image/x-icon><link rel=\"shortcut icon\" href=../../img/fa"
- },
- "futures_js": "window.ecAppState.page={activePage:\"prices\",activeSubPage:\"price_futures_bars\"},setAppState(window.ecAppState.page.activePage,window.ecAppState.page.activeSubPage),window.pageTitle=translate(\"pageTitle_price_futures_bars\"),createChartFrame(),createDateSelect(),resolveURLVariables();var dmy=$(\"#datetimepicker\").val().split(\".\"),d=new Date(dmy[2],dmy[1]-1,dmy[0]);if(void 0===window.globalSettings.datetimepicker)var latest_URL=getLatestDataset(d);else latest_URL=getDataset(d);function createDateSelect(){let e={year:{selected:\"current\",showAll:!0,showAverageWeek:!1},quarter:{selected:\"current\",showAll:!0,showAverageWeek:!1},month:{selected:\"current\",showAll:!0,showAverageWeek:!1},week:{selected:\"current\",showAll:!0,showAverageWeek:!1}};window.intervals=e,window.globalSettings=getUrlVariables();let t=getCardHeader(\"intervalselection\",\"intervals\",\"accordion\",\"collapseIntervalSelect\",!0);t+='<div id=\"collapseIntervalSelect\" class=\"collapse show collapseIntervalSelect\"  aria-labelledby=\"headingIntervalSelect\">',t+=\"<div class='col-12 collapseBody collapseBody'>\",t+=setupIntervalSelect(e,\"year\",\"interval_select\"),t+=\"</div></div>\";createDependantDateSelection({day:{type:\"calendar\"}},defaultInterval=\"day\",parentClass=\"\",append=null,name_extension=\"\",fake_menu=!1,title=\"trading_day\"),t+=getCardHeader(\"sources\",\"sources\",\"accordion\",\"collapseSources\",!0);t+=createRadioMenue(\"\",{1:{title:\"electricity_base\",name:\"electricity\",value:\"power\"}},\"source\",\"electricity\",\"h3\",!0,\"Sources\",!1,!0,!1),$(\"#chartSteering #accordion\").append(t),$(\"#chartSteering #accordion\").append(createMenuForStackingOptions(!1,!1,!1,!1,!1,!1,!1,!0)),showConfigMenu(!0,!0,!0,!1,!0),$(\"#chartSteering #accordion\").append(createMenueFooter())}function getSourceURL(e){let t=\"./\";return t+=\"data/\",t+=JSON.parse(window.sessionStorage.locale).country.toLowerCase()+\"/\",t+=$('input[name=\"source\"]:checked').attr(\"value\"),t+=\"_\",t+=$(\"#interval_select option:selected\").attr(\"value\"),t+=\"_\",t+=e.substr(6,4)+\"_\"+e.substr(3,2)+\"_\"+e.substr(0,2),t+=\".json\",t}function getLatestDataset(e,t){void 0===t&&(window._chartRequestSeq=(window._chartRequestSeq||0)+1,t=window._chartRequestSeq,window._chartRequest&&\"function\"==typeof window._chartRequest.abort&&window._chartRequest.abort(),window.subtractFromSourceURL=0),datestring=(\"0\"+e.getDate()).slice(-2)+\".\"+(\"0\"+(e.getMonth()+1)).slice(-2)+\".\"+e.getFullYear(),window._chartRequest=$.ajax({url:getSourceURL(datestring),method:\"GET\",dataType:\"json\",success:function(a){t===window._chartRequestSeq&&(window.subtractFromSourceURL=0,selectDatasetInMenuOnURLFound(e,a))},error:function(a){t===window._chartRequestSeq&&404===a.status&&(window.subtractFromSourceURL++,window.subtractFromSourceURL<30?(e.setDate(e.getDate()-1),getLatestDataset(e,t)):(alert(translate(\"noCurrentData\")),window.subtractFromSourceURL=0,$(\".pageTitle, .loader, .subtitle\").hide(),$(\".noData\").show()))}})}function getDataset(e){window._chartRequestSeq=(window._chartRequestSeq||0)+1;const t=window._chartRequestSeq;window._chartRequest&&\"function\"==typeof window._chartRequest.abort&&window._chartRequest.abort(),datestring=(\"0\"+e.getDate()).slice(-2)+\".\"+(\"0\"+(e.getMonth()+1)).slice(-2)+\".\"+e.getFullYear(),window._chartRequest=$.ajax({url:getSourceURL(datestring),method:\"GET\",dataType:\"json\",success:function(a){t===window._chartRequestSeq&&(window.subtractFromSourceURL=0,selectDatasetInMenuOnURLFound(e,a))},error:function(e){t===window._chartRequestSeq&&(window.subtractFromSourceURL=0,$(\"#chart, .noData, .pageTitle, .subtitle\").hide(),$(\".pageTitle, .loader, .subtitle\").hide(),$(\".noData\").show())}})}function selectDatasetInMenuOnURLFound(e,t){if(datestring=(\"0\"+e.getDate()).slice(-2)+\".\"+(\"0\"+(e.getMonth()+1)).slice(-2)+\".\"+e.getFullYear(),$(\"#datetimepicker\").val()!=datestring){var a=$(\"#datetimepicker\"),r=$._data(a[0],\"events\").change.slice();a.off(\"change\"),a.val(datestring),$.each(r,function(e,t){a.on(\"change\",t)}),setURLVar(\"datetimepicker\",datestring)}void 0!==t&&downloadChartData(t)}function downloadChartData(e){if(void 0===e){if(void 0!==window.globalSettings.datetimepicker){t=$(\"#datetimepicker\").val().split(\".\");getDataset(new Date(t[2],t[1]-1,t[0]));return}var t=$(\"#datetimepicker\").val().split(\".\");getLatestDataset(new Date(t[2],t[1]-1,t[0]))}sourceURL=getSourceURL($(\"#datetimepicker\").val()),$(\"#chart, .noData, .pageTitle, .subtitle\").hide(),$(\".loader\").show(),charts[sourceURL]=[],charts[sourceURL].xAxisValues=e[0].xAxisValues,charts[sourceURL].y0AxisDecimalPlaces=e[0].y0AxisDecimalPlaces,charts[sourceURL].series=e,defineCommentValues(e),charts[sourceURL].series=e,charts[sourceURL].chartType=\"column\",charts[sourceURL].dateFormat=!1,charts[sourceURL].hideSumInTooltip=!0,charts[sourceURL].stackLabelPartSumDecimals=2,charts[sourceURL].stackLabelSumDecimals=2,createChart(),$(\".pageTitle, .subtitle\").show()}window.subtractFromSourceURL=0;",
- "snips": [
-  {
-   "file": "chartFunctions.js",
-   "at": 11333,
-   "text": "ms.interval}`).change(),$(`${r}#year`).change())}else{const t=e||\"\";parseInt($(`${t}#year option:selected`).attr(\"value\"))!==window.selectMenuItems.year&&$(`${t}#year option[value=${window.selectMenuItems.year}]`).prop(\"selected\",!0).change()}}function getLatestDataset(e,t=!1){let r=createNewURL();$.ajax({url:r,method:\"GET\",dataType:\"json\",success:function(t){return window.subtractFromSourceURL=0,selectDatasetInMenuOnURLFound(e),!0},error:function(t){if(404===t.status){if(window.subtractFromSourceURL++,!(window.subtractFromSourceURL<8))return void 0!==e&&alert(translate(\"noCurrentData\")),window.subtractFromSourceURL=0,!1;getLatestDataset(e)}}})}function getLatestDataSetInternal(){let e=getSo"
-  },
-  {
-   "file": "chartFunctions.js",
-   "at": 11876,
-   "text": "eturn void 0!==e&&alert(translate(\"noCurrentData\")),window.subtractFromSourceURL=0,!1;getLatestDataset(e)}}})}function getLatestDataSetInternal(){let e=getSourceURL(\"new\"),t=e.lastIndexOf(\"/\"),r=e.substr(0,t)+\"/\",i=e.substr(t+1,e.length),n=$(\".interval option:selected\").attr(\"value\");i.split(\"_\");$.getJSON(r,e=>{let t=0,r=0;for(let s in e){let a=e[s].name.split(\".\").join(\"_\").split(\"_\"),o=!1,c=0,l=0,u=a.indexOf(\"json\");a.splice(u,1);let d=[];for(let e in a){let t=a[e];t===n?(o=!0,d.push(e)):-1!==[\"week\",\"year\",\"month\",\"quarter\",\"season\",\"halfyear\"].indexOf(t)&&d.push(e),isNaN(parseInt(t))||(parseInt(t)>1900?c=parseInt(t):l=parseInt(t),d.push(e))}for(let e in d)delete a[d[e]];a=a.filter(funct"
-  },
-  {
-   "file": "chartFunctions.js",
-   "at": 109291,
-   "text": "sourceURL].xAxisShowDate,t=charts[sourceURL].xAxisShowTime;return!t&&isAutomaticTimeInXAxisLabelsEnabled()&&(t=axisHasTickWithTimeOfDay(this.axis)),e&&t&&null!==toTimestampOrNull(this.value)?formatDate(this.value,!0,!1,!1)+\"<br>\"+formatDate(this.value,!1,!0,!1):formatDate(this.value,e,t,!1)}return\"./data/kompare_renovation_rates.json\"==sourceURL||\"./data/kompare_biomass_potential_vs_used.json\"==sourceURL?\"\"+properlyFormatNumber(this.value):\"\"+this.value},enabled:!0,step:charts[sourceURL].steps},plotBands:r,tickInterval:charts[sourceURL].tickInterval,type:!1===charts[sourceURL].dateFormat?\"linear\":\"datetime\",min:charts[sourceURL].minxAxisIndex,max:charts[sourceURL].maxxAxisIndex,overflow:\"all"
-  },
-  {
-   "file": "chartFunctions.js",
-   "at": 109342,
-   "text": "howTime;return!t&&isAutomaticTimeInXAxisLabelsEnabled()&&(t=axisHasTickWithTimeOfDay(this.axis)),e&&t&&null!==toTimestampOrNull(this.value)?formatDate(this.value,!0,!1,!1)+\"<br>\"+formatDate(this.value,!1,!0,!1):formatDate(this.value,e,t,!1)}return\"./data/kompare_renovation_rates.json\"==sourceURL||\"./data/kompare_biomass_potential_vs_used.json\"==sourceURL?\"\"+properlyFormatNumber(this.value):\"\"+this.value},enabled:!0,step:charts[sourceURL].steps},plotBands:r,tickInterval:charts[sourceURL].tickInterval,type:!1===charts[sourceURL].dateFormat?\"linear\":\"datetime\",min:charts[sourceURL].minxAxisIndex,max:charts[sourceURL].maxxAxisIndex,overflow:\"allow\",events:{afterSetExtremes:function(e){if(handleZ"
-  },
-  {
-   "file": "chartSteering.js",
-   "at": 1922,
-   "text": "elete buttons[e]);_use_first&&(n=buttons[Object.keys(buttons)[0]].title);for(let e in t)for(let a in buttons)t[e]==buttons[a].name?delete buttons[a]:buttons[a].name=s;for(let e in buttons)buttons[e].name+=s;return createRadioMenue(e,buttons,\"source\",n,a,o,r,!0,l,!0)}function loadSourcesByCountry(){$.ajax({type:\"GET\",url:\"../../charts/_metadata/generation_units_by_country.csv\",dataType:\"text\",async:!1,success:function(e){let t=$.csv.toArrays(e);window.generationUnitsByCountry=[];for(let e in t){generationUnitsByCountry[t[e][0].toLowerCase()]=[];for(let a=2;a<t[e].length;a++){let n=t[e][0].toLowerCase();generationUnitsByCountry[n][t[0][a]]=t[e][a]}}}})}Number.prototype.mod=function(e){return(t"
-  },
-  {
-   "file": "chartSteering.js",
-   "at": 21807,
-   "text": "for(let a in t[e].options)l+=`<option value=\"${t[e].options[a].value}\">${translate(t[e].options[a].title)}</option>\"`;else createSelect2OptionList(i.optionsURL,i.name,i.select2Keys,i.checked);l+=\"</select></div></div>\"}s=\"\"}return l+=\"</div></div>\",l}function createSelect2OptionList(e,t,a,n=null){$.getJSON(e,function(){}).done(function(e){$.each(e,function(e,i){let o=\"object\"==typeof i[a[1]]?i[a[1]][0][window.lang]:i[a[1]],r=i.StationID==n;$(\"#\"+t).append($(\"<option>\",{value:i[a[0]],text:o,selected:r}))}),resolveURLVariables()})}function createCheckboxMenue(e,t,a,n,i=\"h2\",o=\"\",r=!1,l=\"\"){let s=\"\",c=\"\";const d=Array.isArray(n)?n:String(null==n?\"\":n).split(\" \").filter(Boolean);let u=Object.key"
-  },
-  {
-   "file": "chartSteering.js",
-   "at": 48615,
-   "text": "xporting.exportChart({type:e,filename:a,scale:$(\"#export_scale\").val(),sourceWidth:$(\"#export_width\").val(),sourceHeight:$(\"#export_height\").val(),libURL:window.Root_URL+\"global/frameworks/\",allowHTML:!0,chartOptions:{chart:{backgroundColor:\"white\"},pdfFontURL:\"https://utils.highcharts.local/samples/data/ArialHB-normal.js\"}}),r.forEach(e=>{const a=t.get(e);a&&a.remove(!1)}),t.update({legend:i},!1),t.colorAxis?.[0]&&o&&t.colorAxis[0].update(o,!1),t.redraw()}function JSDateToExcelDate(e,t){return 25569+(e.getTime()-60*e.getTimezoneOffset()*1e3)/864e5}function formatColumn(e,t,a){e.getColumn(t+1).numFmt=a}function exportDataAsCSV(_type,dataUnit=void 0){if(\"import-export\"===window.ecAppState.pag"
-  }
- ],
- "fj_cands": [
-  "https://www.energy-charts.info/charts/price_futures_bars/json.json",
-  "https://www.energy-charts.info/charts/price_futures_bars/data/json.json",
-  "https://www.energy-charts.info/charts/price_futures_bars/data/de/json.json",
-  "https://www.energy-charts.info/charts/price_futures_bars/data/.json",
-  "https://www.energy-charts.info/charts/price_futures_bars/data/data/.json",
-  "https://www.energy-charts.info/charts/price_futures_bars/data/de/data/.json"
- ],
- "fetched_utc": "2026-11-26T06:46:10+00:00"
+ }
 }
