@@ -1,0 +1,388 @@
+{
+ "scripts": [
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartFunctions.js?v=2ecaf454",
+   "status": 200,
+   "len": 194605
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartSteering.js?v=2ecaf454",
+   "status": 200,
+   "len": 88717
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartTypeDefs/columnChart.js?v=2ecaf454",
+   "status": 200,
+   "len": 11258
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/chartTypeDefs/sparklineChart.js?v=2ecaf454",
+   "status": 200,
+   "len": 13466
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/constants.js?v=2ecaf454",
+   "status": 200,
+   "len": 1173
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/createDateSelect.js?v=2ecaf454",
+   "status": 200,
+   "len": 46966
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/matomo_tcode.js?v=2ecaf454",
+   "status": null,
+   "len": 122
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../global/javascript/menuMap.js?v=2ecaf454",
+   "status": 200,
+   "len": 7354
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/dependency_chart.js?v=2ecaf454",
+   "status": 200,
+   "len": 1303992
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/dependency_common.js?v=2ecaf454",
+   "status": 200,
+   "len": 455614
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/footer.js?v=2ecaf454",
+   "status": 200,
+   "len": 15006
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/icons.js?v=2ecaf454",
+   "status": 200,
+   "len": 436894
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/manifest.js?v=2ecaf454",
+   "status": 200,
+   "len": 3638
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/menu.js?v=2ecaf454",
+   "status": 200,
+   "len": 64243
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../jsx/build/vendor.js?v=2ecaf454",
+   "status": 200,
+   "len": 407833
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/../../utils/lang.js?v=2ecaf454",
+   "status": 200,
+   "len": 11293
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/futures.js?v=2ecaf454",
+   "status": 200,
+   "len": 4881
+  }
+ ],
+ "refs": [
+  ")+e.jsonp+",
+  "+i):!1!==e.jsonp&&(e.url+=(At.test(e.url)?",
+  "+this.options.jsonpParam+",
+  "../../charts/_metadata/generation_units_by_country.csv",
+  "../_metadata/biddingZonesEurope.geojson",
+  "./data/ajax",
+  "./data/array",
+  "./data/kompare_biomass_potential_vs_used.json",
+  "./data/kompare_renovation_rates.json",
+  "./data/maximumInputLength",
+  "./data/maximumSelectionLength",
+  "./data/minimumInputLength",
+  "./data/select",
+  "./data/tags",
+  "./data/tokenizer",
+  ".json",
+  "charts/price_futures/chart.htm",
+  "charts/price_futures_bars/chart.htm",
+  "data/",
+  "data/de/2022_Paper_NBWR_Energy_Charts.pdf",
+  "data/de/2022_Paper_NBWR_Energy_Charts.pdf\\",
+  "geocode.json",
+  "global/version.json",
+  "https://utils.highcharts.local/samples/data/ArialHB-normal.js",
+  "mainMenu.price_futures",
+  "mainMenu.price_futures_bars",
+  "pageTitle_price_futures_bars",
+  "price_futures",
+  "price_futures_bars",
+  "reversegeocode.json",
+  "select2/data/ajax",
+  "select2/data/array",
+  "select2/data/base",
+  "select2/data/maximumInputLength",
+  "select2/data/maximumSelectionLength",
+  "select2/data/minimumInputLength",
+  "select2/data/select",
+  "select2/data/tags",
+  "select2/data/tokenizer",
+  "src/blog/markdown/de/blogMap.json",
+  "src/blog/markdown/en/blogMap.json",
+  "src/blog/markdown/fr/blogMap.json",
+  "},pageTitle_price_futures:{de:",
+  "},pageTitle_price_futures_bars:{de:"
+ ],
+ "tests": [
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/./data/kompare_biomass_potential_vs_used.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/./data/kompare_renovation_rates.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/",
+   "status": 403,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/all.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/index.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/latest.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/month.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/month_2026.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/quarter.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/week_2026_48.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/DE/year.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/all.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/index.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/latest.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/month.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/month_2026.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/quarter.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/week_2026_48.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de-lu/year.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/",
+   "status": 403,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/all.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/index.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/latest.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/month.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/month_2026.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/quarter.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/week_2026_48.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/data/de/year.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/geocode.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/global/version.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/reversegeocode.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/src/blog/markdown/de/blogMap.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/src/blog/markdown/en/blogMap.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  },
+  {
+   "url": "https://www.energy-charts.info/charts/price_futures_bars/src/blog/markdown/fr/blogMap.json",
+   "status": 404,
+   "len": 548,
+   "ctype": "text/html",
+   "head": ""
+  }
+ ],
+ "page": {
+  "status": 200,
+  "len": 3562,
+  "head": "<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en><head><title>Energy-Charts</title><meta charset=utf-8><meta http-equiv=X-UA-Compatible content=\"IE=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1\"><meta name=theme-color content=#009374><link rel=alternate hreflang=de href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=de&amp;c=DE\"><link rel=alternate hreflang=en href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=en&amp;c=DE\"><link rel=alternate hreflang=fr href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=fr&amp;c=DE\"><link rel=alternate hreflang=it href=\"https://www.energy-charts.info/charts/price_futures_bars/chart.htm?l=it&amp;c=DE\"><link rel=alternate hreflang=x-default href=https://www.energy-charts.info/charts/price_futures_bars/chart.htm><meta name=description content=\"Die Energy-Charts bieten interaktive Grafiken zu: Stromproduktion, Stromerzeugung, Emissionen, Klimadaten, Spotmarktpreisen, Szenarien zur Energiewende und eine umfangreiche Kartenanwendung zu: Kraftwerken, Ãbertragungsleitungen und Meteodaten\"><meta name=robots content=noodp,noydir,index,follow><meta name=author content=\"Leonhard Gandhi\"><meta name=publisher content=\"Fraunhofer ISE\"><meta name=copyright content=\"Fraunhofer ISE\"><link rel=icon href=../../img/favicon.ico type=image/x-icon><link rel=favicon href=../../img/favicon.ico type=image/x-icon><link rel=\"shortcut icon\" href=../../img/fa"
+ },
+ "fetched_utc": "2026-11-26T06:42:26+00:00"
+}
