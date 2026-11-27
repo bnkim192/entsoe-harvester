@@ -1,6 +1,7 @@
 {
- "generated": "2026-11-27 01:41 UTC",
+ "generated": "2026-11-27 15:54 UTC",
  "eua": {
+  "2026-11-27": 84.31,
   "2026-11-26": 83.15,
   "2026-11-25": 82.41,
   "2026-11-23": 83.06,
@@ -14354,7 +14355,8 @@
    "2026-11-23": 4.4588,
    "2026-11-24": 4.4599,
    "2026-11-25": 4.48,
-   "2026-11-26": 4.4838
+   "2026-11-26": 4.4838,
+   "2026-11-27": 4.4678
   },
   "KRW": {
    "2025-12-22": 1738.72,
@@ -14594,7 +14596,8 @@
    "2026-11-23": 1475.51,
    "2026-11-24": 1473.99,
    "2026-11-25": 1471.19,
-   "2026-11-26": 1475.75
+   "2026-11-26": 1475.75,
+   "2026-11-27": 1462.65
   },
   "USD": {
    "2025-12-22": 1.1745,
@@ -14834,7 +14837,8 @@
    "2026-11-23": 1.0939,
    "2026-11-24": 1.0963,
    "2026-11-25": 1.0935,
-   "2026-11-26": 1.0975
+   "2026-11-26": 1.0975,
+   "2026-11-27": 1.0957
   }
  },
  "units": {
@@ -14852,7 +14856,7 @@
   {
    "item": "EUA emission-spot-primary-market-auction-report-2026-data.xlsx",
    "ok": true,
-   "note": "203일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용203 제외0"
+   "note": "204일 | EU ETS1: 날짜열1 가격열6(prices auction price €/tco2) 사용204 제외0"
   },
   {
    "item": "브렌트 EIA",
@@ -14867,27 +14871,27 @@
   {
    "item": "환율 ECB",
    "ok": true,
-   "note": "PLN 238일 · KRW 238일 · USD 238일"
+   "note": "PLN 239일 · KRW 239일 · USD 239일"
   },
   {
    "item": "TGE gas_rdn",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   },
   {
    "item": "TGE power_rdn",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   },
   {
    "item": "TGE power_otf",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   },
   {
    "item": "TGE gas_otf",
    "ok": false,
-   "note": "ConnectionError"
+   "note": "ReadTimeout"
   }
  ]
 }
