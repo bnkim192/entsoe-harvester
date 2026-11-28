@@ -2,8 +2,8 @@
   "collect": [
     {
       "item": "가격 PL",
-      "points": 31872,
-      "days": 332
+      "points": 31968,
+      "days": 333
     },
     {
       "item": "가격 DE",
@@ -12,13 +12,13 @@
     },
     {
       "item": "가격 CZ",
-      "points": 31872,
-      "days": 332
+      "points": 31968,
+      "days": 333
     },
     {
       "item": "가격 SK",
-      "points": 31776,
-      "days": 331
+      "points": 31872,
+      "days": 332
     },
     {
       "item": "가격 LT",
@@ -27,8 +27,8 @@
     },
     {
       "item": "가격 SE4",
-      "points": 31872,
-      "days": 332
+      "points": 31968,
+      "days": 333
     },
     {
       "item": "가격 UA 코드·통화",
@@ -37,85 +37,85 @@
     },
     {
       "item": "가격 UA",
-      "points": 7968,
-      "days": 332,
-      "fx_days": 339
+      "points": 7992,
+      "days": 333,
+      "fx_days": 340
     },
     {
       "item": "수요",
-      "points": 31777,
+      "points": 31831,
       "days": 331
     },
     {
       "item": "발전 wind_on",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 wind_off",
-      "points": 13930,
+      "points": 13984,
       "days": 145
     },
     {
       "item": "발전 solar",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 gas",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 hardcoal",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 lignite",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 biomass",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 hydro_ps",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 hydro_ror",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "발전 hydro_res",
-      "points": 31778,
+      "points": 31832,
       "days": 331
     },
     {
       "item": "기상예보 Warszawa",
       "hours": 720,
       "last": "2026-12-13T23:00",
-      "wind_last": "2026-12-13T19:00",
-      "temp_last": "2026-12-13T19:00"
+      "wind_last": "2026-12-13T23:00",
+      "temp_last": "2026-12-13T23:00"
     },
     {
       "item": "기상예보 Pomorze",
       "hours": 720,
       "last": "2026-12-13T23:00",
-      "wind_last": "2026-12-13T19:00",
-      "temp_last": "2026-12-13T19:00"
+      "wind_last": "2026-12-13T23:00",
+      "temp_last": "2026-12-13T23:00"
     },
     {
       "item": "기상예보 Slask",
       "hours": 720,
       "last": "2026-12-13T23:00",
-      "wind_last": "2026-12-13T19:00",
-      "temp_last": "2026-12-13T19:00"
+      "wind_last": "2026-12-13T23:00",
+      "temp_last": "2026-12-13T23:00"
     },
     {
       "item": "기상",
